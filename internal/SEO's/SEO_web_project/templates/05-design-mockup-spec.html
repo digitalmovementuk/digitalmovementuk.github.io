@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 · Design Mockup Spec — Digital Movement</title>
+<link rel="stylesheet" href="../assets/process.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Digital Movement · Web Project Operating Process</p>
+    <h1>05 · Design Mockup Spec</h1>
+    <p class="sub">Phase 5 — Design. The approved wireframe, now with the visual system applied.</p>
+    <span class="fidelity-tag">Mid-fi · internal</span>
+  </div>
+</header>
+<main>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td><strong>Client / project</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Page type</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Owner</strong></td><td>Web Designer — <em>name</em></td></tr>
+<tr><td><strong>Version</strong></td><td>v0.1 — <em>date</em></td></tr>
+<tr><td><strong>Gate</strong></td><td><strong>Gate 2 — mid-fi. Two rounds.</strong></td></tr>
+<tr><td><strong>Input</strong></td><td><a href="04-wireframe-spec.html">04 · Wireframe Spec</a> · <a href="foundations/F1-brand-style-system.html">F1 Brand &amp; Style System</a></td></tr>
+<tr><td><strong>Next deliverable</strong></td><td><a href="06-developed-page-handover.html">06 · Developed Page Handover</a></td></tr>
+<tr><td><strong>Design file</strong></td><td><em>path or link</em></td></tr>
+</tbody></table></div>
+<blockquote><p><strong>How to use this.</strong> Edit the wireframe forward — do not rebuild from scratch. It is the same file moving up a fidelity stage, so nothing approved at Gate 1 quietly changes.  <strong>Design one page type fully, not all of them partly.</strong> Take the most important page type to a finished state, agree it, and the rest become variations rather than new designs.  <strong>Pixel spacing and wordsmithing are out of bounds at this gate.</strong> Those belong to the build.  <strong>Standard:</strong> <code>low-cognitive-load-design</code>. Strip the decoration, keep the conventions — prototypicality beats novelty. A page that looks like what it is outperforms a page that looks original.</p></blockquote>
+<hr>
+<h2 id="1-visual-direction">1. Visual direction</h2>
+<p><strong>In one sentence, this page should feel:</strong></p>
+<p><em>…</em></p>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Reference points</td><td><em>…</em></td></tr>
+<tr><td>What we are deliberately not doing</td><td><em>…</em></td></tr>
+<tr><td>Deviation from F1, if any</td><td><em>…and why</em></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="2-tokens-used">2. Tokens used</h2>
+<p><em>Pulled from F1 and F2. If a value is invented here rather than pulled, it belongs in F2 first.</em></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Token</th>
+<th>Value</th>
+<th>Used for</th>
+</tr></thead>
+<tbody>
+<tr><td><code>--color-bg</code></td><td></td><td></td></tr>
+<tr><td><code>--color-surface</code></td><td></td><td></td></tr>
+<tr><td><code>--color-ink</code></td><td></td><td></td></tr>
+<tr><td><code>--color-ink-soft</code></td><td></td><td></td></tr>
+<tr><td><code>--color-accent</code></td><td></td><td></td></tr>
+<tr><td><code>--color-accent-ink</code></td><td></td><td></td></tr>
+<tr><td><code>--font-display</code></td><td></td><td></td></tr>
+<tr><td><code>--font-body</code></td><td></td><td></td></tr>
+<tr><td><code>--step-0</code> … <code>--step-5</code></td><td></td><td>type scale</td></tr>
+<tr><td><code>--space-1</code> … <code>--space-8</code></td><td></td><td>spacing scale</td></tr>
+<tr><td><code>--radius</code></td><td></td><td><em>0 on CEx — project-specific</em></td></tr>
+<tr><td><code>--shadow</code></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="3-type-and-measure">3. Type and measure</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th></th>
+<th>Desktop</th>
+<th>Mobile</th>
+</tr></thead>
+<tbody>
+<tr><td>H1 size / line-height</td><td></td><td></td></tr>
+<tr><td>H2</td><td></td><td></td></tr>
+<tr><td>H3</td><td></td><td></td></tr>
+<tr><td>Body</td><td></td><td></td></tr>
+<tr><td>Small</td><td></td><td></td></tr>
+<tr><td>Line length (measure)</td><td><em>45–75ch</em></td><td></td></tr>
+<tr><td>Paragraph spacing</td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="4-contrast-audit">4. Contrast audit</h2>
+<p><em>Measured on the rendered page, not read off the palette. Look-alike hexes, alpha compositing and shared <code>!important</code> rules all hide from a source search.</em></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Element</th>
+<th>Foreground</th>
+<th>Background</th>
+<th>Ratio</th>
+<th>Required</th>
+<th>Pass</th>
+</tr></thead>
+<tbody>
+<tr><td>Body text</td><td></td><td></td><td></td><td>4.5:1</td><td></td></tr>
+<tr><td>Large headings</td><td></td><td></td><td></td><td>3:1</td><td></td></tr>
+<tr><td>Primary button label</td><td></td><td></td><td></td><td>4.5:1</td><td></td></tr>
+<tr><td>Link in body</td><td></td><td></td><td></td><td>4.5:1</td><td></td></tr>
+<tr><td>Placeholder text</td><td></td><td></td><td></td><td>4.5:1</td><td></td></tr>
+<tr><td>Focus ring</td><td></td><td></td><td></td><td>3:1</td><td></td></tr>
+<tr><td>Icon on accent</td><td></td><td></td><td></td><td>3:1</td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="5-ui-elements">5. UI elements</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Element</th>
+<th>Default</th>
+<th>Hover</th>
+<th>Focus</th>
+<th>Active</th>
+<th>Disabled</th>
+</tr></thead>
+<tbody>
+<tr><td>Primary button</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Secondary button</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Text link</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Text input</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Checkbox</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Card</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Nav item</td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><em>Focus states are not optional and are not the browser default unless the browser default is visible against the background.</em></p>
+<hr>
+<h2 id="6-section-by-section">6. Section-by-section</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Section</th>
+<th>Background</th>
+<th>Type treatment</th>
+<th>Media</th>
+<th>Spacing above/below</th>
+<th>Notes</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>Hero</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>3</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="7-imagery">7. Imagery</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Slot</th>
+<th>Subject</th>
+<th>Source</th>
+<th>Dimensions</th>
+<th>Format</th>
+<th>Weight budget</th>
+<th>Alt text ref</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td><em>AVIF/WebP + fallback</em></td><td></td><td>03 §3</td></tr>
+</tbody></table></div>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> No generic stock that undermines credibility</li>
+<li class="task-list-item"><input type="checkbox" disabled> Licences held and recorded</li>
+<li class="task-list-item"><input type="checkbox" disabled> People shown are real, or clearly illustrative</li>
+<li class="task-list-item"><input type="checkbox" disabled> Medical/dental before-after imagery checked against HWG</li>
+</ul>
+<hr>
+<h2 id="8-interactions-and-motion">8. Interactions and motion</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Element</th>
+<th>Trigger</th>
+<th>Behaviour</th>
+<th>Duration</th>
+<th>Easing</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Nothing moves without a reason</li>
+<li class="task-list-item"><input type="checkbox" disabled> <code>prefers-reduced-motion</code> respected</li>
+<li class="task-list-item"><input type="checkbox" disabled> No motion that delays reading the hero</li>
+<li class="task-list-item"><input type="checkbox" disabled> No carousel unless the client insists in writing</li>
+</ul>
+<hr>
+<h2 id="9-character-budget-sheet">9. Character budget sheet</h2>
+<p><em>Hand this back to the Copywriter for copy v2. Width ÷ average character width, measured against the longest real string, calculated jointly.</em></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Component</th>
+<th>Element</th>
+<th>Max chars</th>
+<th>Longest real string</th>
+<th>Chars</th>
+<th>Fits</th>
+</tr></thead>
+<tbody>
+<tr><td>Hero</td><td>H1</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Card</td><td>heading</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Button</td><td>label</td><td><em>≤ 24</em></td><td></td><td></td><td></td></tr>
+<tr><td>Nav</td><td>item</td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="10-feedback-log">10. Feedback log</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Round</th>
+<th>Date</th>
+<th>Feedback</th>
+<th>In scope?</th>
+<th>Action</th>
+<th>Resolved</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="definition-of-done">Definition of Done</h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> <code>MID-FI</code> fidelity tag visible while in review</li>
+<li class="task-list-item"><input type="checkbox" disabled> Built forward from the approved wireframe file</li>
+<li class="task-list-item"><input type="checkbox" disabled> All tokens sourced from F1/F2, none invented ad hoc</li>
+<li class="task-list-item"><input type="checkbox" disabled> Contrast audit measured on the rendered page and passing</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every interactive element has a visible focus state</li>
+<li class="task-list-item"><input type="checkbox" disabled> Mobile designed, not inferred</li>
+<li class="task-list-item"><input type="checkbox" disabled> Character budgets handed to the Copywriter</li>
+<li class="task-list-item"><input type="checkbox" disabled> Copy v2 received back and re-fitted</li>
+<li class="task-list-item"><input type="checkbox" disabled> Client signed off — Gate 2 closed in two rounds or fewer</li>
+</ul>
+<p><strong>Signed off by:</strong> <em>…</em> <strong>Date:</strong> <em>…</em></p>
+<footer class="doc-footer">
+  Generated from <code>templates/05-design-mockup-spec.md</code> by <code>build-html-twins.py</code>. Edit the Markdown, then re-run the script — do not hand-edit this file.
+</footer>
+</main>
+</body>
+</html>

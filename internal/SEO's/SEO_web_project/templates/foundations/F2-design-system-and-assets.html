@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F2 · Design System &amp; Assets — Digital Movement</title>
+<link rel="stylesheet" href="../../assets/process.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Digital Movement · Web Project Operating Process</p>
+    <h1>F2 · Design System &amp; Assets</h1>
+    <p class="sub">Shared foundation, single source of truth. A living document — it grows out of real pages, never ahead of them.</p>
+    <span class="fidelity-tag">Mid-fi · internal</span>
+  </div>
+</header>
+<main>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td><strong>Client / project</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Owner</strong></td><td>Web Designer + Web Developer</td></tr>
+<tr><td><strong>Version</strong></td><td>v1.0 — <em>date</em></td></tr>
+<tr><td><strong>Status</strong></td><td>living</td></tr>
+<tr><td><strong>Input</strong></td><td><a href="F1-brand-style-system.html">F1 · Brand &amp; Style System</a></td></tr>
+<tr><td><strong>Shared stylesheet path</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Design file</strong></td><td><em>…</em></td></tr>
+</tbody></table></div>
+<blockquote><p><strong>The rule of two.</strong> A component is promoted into the design system on its <strong>second</strong> use — not its third, and never before it has been used once. Build the token skeleton before page one. Extract components out of page one. Never pre-build a component library; it will be rewritten after the first real page anyway.  <strong>One stylesheet.</strong> Anything appearing on two or more pages is defined once, centrally. Duplicated per-page CSS is the single confirmed cause of cross-page quality drift.</p></blockquote>
+<hr>
+<h2 id="1-token-skeleton">1. Token skeleton</h2>
+<p><em>Written before page one. This is the only part of the system that is allowed to exist ahead of real pages.</em></p>
+<pre><code>:root {
+  /* colour */
+  --color-bg:        ;
+  --color-surface:   ;
+  --color-ink:       ;
+  --color-ink-soft:  ;
+  --color-rule:      ;
+  --color-primary:   ;
+  --color-accent:    ;
+  --color-accent-ink:;
+
+  /* type */
+  --font-display: ;
+  --font-body:    ;
+  --step-0: ; --step-1: ; --step-2: ;
+  --step-3: ; --step-4: ; --step-5: ;
+
+  /* space */
+  --space-1: ; --space-2: ; --space-3: ; --space-4: ;
+  --space-5: ; --space-6: ; --space-7: ; --space-8: ;
+
+  /* other */
+  --radius:  ;
+  --shadow:  ;
+  --measure: 65ch;
+  --wrap:    ;
+}</code></pre>
+<p><strong>Token hygiene</strong></p>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Declared in exactly one place — no second <code>:root</code> block anywhere</li>
+<li class="task-list-item"><input type="checkbox" disabled> No page hardcodes a brand hex inline</li>
+<li class="task-list-item"><input type="checkbox" disabled> Token names describe the role, not the value (<code>--color-accent</code>, not <code>--gold</code>)</li>
+</ul>
+<hr>
+<h2 id="2-grid-and-breakpoints">2. Grid and breakpoints</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Breakpoint</th>
+<th>Width</th>
+<th>Columns</th>
+<th>Gutter</th>
+<th>Margin</th>
+<th>Max content</th>
+</tr></thead>
+<tbody>
+<tr><td>Mobile</td><td>390</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Tablet</td><td>768</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Laptop</td><td>1024</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Desktop</td><td>1440</td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><em>The mobile block goes last in the stylesheet.</em></p>
+<hr>
+<h2 id="3-ui-components">3. UI components</h2>
+<p><em>Only components that have been used twice. One row each. "First used" and "Second used" are the evidence for promotion.</em></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Component</th>
+<th>Class</th>
+<th>First used</th>
+<th>Second used</th>
+<th>Variants</th>
+<th>States</th>
+<th>Docs</th>
+</tr></thead>
+<tbody>
+<tr><td>Button — primary</td><td><code>.btn</code></td><td></td><td></td><td></td><td>default/hover/focus/active/disabled</td><td></td></tr>
+<tr><td>Button — secondary</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Text input</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Checkbox</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Form group</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Card</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Nav — desktop</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Nav — mobile</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Footer</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Every interactive component needs a visible focus state.</strong> Not the browser default unless the browser default is visible against the background it sits on.</p>
+<hr>
+<h2 id="4-section-templates">4. Section templates</h2>
+<p><em>Whole page sections that recur. These are what make page nine cost a fraction of page one.</em></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Template</th>
+<th>Class</th>
+<th>Used on</th>
+<th>Content slots</th>
+<th>Notes</th>
+</tr></thead>
+<tbody>
+<tr><td>Hero — copy + form</td><td></td><td></td><td><em>H1, subhead, trust line, form</em></td><td><em>≈66vh</em></td></tr>
+<tr><td>Hero — copy only</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Feature grid</td><td></td><td></td><td></td><td><em>last row fills the width</em></td></tr>
+<tr><td>Testimonials</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>FAQ</td><td></td><td></td><td></td><td><em>FAQPage schema</em></td></tr>
+<tr><td>CTA band</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Footer</td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Card grid rule.</strong> Three cards over two means the two below are each <em>wider</em> — never orphaned, never centred. An <code>auto-fit</code> grid cannot do this; a wrapping flex with <code>flex: 1 1 &lt;floor&gt;</code> can.</p>
+<hr>
+<h2 id="5-code-components">5. Code components</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Component</th>
+<th>File</th>
+<th>Depends on</th>
+<th>Used by</th>
+<th>Documented</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Utility classes</strong></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Class</th>
+<th>Does</th>
+<th>Use when</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="6-asset-library">6. Asset library</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Asset</th>
+<th>Type</th>
+<th>Path</th>
+<th>Format</th>
+<th>Dimensions</th>
+<th>Weight</th>
+<th>Licence</th>
+<th>Alt text</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Image formats</td><td><em>AVIF / WebP with fallback</em></td></tr>
+<tr><td>Icon approach</td><td><em>inline SVG</em></td></tr>
+<tr><td>Favicon set</td><td><em>…</em></td></tr>
+<tr><td>OG image</td><td><em>…</em></td></tr>
+<tr><td>Fonts</td><td><em>self-hosted, subset, <code>font-display: swap</code></em></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="7-known-traps-in-this-stylesheet">7. Known traps in this stylesheet</h2>
+<p><em>Every project accumulates these. Writing them down here saves the next person an afternoon.</em></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Trap</th>
+<th>Where</th>
+<th>What it breaks</th>
+<th>Fix</th>
+</tr></thead>
+<tbody>
+<tr><td><em>e.g. a shared <code>!important</code> overriding page-level grid columns</em></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>All <code>!important</code> rules in the stylesheet</strong></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Rule</th>
+<th>Line</th>
+<th>Why it exists</th>
+<th>Can it be removed?</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="8-change-log">8. Change log</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Date</th>
+<th>Change</th>
+<th>Reason</th>
+<th>Pages affected</th>
+<th>By</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="definition-of-done-per-addition-not-per-document-this-one-never-closes">Definition of Done <em>(per addition, not per document — this one never closes)</em></h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> The component has genuinely been used twice</li>
+<li class="task-list-item"><input type="checkbox" disabled> It lives in the shared stylesheet, not in a page</li>
+<li class="task-list-item"><input type="checkbox" disabled> Tokens used, no hardcoded values</li>
+<li class="task-list-item"><input type="checkbox" disabled> All states defined, including focus</li>
+<li class="task-list-item"><input type="checkbox" disabled> Mobile behaviour defined</li>
+<li class="task-list-item"><input type="checkbox" disabled> Contrast checked on the rendered component</li>
+<li class="task-list-item"><input type="checkbox" disabled> Change log updated</li>
+<li class="task-list-item"><input type="checkbox" disabled> Pages using the old duplicated version migrated</li>
+</ul>
+<p><strong>Last reviewed:</strong> <em>…</em> <strong>By:</strong> <em>…</em></p>
+<footer class="doc-footer">
+  Generated from <code>templates/foundations/F2-design-system-and-assets.md</code> by <code>build-html-twins.py</code>. Edit the Markdown, then re-run the script — do not hand-edit this file.
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lean End-to-End SEO Website Process — Semrush and Claude Code — Digital Movement</title>
+<link rel="stylesheet" href="assets/process.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Digital Movement · Web Project Operating Process</p>
+    <h1>Lean End-to-End SEO Website Process — Semrush and Claude Code</h1>
+    <p class="sub">The same production process as a costed seven-week schedule: durations, overlaps, exit conditions and the variables that extend a project.</p>
+    <span class="fidelity-tag">Mid-fi · internal</span>
+  </div>
+</header>
+<main>
+<p><strong>Status:</strong> companion · adopted 3 August 2026 · owner: Raoul Müller <strong>Companion to:</strong> <a href="end-to-end-seo-website-production-process.html">end-to-end-seo-website-production-process.md</a> — the canonical 27-phase guide. That document says <em>what to do and in what order</em>; this one says <em>how long it takes, what runs in parallel, and when each thing happens</em>.</p>
+<hr>
+<h2 id="planning-assumptions">Planning assumptions</h2>
+<p>The baseline timeline assumes:</p>
+<ul>
+<li>10–20 indexable launch pages</li>
+<li>One language</li>
+<li>One primary market</li>
+<li>One SEO strategist and website consultant</li>
+<li>One external copywriter</li>
+<li>One client decision-maker</li>
+<li>Claude Code used for design and development</li>
+<li>Semrush used for keyword, competitor, ranking, backlink and technical research</li>
+<li>Existing brand identity, or a light visual-direction exercise</li>
+<li>No complex web application functionality</li>
+<li>Client feedback within two working days</li>
+<li>Copywriter works in parallel with design-system development</li>
+</ul>
+<h2 id="expected-duration">Expected duration</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Project type</th>
+<th>Typical scope</th>
+<th>Duration</th>
+</tr></thead>
+<tbody>
+<tr><td>Small website</td><td>5–8 pages, limited migration</td><td>4–5 weeks</td></tr>
+<tr><td>Standard service website</td><td>10–20 pages</td><td>6–8 weeks</td></tr>
+<tr><td>Larger SEO website</td><td>20–40 pages, several templates</td><td>8–12 weeks</td></tr>
+<tr><td>Complex migration</td><td>Large existing site, redirect and content risks</td><td>10–16 weeks</td></tr>
+</tbody></table></div>
+<p>The standard process below is planned over <strong>seven weeks</strong>.</p>
+<h2 id="timeline-overview">Timeline overview</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Week</th>
+<th>Main workstream</th>
+<th>Principal output</th>
+</tr></thead>
+<tbody>
+<tr><td>Week 0</td><td>Project setup and intake preparation</td><td>Workspace, questionnaire, access checklist</td></tr>
+<tr><td>Week 1</td><td>Client discovery and Semrush research</td><td>Evidence base and research exports</td></tr>
+<tr><td>Week 2</td><td>SEO architecture and page strategy</td><td>Approved sitemap and page briefs</td></tr>
+<tr><td>Week 3</td><td>Message architecture and design system</td><td>Copy structures, tokens, shared CSS</td></tr>
+<tr><td>Week 4</td><td>Representative service page</td><td>Approved system and service-page template</td></tr>
+<tr><td>Week 5</td><td>Final copy integration and template scaling</td><td>Approved templates and first completed pages</td></tr>
+<tr><td>Week 6</td><td>Remaining pages and functionality</td><td>Full staging website</td></tr>
+<tr><td>Week 7</td><td>QA, launch, and live validation</td><td>Production website and launch report</td></tr>
+<tr><td>After launch</td><td>SEO monitoring and optimisation</td><td>Evidence-based improvements</td></tr>
+</tbody></table></div>
+<p>Several activities overlap. Copywriting begins after page briefs are approved, while the consultant builds the design system and representative template.</p>
+<hr>
+<h2 id="phase-0-project-setup">Phase 0 — Project setup</h2>
+<p><strong>Timing:</strong> Day 1, approximately half a working day. <strong>Owner:</strong> SEO strategist and website consultant.</p>
+<p><strong>Objective:</strong> Create the project workspace and all intake instruments before asking Claude to analyse anything.</p>
+<h3 id="human-activities">Human activities</h3>
+<ul>
+<li>Create the local repository or clone the existing project</li>
+<li>Create the project folder structure</li>
+<li>Create the client questionnaire</li>
+<li>Create an access checklist</li>
+<li>Schedule the kick-off interview</li>
+<li>Ask the client for existing materials, brand files and evidence</li>
+<li>Define the primary client approver</li>
+<li>Agree feedback turnaround times</li>
+</ul>
+<h3 id="initial-repository-structure">Initial repository structure</h3>
+<pre><code>website-project/
+├── README.md
+├── project-status.md
+├── CLAUDE.md
+│
+├── client-input/
+│   ├── questionnaires/
+│   ├── interviews/
+│   ├── business-materials/
+│   ├── brand-assets/
+│   ├── proof/
+│   └── access-register/
+│
+├── seo/
+│   ├── raw-research/
+│   │   ├── semrush/
+│   │   ├── search-console/
+│   │   ├── analytics/
+│   │   ├── crawl/
+│   │   └── serp-review/
+│   ├── architecture/
+│   ├── performance/
+│   └── optimisation/
+│
+├── docs/
+│   ├── architecture/
+│   ├── page-strategies/
+│   └── integrations/
+│
+├── content/
+│   ├── briefs/
+│   ├── drafts/
+│   └── approved/
+│
+├── references/
+├── public/
+├── src/
+└── tests/</code></pre>
+<p><code>README.md</code> explains the purpose of every top-level folder, the difference between raw / draft / approved material, naming conventions, approval-status conventions, and who owns strategy, copy and implementation. <code>project-status.md</code> carries current phase · completed work · outstanding client inputs · open decisions · blockers · next actions.</p>
+<p><strong>Exit condition:</strong> the workspace, questionnaire, access register and project calendar exist.</p>
+<hr>
+<h2 id="phase-1-client-intake-and-evidence-collection">Phase 1 — Client intake and evidence collection</h2>
+<p><strong>Timing:</strong> Days 1–3, starting immediately after project setup. <strong>Owner:</strong> SEO strategist and website consultant.</p>
+<p><strong>Objective:</strong> Collect the business facts, commercial priorities, existing evidence and access required for SEO research.</p>
+<h3 id="client-inputs">Client inputs</h3>
+<p><strong>Business information:</strong> services and products · commercial priorities · profitability or strategic importance · target audiences · buying triggers · common objections · sales process · definition of a qualified lead · geographic markets · competitors · differentiators.</p>
+<p><strong>Existing materials:</strong> <code>client-input/business-materials/</code> — service brochures, sales presentations, existing copy, company profile, pricing information.</p>
+<p><strong>Brand assets:</strong> <code>client-input/brand-assets/</code> — logos, brand guidelines, imagery, iconography, colour and font references.</p>
+<p><strong>Evidence:</strong> <code>client-input/proof/</code> — testimonials, client-logo permissions, certifications, case-study sources, documented results, <strong>claim register</strong>.</p>
+<p><strong>Access:</strong> Semrush · Google Search Console · Google Analytics · current CMS · existing source repository · CRM · hosting · domain and DNS · Tag Manager · Google Business Profile where relevant.</p>
+<h3 id="client-kick-off-interview">Client kick-off interview</h3>
+<p>A 60–90-minute interview, stored as <code>kick-off-recording.m4a</code>, <code>kick-off-transcript.md</code>, <code>kick-off-notes.md</code>.</p>
+<h3 id="claude-code-prompt">Claude Code prompt</h3>
+<pre><code>Read:
+
+- client-input/questionnaires/
+- client-input/interviews/
+- client-input/business-materials/
+- client-input/proof/
+
+Do not create website strategy or code.
+
+Create:
+
+- client-input/interviews/kick-off-summary.md
+- client-input/materials-inventory.md
+- client-input/missing-inputs.md
+- client-input/proof/claim-register.md
+
+In the kick-off summary, separate:
+
+- confirmed business facts
+- commercial priorities
+- target audiences
+- sales and conversion process
+- differentiators
+- available proof
+- unverified claims
+- technical requirements
+- unresolved questions
+
+For the claim register, record:
+
+- proposed claim
+- evidence source
+- approval status
+- permitted website use
+- verification required
+
+Rules:
+
+- Do not treat sales language as verified evidence.
+- Do not invent missing facts.
+- Flag contradictions.
+- Do not expose login credentials or secrets.</code></pre>
+<p><strong>Exit condition:</strong> the consultant can state what the business sells, who it targets, which services matter, what the website should convert, what claims are supportable, and what remains unknown.</p>
+<hr>
+<h2 id="phase-2-semrush-and-first-party-seo-research">Phase 2 — Semrush and first-party SEO research</h2>
+<p><strong>Timing:</strong> Days 2–6, overlapping the latter part of client intake. <strong>Owner:</strong> SEO strategist and website consultant.</p>
+<p><strong>Objective:</strong> Produce the raw SEO evidence required for site architecture and page planning.</p>
+<h3 id="tool-responsibilities">Tool responsibilities</h3>
+<p><strong>Semrush</strong> — domain overview · existing organic keywords · existing ranking pages · organic competitors · keyword gaps and overlaps · keyword discovery · keyword metrics · SERP and intent research · backlink profile · competitor backlink comparison · position tracking · Site Audit · estimated competitor traffic where useful.</p>
+<p><strong>Search Console</strong> — first-party queries · pages · clicks · impressions · CTR · average position.</p>
+<p><strong>Analytics</strong> — organic landing pages · engagement · leads and conversions · conversion rates · revenue or lead quality where available.</p>
+<p><strong>Manual SERP review</strong> — actual search intent · page types ranking · local-pack presence · commercial versus informational results · directories, aggregators and comparison pages · important questions and SERP features.</p>
+<blockquote><p>Claude Code does not replace Semrush or manual SERP review. It analyses and consolidates their outputs.</p></blockquote>
+<h3 id="2-1-existing-domain-analysis">2.1 Existing-domain analysis</h3>
+<p>Run Domain Overview · Organic Research · Organic Pages · Organic Competitors · Backlink Analytics · Site Audit · Position Tracking. Store as <code>domain-overview.csv</code>, <code>organic-keywords.csv</code>, <code>organic-pages.csv</code>, <code>organic-competitors.csv</code>, <code>backlink-overview.csv</code>, <code>referring-domains.csv</code>, <code>site-audit.csv</code>, <code>position-tracking-baseline.csv</code>.</p>
+<p>Key questions: which pages already attract organic visibility · which URLs should be preserved · which queries already perform · which pages rank for multiple conflicting intents · who the real organic competitors are · where the strongest backlinks point · which technical issues affect migration or redesign.</p>
+<h3 id="2-2-competitor-discovery-and-comparison">2.2 Competitor discovery and comparison</h3>
+<p>Start with Semrush organic competitors rather than the client's known commercial competitors. Select ~3–5 direct organic competitors, 1–2 strong editorial or content competitors, and 1 aspirational competitor where relevant. Collect shared keywords · missing keywords · unique competitor keywords · ranking pages · estimated organic traffic · topic coverage · keyword overlap · backlink competitors. Store as <code>competitor-domain-list.md</code>, <code>keyword-gap.csv</code>, <code>competitor-keywords.csv</code>, <code>competitor-pages.csv</code>, <code>backlink-gap.csv</code>.</p>
+<h3 id="2-3-seed-keyword-research">2.3 Seed-keyword research</h3>
+<p>Seed keywords come from client service names · customer language from interviews · Search Console queries · existing ranking keywords · competitor service pages · sales terminology · problem statements · geographic modifiers · relevant outcome terms.</p>
+<p>Store <code>seed-keywords.csv</code> with columns: <code>seed_keyword</code>, <code>source</code>, <code>service</code>, <code>audience</code>, <code>market</code>, <code>business_priority</code>, <code>notes</code>.</p>
+<p>For each seed or tightly related seed group, obtain search volume · keyword difficulty · CPC · competitive density · search intent · SERP features · related keywords · broad-match variations · phrase-match variations · questions · ranking URLs. Export into <code>keyword-overview.csv</code>, <code>related-keywords.csv</code>, <code>broad-match-keywords.csv</code>, <code>keyword-questions.csv</code>, <code>serp-keyword-data.csv</code>.</p>
+<p><strong>Do not export the entire possible keyword universe without filtering.</strong> Research stays focused on priority services · commercial problems · decision-stage questions · relevant supporting topics · genuine geographic markets.</p>
+<h3 id="2-4-search-console-and-analytics-exports">2.4 Search Console and Analytics exports</h3>
+<p><code>queries-16-months.csv</code>, <code>pages-16-months.csv</code>, <code>query-page-combinations.csv</code>; <code>organic-landing-pages.csv</code>, <code>organic-conversions.csv</code>, <code>lead-quality-summary.csv</code>. Use the longest useful comparable period, normally up to 16 months, separating recent performance from older data where the business or website has materially changed.</p>
+<h3 id="2-5-existing-site-crawl">2.5 Existing-site crawl</h3>
+<p>Before any URL or migration decision: <code>all-urls.csv</code>, <code>indexable-pages.csv</code>, <code>redirects.csv</code>, <code>canonicals.csv</code>, <code>metadata.csv</code>, <code>headings.csv</code>, <code>internal-links.csv</code>, <code>structured-data.csv</code>, <code>crawl-summary.md</code>. The important point is that Claude receives structured exports rather than being asked to guess the existing site state.</p>
+<h3 id="2-6-manual-serp-review">2.6 Manual SERP review</h3>
+<p>After preliminary keyword data and before final intent clustering, the consultant manually reviews priority service keywords · ambiguous high-value terms · high-volume terms · keywords with mixed intent · location-related queries · keywords where Semrush intent classification appears questionable.</p>
+<p>For each query record: keyword · country/device · dominant intent · secondary intent · dominant page type · local pack present · directories present · SERP features · leading competitors · implication for page strategy.</p>
+<h3 id="claude-code-research-audit-prompt">Claude Code research-audit prompt</h3>
+<pre><code>Audit all files under:
+
+- seo/raw-research/semrush/
+- seo/raw-research/search-console/
+- seo/raw-research/analytics/
+- seo/raw-research/crawl/
+- seo/raw-research/serp-review/
+
+Create:
+
+seo/raw-research/research-coverage.md
+
+For each research area, state:
+
+- available
+- incomplete
+- missing
+- date range
+- market and device coverage
+- source
+- material limitations
+
+Check specifically for:
+
+- existing organic keywords
+- existing ranking pages
+- organic competitors
+- keyword gaps
+- relevant seed keywords
+- keyword variations and questions
+- SERP intent
+- backlinks
+- technical issues
+- first-party queries
+- organic conversions
+- valuable existing URLs
+
+Do not make the final SEO strategy yet.
+
+Conclude whether the evidence is sufficient for architecture work and list
+the exact missing research tasks.</code></pre>
+<p><strong>Exit condition:</strong> enough evidence to understand existing organic value · search demand · search intent · organic competitors · keyword gaps · technical and migration risks · commercial relevance · current organic conversions.</p>
+<hr>
+<h2 id="phase-3-keyword-clustering-and-site-architecture">Phase 3 — Keyword clustering and site architecture</h2>
+<p><strong>Timing:</strong> Days 5–9. <strong>Owner:</strong> SEO strategist and website consultant.</p>
+<p><strong>Objective:</strong> Convert Semrush and first-party data into a lean, search-led page architecture.</p>
+<p>Claude processes the exports and creates a first clustering and mapping proposal. The consultant reviews actual SERPs and makes the final decisions.</p>
+<h3 id="claude-code-prompt">Claude Code prompt</h3>
+<pre><code>Read:
+
+- client-input/interviews/kick-off-summary.md
+- client-input/proof/claim-register.md
+- seo/raw-research/research-coverage.md
+- seo/raw-research/semrush/
+- seo/raw-research/search-console/
+- seo/raw-research/analytics/
+- seo/raw-research/crawl/
+- seo/raw-research/serp-review/
+
+Create:
+
+- docs/website-brief.md
+- docs/audience.md
+- docs/positioning.md
+- docs/conversion-strategy.md
+- seo/current-performance.md
+- seo/search-intent-map.md
+- seo/keyword-clusters.csv
+- docs/architecture/sitemap.md
+- docs/architecture/page-inventory.md
+- docs/architecture/navigation.md
+- seo/architecture/keyword-to-page-map.csv
+- seo/architecture/internal-linking-plan.md
+- seo/architecture/redirect-plan.csv
+
+Cluster keywords by shared search intent, not merely lexical similarity.
+
+For each proposed cluster and page, include:
+
+- cluster name
+- keyword members
+- dominant search intent
+- supporting intent
+- search-volume range
+- commercial relevance
+- current ranking URL
+- recommended target URL
+- page type
+- business objective
+- target audience
+- conversion
+- existing/new/merge/redirect/remove status
+- cannibalisation risk
+- required internal links
+- evidence or proof required
+
+Rules:
+
+- Do not create a page for every keyword.
+- Do not automatically trust Semrush intent labels.
+- Use manual SERP observations where available.
+- Preserve valuable URLs unless there is a stronger documented reason.
+- Do not create thin city pages.
+- Do not recommend pages the business cannot substantiate.
+- Separate launch pages from later content opportunities.
+
+Present:
+
+1. Lean launch architecture
+2. Optional 6-12-month SEO content expansion
+3. Decisions requiring consultant approval</code></pre>
+<p>The consultant manually reviews high-value clusters · mixed-intent keywords · potential cannibalisation · proposed page merges · proposed URL changes · location-page recommendations · information architecture and navigation.</p>
+<p><strong>Approval gate — complete by end of Week 2:</strong> sitemap · URL structure · page inventory · keyword-to-page map · redirect plan · primary navigation · launch scope.</p>
+<hr>
+<h2 id="phase-4-page-strategies-and-copy-briefs">Phase 4 — Page strategies and copy briefs</h2>
+<p><strong>Timing:</strong> Days 8–12, starting as soon as the architecture is stable. <strong>Owner:</strong> SEO strategist and website consultant.</p>
+<p><strong>Objective:</strong> Define the SEO, user and conversion role of each priority page. See Phase 6 of the canonical guide for the full prompt.</p>
+<p><strong>Copywriter handoff — by end of Week 2</strong> the copywriter receives: page strategy · keyword and intent context · supporting terminology · search questions · proof register · required internal links · content schema or provisional section structure · length guidance.</p>
+<p><strong>Exit condition:</strong> priority page briefs approved and ready for copy production.</p>
+<hr>
+<h2 id="phase-5-parallel-work-copy-architecture-and-design-system">Phase 5 — Parallel work: copy architecture and design system</h2>
+<p><strong>Timing:</strong> Week 3. Two workstreams run in parallel.</p>
+<h3 id="workstream-a-copywriter-message-architecture">Workstream A — Copywriter message architecture</h3>
+<p><strong>Owner:</strong> Copywriter. <strong>Duration:</strong> ~2–4 working days for the representative page and core page types.</p>
+<pre><code>content/drafts/
+├── representative-service-page-message-architecture.md
+├── homepage-message-architecture.md
+└── service-overview-message-architecture.md</code></pre>
+<p>Claude reviews without rewriting, reporting only: intent misalignment · unanswered user questions · duplicated section functions · missing evidence · unsupported claims · weak CTA progression · missing internal links · likely layout pressure — each classified as strategy / copy / design or template / missing evidence.</p>
+<h3 id="workstream-b-visual-direction-and-shared-design-system">Workstream B — Visual direction and shared design system</h3>
+<p><strong>Owner:</strong> SEO strategist and website consultant. <strong>Production:</strong> Claude Code. <strong>Duration:</strong> ~3–5 working days.</p>
+<p>Produces <code>docs/design-direction.md</code>, then <code>tokens.css</code>, <code>reset.css</code>, <code>typography.css</code>, <code>layout.css</code>, <code>components.css</code>, <code>sections.css</code>, <code>forms.css</code>, <code>navigation.css</code>, <code>utilities.css</code>, <code>global.css</code> and the system-preview page. The preview must show colours · typography · spacing · content and container widths · buttons · cards · forms · focus states · light and dark sections · mobile and desktop examples, and carries noindex metadata.</p>
+<p><strong>Week 3 approval gate:</strong> representative page message architecture · design direction · design tokens · shared CSS foundations · basic components.</p>
+<hr>
+<h2 id="phase-6-representative-service-page">Phase 6 — Representative service page</h2>
+<p><strong>Timing:</strong> Week 4, ~4–5 working days. <strong>Owner:</strong> SEO strategist and website consultant. <strong>Production:</strong> Claude Code.</p>
+<p><strong>Objective:</strong> Validate design, structure, content model, SEO handling, responsive behaviour and component reuse on one page.</p>
+<p>Build the minimum reusable system required: UI components · reusable sections · <code>src/content-models/service-page.ts</code> · <code>src/templates/ServicePageTemplate.tsx</code> · one development page with realistic structural placeholders. Support metadata · canonical · breadcrumbs · hero · problem · outcomes · service scope · process · proof · related services · FAQ · related content · final CTA · conversion tracking fields.</p>
+<p>The consultant reviews at 375px mobile, tablet, standard laptop and wide desktop, checking hero hierarchy · section sequence · copy capacity · navigation · CTA visibility · internal-link placement · long-form readability · component reuse · responsive behaviour.</p>
+<p><strong>Approval gate — by end of Week 4 the representative page becomes the production standard.</strong></p>
+<hr>
+<h2 id="phase-7-final-copy-and-template-scaling">Phase 7 — Final copy and template scaling</h2>
+<p><strong>Timing:</strong> Week 5.</p>
+<p>The copywriter finishes approved copy for the representative service page, homepage, service overview and other priority pages. Work started in Week 3, so Week 5 is completion, review and integration rather than starting from zero.</p>
+<p>Claude validates the copy without editing it, integrates it preserving the wording exactly, and produces a mapping report. Template planning identifies which additional templates are genuinely required, preferring configuration, template variants and shared sections over duplicated template files.</p>
+<pre><code>src/templates/
+├── HomepageTemplate.tsx
+├── ServiceOverviewTemplate.tsx
+├── ServicePageTemplate.tsx
+├── CaseStudyTemplate.tsx
+├── ArticleTemplate.tsx
+└── ContactTemplate.tsx</code></pre>
+<p><strong>Week 5 approval gate:</strong> final representative-page copy · copy fit · additional template list · template-specific section requirements.</p>
+<hr>
+<h2 id="phase-8-remaining-pages-and-functionality">Phase 8 — Remaining pages and functionality</h2>
+<p><strong>Timing:</strong> Week 6.</p>
+<p>All remaining launch pages are produced from approved templates and approved copy. Functionality inputs collected by the consultant live in:</p>
+<pre><code>docs/integrations/
+├── form-requirements.md
+├── crm-integration.md
+├── analytics-plan.md
+├── conversion-events.md
+└── consent-requirements.md</code></pre>
+<p>Implement responsive navigation · forms and validation · CRM submission · booking links or integration · accessible accordions · analytics events · conversion tracking · consent-aware script loading. Before coding, report data flow · external dependencies · environment variables · security implications · privacy implications · failure states · testing approach.</p>
+<p><strong>Exit condition:</strong> a complete staging website exists by the end of Week 6.</p>
+<hr>
+<h2 id="phase-9-pre-launch-qa">Phase 9 — Pre-launch QA</h2>
+<p><strong>Timing:</strong> Week 7, Days 1–3.</p>
+<p>A page-level QA matrix covering route · render status · title · meta description · canonical · indexability · H1 · heading hierarchy · keyword-to-page alignment · internal links · broken links · redirects · image dimensions · alt text · structured data · mobile layout · keyboard access · forms · CRM submission · analytics events · conversion tracking · content completeness · template consistency · performance risks · build status — classified launch blocker / high / medium / low, with ownership assigned.</p>
+<p><strong>Human approvals:</strong> copywriter approves final wording and metadata wording · client approves factual accuracy, claims, testimonials, brand use and legal content · consultant approves SEO targeting, UX, design, responsive behaviour, accessibility, technical SEO, tracking and conversion flow.</p>
+<hr>
+<h2 id="phase-10-launch-and-live-validation">Phase 10 — Launch and live validation</h2>
+<p><strong>Timing:</strong> Week 7, Days 4–5.</p>
+<h3 id="launch-readiness-report">Launch-readiness report</h3>
+<p>Check production build · environment variables · redirect rules · robots.txt · sitemap.xml · canonical host · staging noindex · production indexing · forms and CRM · analytics · consent · 404 behaviour · image optimisation · security headers · backup and rollback procedure. Separate ready / human action required / third-party access required / launch blockers / post-launch checks. <strong>Do not deploy automatically.</strong></p>
+<h3 id="deployment-sequence">Deployment sequence</h3>
+<ol>
+<li>Back up the current production state.</li>
+<li>Deploy the approved build.</li>
+<li>Connect the production domain.</li>
+<li>Apply redirect rules.</li>
+<li>Verify production environment variables.</li>
+<li>Confirm robots and sitemap.</li>
+<li>Test forms and CRM.</li>
+<li>Test analytics and conversion events.</li>
+<li>Crawl the live website.</li>
+<li>Submit or validate the sitemap in Search Console.</li>
+</ol>
+<p>Then produce <code>seo/post-launch-validation.md</code> listing confirmed working · failures · probable causes · corrective actions.</p>
+<hr>
+<h2 id="post-launch-seo-cycle">Post-launch SEO cycle</h2>
+<h3 id="initial-checks">Initial checks</h3>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Timing</th>
+<th>Check</th>
+</tr></thead>
+<tbody>
+<tr><td>Within 24 hours</td><td>Routes, redirects, forms, tracking, robots, sitemap</td></tr>
+<tr><td>After 3–7 days</td><td>Crawl status, indexing signals, Search Console errors</td></tr>
+<tr><td>After 2–4 weeks</td><td>Early impressions, query matching, tracking quality</td></tr>
+<tr><td>After 6–8 weeks</td><td>Ranking, CTR, landing-page engagement, conversions</td></tr>
+<tr><td>Monthly thereafter</td><td>Technical, ranking, content and conversion review</td></tr>
+</tbody></table></div>
+<h3 id="semrush-post-launch-setup">Semrush post-launch setup</h3>
+<p>Create or update the Semrush project with the correct production domain · target country and location · desktop and mobile tracking where relevant · approved priority keyword set · competitor domains · Site Audit crawl settings · Position Tracking campaign.</p>
+<p><strong>The tracked keyword set comes from the approved keyword-to-page map. It must not contain every keyword exported during research.</strong></p>
+<h3 id="monthly-research-sources">Monthly research sources</h3>
+<p>Semrush Position Tracking · Semrush Site Audit · Semrush Organic Research · Search Console · Analytics · CRM-qualified leads.</p>
+<p>For each landing page, identify ranking problem · click-through problem · intent mismatch · conversion problem · cannibalisation · content gap · internal-link opportunity · technical issue · insufficient data. Prioritise qualified conversions, commercial importance and evidence strength. For every recommendation include evidence · hypothesis · proposed change · primary metric · guardrail metric · implementation scope · risk · evaluation condition. <strong>Do not recommend a full-page rewrite without sufficient evidence.</strong></p>
+<hr>
+<h2 id="critical-path">Critical path</h2>
+<p>The fastest possible project is not determined mainly by Claude Code's development speed. It is determined by four dependencies: <strong>client evidence and access · architecture approval · copywriter delivery · consolidated feedback.</strong></p>
+<pre><code>Client intake
+    ↓
+Semrush research
+    ↓
+SEO architecture approval
+    ↓
+Page briefs
+    ↓
+Copywriter message architecture
+    ↓
+Representative-page approval
+    ↓
+Final copy
+    ↓
+Full page production
+    ↓
+QA and launch</code></pre>
+<p>Design-system work can run in parallel with copywriting after page briefs and message architecture are sufficiently stable.</p>
+<hr>
+<h2 id="recommended-seven-week-schedule">Recommended seven-week schedule</h2>
+<p><strong>Week 0 — Setup:</strong> create repository and folders · send questionnaire · request access and materials · schedule kick-off.</p>
+<p><strong>Week 1 — Discovery and research:</strong> conduct kick-off interview · gather evidence and brand assets · run Semrush domain and competitor research · run seed-keyword research · export Search Console and Analytics · crawl existing site · perform priority SERP review.</p>
+<p><strong>Week 2 — Architecture:</strong> cluster keywords · create keyword-to-page map · create sitemap and URL structure · create redirect plan · approve launch scope · produce priority page briefs · brief copywriter.</p>
+<p><strong>Week 3 — Copy structure and design system:</strong> copywriter develops message architectures · consultant approves design direction · Claude builds tokens, shared CSS and system preview · approve representative-page content structure.</p>
+<p><strong>Week 4 — Representative page:</strong> build service-page components and template · test responsive behaviour · review SEO structure and conversion flow · approve representative page.</p>
+<p><strong>Week 5 — Copy and templates:</strong> validate and integrate approved copy · resolve copy-fit issues · create required additional templates · begin producing remaining pages.</p>
+<p><strong>Week 6 — Full website:</strong> complete all launch pages · add forms, CRM, tracking and interactions · add internal links and structured data · complete staging review.</p>
+<p><strong>Week 7 — QA and launch:</strong> combined SEO, design, accessibility and technical QA · client and copywriter approval · redirect and tracking verification · deploy · run live validation.</p>
+<hr>
+<h2 id="timeline-variables">Timeline variables</h2>
+<p>Add time when any of these apply:</p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Condition</th>
+<th>Typical additional time</th>
+</tr></thead>
+<tbody>
+<tr><td>No usable brand direction</td><td>3–5 working days</td></tr>
+<tr><td>More than 20 pages</td><td>1–3 weeks</td></tr>
+<tr><td>Second language</td><td>1–3 weeks</td></tr>
+<tr><td>Complex CMS</td><td>1–2 weeks</td></tr>
+<tr><td>Major migration</td><td>1–3 weeks</td></tr>
+<tr><td>Many unverified claims</td><td>Variable client delay</td></tr>
+<tr><td>New case studies required</td><td>3–10 working days</td></tr>
+<tr><td>Legal review</td><td>2–10 working days</td></tr>
+<tr><td>Slow approval cycles</td><td>Directly extends project duration</td></tr>
+<tr><td>Custom application functionality</td><td>Separate estimation required</td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="lean-control-rules">Lean control rules</h2>
+<ol>
+<li>Semrush research is conducted in Week 1, before keyword clustering and site architecture.</li>
+<li>Seed keywords originate from business discovery, Search Console, existing rankings, competitor pages and customer language.</li>
+<li>Semrush provides quantitative and competitive data; manual SERP review confirms actual intent.</li>
+<li>Claude Code processes structured exports but does not replace the SEO strategist's judgement.</li>
+<li>One representative page validates the system before all templates and pages are produced.</li>
+<li>The copywriter starts after page briefs are approved and works in parallel with design-system development.</li>
+<li>Feedback is consolidated into defined approval gates rather than collected continuously.</li>
+<li>The project launches with a deliberately limited page set; additional SEO pages are produced after launch according to the approved content roadmap.</li>
+</ol>
+<footer class="doc-footer">
+  Generated from <code>lean-end-to-end-seo-website-process.md</code> by <code>build-html-twins.py</code>. Edit the Markdown, then re-run the script — do not hand-edit this file.
+</footer>
+</main>
+</body>
+</html>
