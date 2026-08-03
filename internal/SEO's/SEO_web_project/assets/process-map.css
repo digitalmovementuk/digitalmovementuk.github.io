@@ -1,0 +1,327 @@
+/* Digital Movement — SOP process map
+   Diagram-only styles. Loaded AFTER assets/process.css, which supplies the
+   tokens, masthead and type scale. Mid-fidelity by house rule.
+   Edit here only. Never inline styles into the map page. */
+
+.wrap--wide { max-width: 1180px; }
+
+/* ---------- Legend ---------- */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  margin: 0 0 2.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--paper-tint);
+  border: 1px solid var(--rule);
+  font-size: .85rem;
+}
+.legend b { font-weight: 600; }
+.legend span { display: inline-flex; align-items: center; gap: .5rem; }
+.chip {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--rule);
+  flex: 0 0 auto;
+}
+.chip--consultant { background: var(--navy); border-color: var(--navy); }
+.chip--copywriter { background: var(--gold); border-color: var(--gold); }
+.chip--claude     { background: var(--paper); border-color: var(--ink-faint); }
+
+/* ---------- Stage spine ---------- */
+
+.stage {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr 15rem;
+  gap: 0 1.5rem;
+  border: 1px solid var(--rule);
+  border-left: 5px solid var(--navy);
+  background: var(--paper);
+  padding: 1.25rem 1.5rem;
+  margin: 0 0 .5rem;
+}
+.stage--loop { border-left-color: var(--ok); }
+
+.stage__no {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+.stage__no small {
+  display: block;
+  font-size: .66rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: .35rem;
+}
+
+.stage__body h3 {
+  margin: 0 0 .35rem;
+  font-size: 1.12rem;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.stage__body p {
+  margin: 0 0 .6rem;
+  font-size: .92rem;
+  color: var(--ink-soft);
+  max-width: 60ch;
+}
+.stage__phases {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+}
+.stage__phases li {
+  font-size: .76rem;
+  padding: .15rem .5rem;
+  background: var(--paper-tint);
+  border: 1px solid var(--rule);
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.stage__meta {
+  font-size: .8rem;
+  border-left: 1px solid var(--rule);
+  padding-left: 1.25rem;
+}
+.stage__meta dt {
+  font-size: .66rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 600;
+  margin-top: .7rem;
+}
+.stage__meta dt:first-child { margin-top: 0; }
+.stage__meta dd { margin: .1rem 0 0; color: var(--ink); }
+.owner { display: inline-flex; align-items: center; gap: .4rem; }
+
+/* ---------- Client touchpoint box (spans the full stage card) ---------- */
+
+.touch {
+  grid-column: 1 / -1;
+  margin: 1.1rem -1.5rem -1.25rem;
+  padding: .9rem 1.5rem 1rem;
+  border-top: 1px solid var(--rule);
+  background: var(--paper-tint);
+}
+.touch h4 {
+  margin: 0 0 .55rem;
+  font-size: .66rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--navy);
+  font-weight: 700;
+}
+.touch h4 span { color: var(--ink-faint); font-weight: 600; letter-spacing: .06em; }
+.touch ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: .45rem 1.5rem;
+}
+.touch li {
+  font-size: .82rem;
+  color: var(--ink-soft);
+  padding-left: .95rem;
+  position: relative;
+}
+.touch li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .55em;
+  width: .38rem;
+  height: .38rem;
+  background: var(--gold);
+}
+.touch li b { color: var(--ink); font-weight: 600; }
+.touch li em { font-style: normal; color: var(--ink-faint); }
+.touch--none { background: var(--paper); }
+.touch--none p { margin: 0; font-size: .82rem; color: var(--ink-faint); }
+
+/* ---------- Gate bar ---------- */
+
+.gate {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .5rem 1rem;
+  margin: 0 0 .5rem;
+  padding: .7rem 1.25rem;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold);
+  border-left-width: 5px;
+}
+.gate__tag {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.gate__what { font-size: .92rem; font-weight: 600; }
+.gate__who { font-size: .82rem; color: var(--ink-soft); margin-left: auto; }
+
+/* ---------- Arrow between blocks ---------- */
+
+.flowdown {
+  text-align: center;
+  color: var(--ink-faint);
+  font-size: 1rem;
+  line-height: 1;
+  margin: 0 0 .5rem;
+}
+
+/* ---------- Panels below the spine ---------- */
+
+.panels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0 0;
+}
+.panel {
+  flex: 1 1 17rem;
+  border: 1px solid var(--rule);
+  background: var(--paper-tint);
+  padding: 1.1rem 1.25rem;
+}
+.panel > p:last-child {
+  margin: .7rem 0 0;
+  font-size: .82rem;
+  color: var(--ink-soft);
+}
+.panel h3 {
+  margin: 0 0 .6rem;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+.panel ol, .panel ul { margin: 0; padding-left: 1.1rem; font-size: .88rem; }
+.panel li { margin-bottom: .4rem; color: var(--ink-soft); }
+.panel li b { color: var(--ink); font-weight: 600; }
+.panel--stop { background: #fdf6f2; border-color: #e6c9b6; }
+.panel--stop h3 { color: var(--warn); }
+
+/* ---------- Gantt ---------- */
+
+.gantt-scroll { overflow-x: auto; margin: 0 0 1rem; }
+.gantt {
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  min-width: 58rem;
+}
+.gantt__row {
+  display: grid;
+  grid-template-columns: 13rem 1fr;
+  align-items: center;
+  border-top: 1px solid var(--rule);
+  min-height: 2.35rem;
+}
+.gantt__row:first-child { border-top: 0; }
+.gantt__row--head { background: var(--navy); color: #fff; }
+.gantt__row--sub { background: var(--paper-tint); }
+.gantt__row--loop .bar { background: var(--ok); }
+
+.gantt__label {
+  font-size: .82rem;
+  padding: .4rem .9rem;
+  color: var(--ink);
+  font-weight: 600;
+  border-right: 1px solid var(--rule);
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.3;
+}
+.gantt__row--head .gantt__label { color: #fff; border-right-color: rgba(255,255,255,.25); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
+.gantt__label small { display: block; font-weight: 400; color: var(--ink-faint); font-size: .72rem; }
+
+.gantt__track {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  align-items: center;
+  min-height: 2.35rem;
+  background-image: repeating-linear-gradient(to right, transparent, transparent calc(11.111% - 1px), var(--rule) calc(11.111% - 1px), var(--rule) 11.111%);
+}
+.gantt__row--head .gantt__track { background-image: none; }
+.gantt__track > span {
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: .5rem 0;
+}
+
+.bar {
+  font-style: normal;
+  font-size: .7rem;
+  line-height: 1.5rem;
+  height: 1.5rem;
+  padding: 0 .5rem;
+  margin: 0 .18rem;
+  background: var(--navy);
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bar--soft { background: var(--gold); color: var(--navy-deep); }
+.bar--ghost { background: var(--gold-soft); color: var(--ink-soft); border: 1px dashed var(--gold); line-height: 1.35rem; }
+
+.mark {
+  font-size: .66rem;
+  text-align: center;
+  padding: .25rem .2rem;
+  margin: 0 .2rem;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold);
+  color: var(--navy-deep);
+  line-height: 1.25;
+}
+.mark--gate { background: var(--gold); color: #fff; border-color: var(--gold); font-weight: 700; }
+
+.st1 { grid-column-start: 1; } .st2 { grid-column-start: 2; } .st3 { grid-column-start: 3; }
+.st4 { grid-column-start: 4; } .st5 { grid-column-start: 5; } .st6 { grid-column-start: 6; }
+.st7 { grid-column-start: 7; } .st8 { grid-column-start: 8; } .st9 { grid-column-start: 9; }
+.en2 { grid-column-end: 2; } .en3 { grid-column-end: 3; } .en4 { grid-column-end: 4; }
+.en5 { grid-column-end: 5; } .en6 { grid-column-end: 6; } .en7 { grid-column-end: 7; }
+.en8 { grid-column-end: 8; } .en9 { grid-column-end: 9; } .en10 { grid-column-end: 10; }
+
+/* ---------- Print + mobile ---------- */
+
+@media print {
+  .stage, .gate, .panel { break-inside: avoid; }
+  body { font-size: 12px; }
+}
+
+@media (max-width: 760px) {
+  .stage {
+    grid-template-columns: 1fr;
+    gap: .9rem;
+  }
+  .stage__no { display: flex; align-items: baseline; gap: .6rem; font-size: 1.25rem; }
+  .stage__no small { margin: 0; }
+  .stage__meta { border-left: 0; border-top: 1px solid var(--rule); padding: .8rem 0 0; }
+  .gate__who { margin-left: 0; width: 100%; }
+  .touch { margin-top: .2rem; }
+  .touch ul { grid-template-columns: 1fr; }
+  .gantt__row { grid-template-columns: 9rem 1fr; }
+  .gantt__label { font-size: .76rem; padding: .4rem .6rem; }
+}

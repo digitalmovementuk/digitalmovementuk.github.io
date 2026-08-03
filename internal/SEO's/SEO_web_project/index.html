@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Project Operating Process — Digital Movement</title>
+<link rel="stylesheet" href="assets/process.css">
+<style>
+  /* Page-specific only. Anything reused belongs in process.css. */
+  .phase-strip { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.5rem 0 2.5rem; padding: 0; list-style: none; }
+  .phase-strip li {
+    flex: 1 1 195px; margin: 0; padding: .7rem .8rem; max-width: none;
+    background: var(--paper-tint); border: 1px solid var(--rule);
+    border-top: 3px solid var(--navy); border-radius: 2px; font-size: .82rem; line-height: 1.4;
+  }
+  .phase-strip li b { display: block; color: var(--navy); font-size: .9rem; }
+  .phase-strip li .who { color: var(--ink-faint); font-size: .74rem; display: block; margin-top: .3rem; }
+  .phase-strip li.gate { border-top-color: var(--gold); }
+  .phase-strip li.gate .g {
+    display: inline-block; margin-top: .35rem; font-size: .66rem; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--gold); font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Digital Movement · Operations</p>
+    <h1>Web Project Operating Process</h1>
+    <p class="sub">How we run a client web project from first call to live page — the phases, the owners, the approval gates, and a fill-in template for every deliverable.</p>
+    <span class="fidelity-tag">v1.0 · Mid-fi · internal</span>
+  </div>
+</header>
+
+<main>
+
+<p><strong>Start here:</strong> <a href="sop-process-map.html">the SOP process map</a> — the whole thing on one screen, in plain words: nine stages, six approvals, four client meetings and a seven-week timeline. Everyone on the project can read it, including the writer and the client.</p>
+
+<p><strong>Then, for the detail:</strong> <a href="end-to-end-seo-website-production-process.html">the full production guide</a> — all twenty-seven steps with the exact instructions we give the AI (canonical, adopted 3 August 2026) · <a href="lean-end-to-end-seo-website-process.html">the seven-week schedule</a> — how long each part takes, what runs in parallel, and what makes a project run long · <a href="README.html">the operating process</a> — phases, gates, roles and the rules that are not negotiable. Then copy <code>_project-starter/</code> into the project folder and work down the numbered files.</p>
+
+<h2 id="workflow-map">The workflow map</h2>
+
+<p>The client-facing view. Send it in a proposal or a kickoff deck. It is deliberately simpler than the way we work internally, and it does not contradict it — it summarises it.</p>
+
+<figure>
+  <a href="assets/website-page-creation-workflow.png">
+    <img src="assets/website-page-creation-workflow.png" alt="Website page creation end-to-end workflow: eight phases from Discover and Align to Publish and Optimize, each with its deliverable, owner and shared foundations.">
+  </a>
+  <figcaption>Eight phases, eight deliverables, one owner each, over three shared foundations. Click for full size.</figcaption>
+</figure>
+
+<h2 id="phases">The eight phases</h2>
+
+<ol class="phase-strip">
+  <li><b>1 · Discover &amp; Align</b>Understand goals, audience &amp; scope<span class="who">Business Consultant</span></li>
+  <li class="gate"><b>2 · Plan &amp; Structure</b>Define page purpose, content &amp; structure<span class="who">Business Consultant</span><span class="g">Gate 0</span></li>
+  <li><b>3 · Content Creation</b>Write conversion-focused copy<span class="who">Copywriter</span></li>
+  <li class="gate"><b>4 · Wireframe</b>Low-fidelity layout &amp; placement<span class="who">Web Designer</span><span class="g">Gate 1</span></li>
+  <li class="gate"><b>5 · Design</b>High-fidelity UI &amp; interactions<span class="who">Web Designer</span><span class="g">Gate 2</span></li>
+  <li><b>6 · Development</b>Build responsive, fast, accessible<span class="who">Web Developer</span></li>
+  <li class="gate"><b>7 · Review &amp; Test</b>QA, fixes, cross-device testing<span class="who">QA</span><span class="g">Gate 3</span></li>
+  <li class="gate"><b>8 · Publish &amp; Optimize</b>Launch, monitor, improve<span class="who">Web Developer</span><span class="g">Go-live</span></li>
+</ol>
+
+<p><strong>Three gates, two revision rounds each.</strong> A third round is a change request with a price on it. This is the single most important commercial rule in the process.</p>
+
+<h2 id="deliverables">The deliverable templates</h2>
+
+<p>Eight per-project deliverables that move the project forward. Each is a blank fill-in document with a Definition of Done at the bottom.</p>
+
+<ul class="cards">
+  <li><span class="n">01 · Gate 0</span><a href="templates/01-website-brief.html">Website Brief</a><p>Goals &amp; KPIs, audience, page type, success metrics. Business Consultant.</p></li>
+  <li><span class="n">02 · Gate 0</span><a href="templates/02-page-blueprint.html">Page Blueprint</a><p>Page outline, priority guide, content map, user journey, CTA strategy. Business Consultant.</p></li>
+  <li><span class="n">03 · Gate 1</span><a href="templates/03-copy-document.html">Copy Document</a><p>Headlines, body, CTAs, microcopy, SEO elements, readability. Copywriter.</p></li>
+  <li><span class="n">04 · Gate 1</span><a href="templates/04-wireframe-spec.html">Wireframe Spec</a><p>Layout structure, content blocks, navigation, responsive behaviour. Web Designer.</p></li>
+  <li><span class="n">05 · Gate 2</span><a href="templates/05-design-mockup-spec.html">Design Mockup Spec</a><p>Visual design, tokens, UI elements, contrast audit, character budgets. Web Designer.</p></li>
+  <li><span class="n">06 · Gate 3</span><a href="templates/06-developed-page-handover.html">Developed Page Handover</a><p>What was built, shared stylesheet, forms, analytics, performance. Web Developer.</p></li>
+  <li><span class="n">07 · Gate 3</span><a href="templates/07-test-report.html">Test Report</a><p>Functionality, cross-browser, accessibility, SEO, legal, defect log, go/no-go. QA.</p></li>
+  <li><span class="n">08 · Go-live</span><a href="templates/08-launch-record.html">Launch Record</a><p>Pre-launch, deployment, verification, rollback, monitoring, handover. Web Developer.</p></li>
+</ul>
+
+<h2 id="foundations">The shared foundations</h2>
+
+<p>Built once, reused on every page and every later project. These are what make page nine cost a fraction of page one.</p>
+
+<ul class="cards">
+  <li><span class="n">F1 · once per client</span><a href="templates/foundations/F1-brand-style-system.html">Brand &amp; Style System</a><p>Logo usage, colour tokens, type scale, tone of voice, imagery policy.</p></li>
+  <li><span class="n">F2 · living</span><a href="templates/foundations/F2-design-system-and-assets.html">Design System &amp; Assets</a><p>Token skeleton, UI components, section templates, code components, asset library.</p></li>
+  <li><span class="n">F3 · living</span><a href="templates/foundations/F3-development-standards.html">Development Standards</a><p>Coding standards, performance budget, SEO, accessibility, forms, security.</p></li>
+</ul>
+
+<h2 id="starting">Starting a project</h2>
+
+<pre><code>cp -R "_project-starter" \
+      "../../Web Design Projects/&lt;Client Name&gt;/00-process"</code></pre>
+
+<p>The starter folder holds a numbered copy of every template, plus <code>GATE-CHECKLIST.md</code> (what must be true to pass each gate) and <code>PROJECT-LOG.md</code> (decisions, open questions, assumptions, scope changes, time vs estimate).</p>
+
+<p>Copy <code>foundations/</code> only on the first project for a client. On later projects, link to the existing ones rather than duplicating them.</p>
+
+<h2 id="maintaining">Maintaining this</h2>
+
+<ul>
+  <li>Templates are edited in the Markdown files here and only here. A project copy that improves on a template gets folded back in.</li>
+  <li>After editing any <code>.md</code>, regenerate every HTML twin: <code>python3 build-html-twins.py</code></li>
+  <li>Do not hand-edit the generated <code>.html</code> files — they are overwritten on the next build. This page and <code>assets/process.css</code> are the exceptions; they are hand-maintained.</li>
+  <li>Review the process after every third completed project, or whenever a gate fails twice for the same reason. A gate that fails twice the same way means the template is wrong, not the person.</li>
+</ul>
+
+<h2 id="related">Related</h2>
+
+<ul>
+  <li>Website production sequence playbook <span class="who">(local repo only)</span> — the reasoning behind the sequence, plus per-role operating guides you can print and send to a freelancer. Read once; use this folder every day.</li>
+  <li>SEO page QA checklist <span class="who">(local repo only)</span> — the 242-item ship gate that every SEO and service page must pass.</li>
+  <li>Skills: <code>low-cognitive-load-design</code>, <code>low-cognitive-load-copy</code>, <code>web-copy-craft</code>, <code>design-model-routing</code>, <code>seo-page-qa-gate</code>.</li>
+</ul>
+
+<footer class="doc-footer">
+  Digital Movement · Web Project Operating Process v1.0 · created 2026-08-03 · owner Raoul Müller
+</footer>
+
+</main>
+</body>
+</html>

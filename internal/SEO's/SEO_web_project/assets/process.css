@@ -1,0 +1,244 @@
+/* Digital Movement — Web Project Operating Process
+   Shared stylesheet for every HTML twin in this folder.
+   Mid-fidelity by house rule: readable, printable, not production-polished.
+   Edit here only. Never inline styles into a page. */
+
+:root {
+  --navy:        #1b2a4a;
+  --navy-deep:   #14203a;
+  --gold:        #b08d3f;
+  --gold-soft:   #f2ead6;
+  --ink:         #23262b;
+  --ink-soft:    #565b63;
+  --ink-faint:   #8a9099;
+  --rule:        #e2e4e8;
+  --paper:       #ffffff;
+  --paper-tint:  #f7f7f5;
+  --ok:          #2f7d4f;
+  --warn:        #a8571c;
+  --measure:     72ch;
+  --pad:         clamp(1.25rem, 4vw, 3rem);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 var(--pad) 6rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+main, .wrap { max-width: 980px; margin: 0 auto; }
+
+/* ---------- Masthead ---------- */
+
+.masthead {
+  margin: 0 calc(var(--pad) * -1) 3rem;
+  padding: 2.25rem var(--pad) 2rem;
+  background: var(--navy);
+  color: #fff;
+}
+.masthead .wrap { max-width: 980px; margin: 0 auto; }
+.masthead .eyebrow {
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 .5rem;
+  font-weight: 600;
+}
+.masthead h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  color: #fff;
+}
+.masthead .sub { margin: .6rem 0 0; color: #c3cad6; max-width: var(--measure); }
+.masthead a { color: var(--gold-soft); }
+
+.fidelity-tag {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: .2rem .6rem;
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+  font-size: .68rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ---------- Type ---------- */
+
+h1, h2, h3, h4 { color: var(--navy); line-height: 1.25; letter-spacing: -.005em; }
+h2 {
+  margin: 3rem 0 1rem;
+  padding-top: 1.25rem;
+  border-top: 2px solid var(--navy);
+  font-size: 1.4rem;
+}
+h3 { margin: 2rem 0 .6rem; font-size: 1.12rem; }
+h4 { margin: 1.5rem 0 .4rem; font-size: .98rem; color: var(--ink); }
+p, li { max-width: var(--measure); }
+p { margin: 0 0 1rem; }
+ul, ol { margin: 0 0 1rem; padding-left: 1.3rem; }
+li { margin: .3rem 0; }
+strong { color: var(--navy); font-weight: 650; }
+a { color: var(--navy); text-underline-offset: .18em; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+
+/* ---------- Fill-in cues ---------- */
+
+em { color: var(--ink-soft); }
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .88em;
+  background: var(--paper-tint);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: .08em .34em;
+}
+pre {
+  background: var(--navy-deep);
+  color: #e6eaf2;
+  padding: 1.1rem 1.25rem;
+  border-radius: 3px;
+  overflow-x: auto;
+  font-size: .84rem;
+  line-height: 1.6;
+}
+pre code { background: none; border: 0; color: inherit; padding: 0; }
+
+blockquote {
+  margin: 1.5rem 0;
+  padding: .9rem 1.1rem;
+  background: var(--gold-soft);
+  border-left: 3px solid var(--gold);
+  color: #4a4231;
+}
+blockquote p { margin: 0; max-width: none; }
+
+/* ---------- Tables ---------- */
+
+.table-scroll { overflow-x: auto; margin: 1.25rem 0 1.75rem; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 520px;
+  font-size: .92rem;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: .55rem .7rem;
+  border-bottom: 1px solid var(--rule);
+}
+th {
+  background: var(--paper-tint);
+  color: var(--navy);
+  font-weight: 650;
+  border-bottom: 2px solid var(--navy);
+  white-space: nowrap;
+}
+tbody tr:hover { background: #fbfbfa; }
+td p, th p { max-width: none; margin: 0; }
+
+/* Two-column metadata block at the head of each template — a headerless
+   key/value table, not a data table. */
+table.meta { min-width: 0; max-width: 640px; border-top: 2px solid var(--navy); }
+table.meta td:first-child { width: 38%; color: var(--navy); font-weight: 650; }
+
+/* ---------- Checklists ---------- */
+
+.task-list-item { list-style: none; margin-left: -1.3rem; }
+.task-list-item input { margin-right: .55rem; }
+
+/* ---------- Figure ---------- */
+
+figure { margin: 2rem 0; }
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+}
+figcaption { margin-top: .6rem; font-size: .85rem; color: var(--ink-soft); }
+
+/* ---------- Cards ---------- */
+
+.cards { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0 2rem; padding: 0; list-style: none; }
+.cards li {
+  flex: 1 1 260px;
+  margin: 0;
+  padding: 1.1rem 1.2rem;
+  background: var(--paper-tint);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  max-width: none;
+}
+.cards li .n {
+  display: block;
+  font-size: .7rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 650;
+  margin-bottom: .3rem;
+}
+.cards li a { font-weight: 650; text-decoration: none; }
+.cards li a:hover { text-decoration: underline; }
+.cards li p { font-size: .88rem; color: var(--ink-soft); margin: .35rem 0 0; }
+
+/* ---------- Footer ---------- */
+
+.doc-footer {
+  margin-top: 4rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-size: .82rem;
+  color: var(--ink-faint);
+}
+
+/* ---------- Print ---------- */
+
+@media print {
+  body { font-size: 11pt; padding: 0; }
+  .masthead { background: none; color: var(--navy); border-bottom: 2px solid var(--navy); margin: 0 0 1.5rem; padding: 0 0 1rem; }
+  .masthead h1, .masthead .sub { color: var(--navy); }
+  h2 { page-break-after: avoid; }
+  table, figure, blockquote { page-break-inside: avoid; }
+  a { text-decoration: none; color: var(--ink); }
+}
+
+/* ---------- Dark ---------- */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e7e9ec; --ink-soft: #a8aeb8; --ink-faint: #7d848e;
+    --paper: #14161a; --paper-tint: #1c1f25; --rule: #2c313a;
+    --navy: #9fb4d8; --navy-deep: #0e1015; --gold: #d8b563; --gold-soft: #2a2418;
+  }
+  .masthead { background: #0e1015; }
+  h1, h2, h3 { color: #cfdcf2; }
+  blockquote { color: #ddd3bb; }
+  pre { background: #0b0d11; }
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 640px) {
+  body { font-size: 16px; line-height: 1.6; }
+  .masthead { padding-top: 1.75rem; padding-bottom: 1.5rem; }
+  h2 { font-size: 1.22rem; margin-top: 2.25rem; }
+  h3 { font-size: 1.05rem; }
+  table { font-size: .86rem; }
+  .cards li { flex: 1 1 100%; }
+}

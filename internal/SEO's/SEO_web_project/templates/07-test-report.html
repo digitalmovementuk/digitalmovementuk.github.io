@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07 · Test Report — Digital Movement</title>
+<link rel="stylesheet" href="../assets/process.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Digital Movement · Web Project Operating Process</p>
+    <h1>07 · Test Report</h1>
+    <p class="sub">Phase 7 — Review &amp; Test. The evidence that the page works, and the go/no-go call.</p>
+    <span class="fidelity-tag">Mid-fi · internal</span>
+  </div>
+</header>
+<main>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td><strong>Client / project</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Page / build tested</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Owner</strong></td><td>QA — <em>name</em></td></tr>
+<tr><td><strong>Version</strong></td><td>v0.1 — <em>date</em></td></tr>
+<tr><td><strong>Gate</strong></td><td><strong>Gate 3 — hi-fi. Two rounds.</strong></td></tr>
+<tr><td><strong>Input</strong></td><td><a href="06-developed-page-handover.html">06 · Developed Page Handover</a></td></tr>
+<tr><td><strong>Next deliverable</strong></td><td><a href="08-launch-record.html">08 · Launch Record</a></td></tr>
+<tr><td><strong>Build tested</strong></td><td><em>commit hash / preview URL</em></td></tr>
+</tbody></table></div>
+<blockquote><p><strong>How to use this.</strong> QA never approves their own build. Every result is either <strong>Pass</strong>, <strong>Fail</strong> or <strong>N/A</strong> — no "mostly", no "should be fine".  <strong>Verify by render, not by grep.</strong> A clean source search is not proof. Look-alike hexes, alpha compositing and shared <code>!important</code> rules are all invisible to a text search. Check computed styles in a live browser.  <strong>If this is an SEO or service landing page</strong>, the 242-item <code>seo-page-qa-gate</code> runs in addition to this report and must show zero blockers.</p></blockquote>
+<hr>
+<h2 id="1-verdict">1. Verdict</h2>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td><strong>Recommendation</strong></td><td><em>GO · GO WITH FIXES · NO-GO</em></td></tr>
+<tr><td>Blockers open</td><td><em>…</em></td></tr>
+<tr><td>Non-blockers open</td><td><em>…</em></td></tr>
+<tr><td>Retest needed</td><td><em>yes / no</em></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="2-functionality">2. Functionality</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Test</th>
+<th>Expected</th>
+<th>Result</th>
+<th>Pass</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>Every nav link resolves</td><td>200, correct page</td><td></td><td></td></tr>
+<tr><td>2</td><td>Every footer link resolves</td><td>200</td><td></td><td></td></tr>
+<tr><td>3</td><td>Every in-body link resolves</td><td>200</td><td></td><td></td></tr>
+<tr><td>4</td><td>Primary CTA goes where it says</td><td></td><td></td><td></td></tr>
+<tr><td>5</td><td>Form submits with valid data</td><td>lead arrives at destination</td><td></td><td></td></tr>
+<tr><td>6</td><td>Form blocks submit without consent</td><td></td><td></td><td></td></tr>
+<tr><td>7</td><td>Form validation on empty required fields</td><td>inline error shown</td><td></td><td></td></tr>
+<tr><td>8</td><td>Form validation on invalid email</td><td></td><td></td><td></td></tr>
+<tr><td>9</td><td>Success message shown after submit</td><td></td><td></td><td></td></tr>
+<tr><td>10</td><td>Failure path shows a usable fallback</td><td></td><td></td><td></td></tr>
+<tr><td>11</td><td>Interactive components work (accordion, tabs, slider)</td><td></td><td></td><td></td></tr>
+<tr><td>12</td><td>404 page exists and is styled</td><td></td><td></td><td></td></tr>
+<tr><td>13</td><td>No console errors on any page</td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Lead delivery proof</strong> — a real test submission arrived at: <em>…</em> on <em>…</em></p>
+<hr>
+<h2 id="3-content-accuracy">3. Content accuracy</h2>
+<p><em>Checked against 03 · Copy Document, word for word.</em></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Check</th>
+<th>Result</th>
+<th>Pass</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>Every heading matches the copy document</td><td></td><td></td></tr>
+<tr><td>2</td><td>Every body block matches</td><td></td><td></td></tr>
+<tr><td>3</td><td>No placeholder or lorem text anywhere</td><td></td><td></td></tr>
+<tr><td>4</td><td>No stale copy from an earlier version</td><td></td><td></td></tr>
+<tr><td>5</td><td>Contact details correct</td><td></td><td></td></tr>
+<tr><td>6</td><td>Opening hours / prices correct</td><td></td><td></td></tr>
+<tr><td>7</td><td>Spelling and grammar, both languages</td><td></td><td></td></tr>
+<tr><td>8</td><td>Claims match the evidence table in 03</td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="4-cross-browser-and-device">4. Cross-browser and device</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Browser / device</th>
+<th>Version</th>
+<th>Layout</th>
+<th>Function</th>
+<th>Notes</th>
+</tr></thead>
+<tbody>
+<tr><td>Chrome desktop</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Safari desktop</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Firefox desktop</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Edge desktop</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Safari iOS</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Chrome Android</td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Viewports checked:</strong> 390 · 768 · 1024 · 1440 · 1920</p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Viewport</th>
+<th>Horizontal scroll</th>
+<th>Overlap</th>
+<th>Tap targets ≥44px</th>
+<th>Pass</th>
+</tr></thead>
+<tbody>
+<tr><td>390</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>768</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>1024</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>1440</td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Screenshots attached:</strong> <em>…</em></p>
+<hr>
+<h2 id="5-performance">5. Performance</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Metric</th>
+<th>Mobile</th>
+<th>Desktop</th>
+<th>Target</th>
+<th>Pass</th>
+</tr></thead>
+<tbody>
+<tr><td>LCP</td><td></td><td></td><td>&lt; 2.5s</td><td></td></tr>
+<tr><td>CLS</td><td></td><td></td><td>&lt; 0.1</td><td></td></tr>
+<tr><td>INP</td><td></td><td></td><td>&lt; 200ms</td><td></td></tr>
+<tr><td>Lighthouse performance</td><td></td><td></td><td>≥ 90</td><td></td></tr>
+<tr><td>Page weight</td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Slowest resource:</strong> <em>…</em></p>
+<hr>
+<h2 id="6-accessibility">6. Accessibility</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Check</th>
+<th>Result</th>
+<th>Pass</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>Automated scan (axe / Lighthouse) — violations</td><td><em>0</em></td><td></td></tr>
+<tr><td>2</td><td>Keyboard only: reach every interactive element</td><td></td><td></td></tr>
+<tr><td>3</td><td>Focus visible at every stop</td><td></td><td></td></tr>
+<tr><td>4</td><td>Focus order matches visual order</td><td></td><td></td></tr>
+<tr><td>5</td><td>No keyboard trap</td><td></td><td></td></tr>
+<tr><td>6</td><td>Skip link works</td><td></td><td></td></tr>
+<tr><td>7</td><td>Heading order unbroken, one H1</td><td></td><td></td></tr>
+<tr><td>8</td><td>All images have appropriate alt text</td><td></td><td></td></tr>
+<tr><td>9</td><td>Form labels bound and announced</td><td></td><td></td></tr>
+<tr><td>10</td><td>Errors announced, not colour-only</td><td></td><td></td></tr>
+<tr><td>11</td><td>Contrast measured on the rendered page</td><td></td><td></td></tr>
+<tr><td>12</td><td>Zoom to 200% without loss of content</td><td></td><td></td></tr>
+<tr><td>13</td><td>Screen reader pass on the main flow</td><td></td><td></td></tr>
+<tr><td>14</td><td><code>prefers-reduced-motion</code> respected</td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="7-seo-and-tracking">7. SEO and tracking</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Check</th>
+<th>Result</th>
+<th>Pass</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>Title tag present, unique, ≤60 chars</td><td></td><td></td></tr>
+<tr><td>2</td><td>Meta description present, ≤155 chars</td><td></td><td></td></tr>
+<tr><td>3</td><td>One H1, matching the copy document</td><td></td><td></td></tr>
+<tr><td>4</td><td>Canonical tag correct</td><td></td><td></td></tr>
+<tr><td>5</td><td>Open Graph tags render correctly when shared</td><td></td><td></td></tr>
+<tr><td>6</td><td>Structured data validates with no errors</td><td></td><td></td></tr>
+<tr><td>7</td><td>robots.txt correct, no accidental disallow</td><td></td><td></td></tr>
+<tr><td>8</td><td>Sitemap returns 200 and lists this page</td><td></td><td></td></tr>
+<tr><td>9</td><td>No <code>noindex</code> left over from staging</td><td></td><td></td></tr>
+<tr><td>10</td><td>Analytics fires on this page</td><td></td><td></td></tr>
+<tr><td>11</td><td>Analytics fires only after consent</td><td></td><td></td></tr>
+<tr><td>12</td><td>Conversion event fires on form submit</td><td></td><td></td></tr>
+<tr><td>13</td><td>Redirects from old URLs, if any, are 301</td><td></td><td></td></tr>
+<tr><td>14</td><td><code>seo-page-qa-gate</code> run — blockers</td><td><em>0 required</em></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="8-legal">8. Legal</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Check</th>
+<th>Result</th>
+<th>Pass</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>Privacy policy live and linked</td><td></td><td></td></tr>
+<tr><td>2</td><td>Imprint / Impressum live <em>(DE)</em></td><td></td><td></td></tr>
+<tr><td>3</td><td>Cookie banner blocks tracking before consent</td><td></td><td></td></tr>
+<tr><td>4</td><td>Consent is withdrawable</td><td></td><td></td></tr>
+<tr><td>5</td><td>Form consent checkbox unticked by default</td><td></td><td></td></tr>
+<tr><td>6</td><td>Company details in footer <em>(UK)</em></td><td></td><td></td></tr>
+<tr><td>7</td><td>Sector-specific rules met <em>(HWG etc.)</em></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="9-defect-log">9. Defect log</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Severity</th>
+<th>Where</th>
+<th>What happens</th>
+<th>Expected</th>
+<th>Owner</th>
+<th>Status</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td><em>Blocker</em></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td><em>Major</em></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>3</td><td><em>Minor</em></td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Severity:</strong> <em>Blocker</em> — cannot launch. <em>Major</em> — launch, fix within a week. <em>Minor</em> — backlog.</p>
+<hr>
+<h2 id="10-retest">10. Retest</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Round</th>
+<th>Date</th>
+<th>Defects retested</th>
+<th>Now passing</th>
+<th>Still open</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="definition-of-done">Definition of Done</h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Every row has Pass, Fail or N/A — nothing blank</li>
+<li class="task-list-item"><input type="checkbox" disabled> Lead delivery proven with a real submission that arrived</li>
+<li class="task-list-item"><input type="checkbox" disabled> All six browsers and four viewports checked</li>
+<li class="task-list-item"><input type="checkbox" disabled> Contrast measured in a live browser, not read from source</li>
+<li class="task-list-item"><input type="checkbox" disabled> Accessibility keyboard pass done by hand, not only automated</li>
+<li class="task-list-item"><input type="checkbox" disabled> Analytics verified firing, after consent</li>
+<li class="task-list-item"><input type="checkbox" disabled> <code>seo-page-qa-gate</code> run with zero blockers <em>(SEO pages)</em></li>
+<li class="task-list-item"><input type="checkbox" disabled> Every defect has an owner and a status</li>
+<li class="task-list-item"><input type="checkbox" disabled> Zero blockers open at the time of the GO recommendation</li>
+<li class="task-list-item"><input type="checkbox" disabled> Screenshots attached</li>
+</ul>
+<p><strong>Tested by:</strong> <em>…</em> <strong>Date:</strong> <em>…</em> <strong>Accepted by:</strong> <em>Business Consultant — …</em> <strong>Date:</strong> <em>…</em></p>
+<footer class="doc-footer">
+  Generated from <code>templates/07-test-report.md</code> by <code>build-html-twins.py</code>. Edit the Markdown, then re-run the script — do not hand-edit this file.
+</footer>
+</main>
+</body>
+</html>

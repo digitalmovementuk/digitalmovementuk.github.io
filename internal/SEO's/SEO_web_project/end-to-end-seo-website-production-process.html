@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>End-to-End SEO Website Production Process — Using Claude Code — Digital Movement</title>
+<link rel="stylesheet" href="assets/process.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Digital Movement · Web Project Operating Process</p>
+    <h1>End-to-End SEO Website Production Process — Using Claude Code</h1>
+    <p class="sub">The canonical 27-phase production guide for SEO-led client websites built with Claude Code in VS Code.</p>
+    <span class="fidelity-tag">Mid-fi · internal</span>
+  </div>
+</header>
+<main>
+<p><strong>Status:</strong> canonical · adopted 3 August 2026 · owner: Raoul Müller <strong>Applies to:</strong> every SEO-led client website and page-set Digital Movement builds with Claude Code. <strong>Companion:</strong> <a href="lean-end-to-end-seo-website-process.html">lean-end-to-end-seo-website-process.md</a> — the same process expressed as a seven-week Semrush-anchored schedule with durations, timeline variables and per-phase exit conditions. Use this document for <em>what to do and in what order</em>; use the lean version for <em>how long it takes and when each thing happens</em>. <strong>Related:</strong> <a href="README.html">README.md</a> — the client-facing 8-phase map, the three-gate commercial rule and the eleven deliverable templates.</p>
+<hr>
+<h2 id="operating-model">Operating model</h2>
+<p>Three actors are involved:</p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Role</th>
+<th>Responsibility</th>
+</tr></thead>
+<tbody>
+<tr><td><strong>SEO strategist and website consultant</strong></td><td>Owns the business outcome, SEO strategy, information architecture, UX, visual direction, implementation decisions, technical SEO, QA, launch, and optimisation</td></tr>
+<tr><td><strong>Copywriter</strong></td><td>Owns message architecture, final page copy, metadata wording, CTAs, FAQs, and copy approval</td></tr>
+<tr><td><strong>Claude Code in VS Code</strong></td><td>Analyses the repository, generates implementation plans, builds and refactors the codebase, integrates approved content, runs validation, and documents the system</td></tr>
+</tbody></table></div>
+<p>The SEO strategist and website consultant remains accountable for all final decisions. Claude Code executes defined work but does not independently decide positioning, SEO strategy, or final wording.</p>
+<hr>
+<h2 id="phase-1-business-and-seo-discovery">Phase 1 — Business and SEO discovery</h2>
+<p><strong>Objective:</strong> Understand the client's business, commercial priorities, target audiences, search opportunity, and conversion requirements.</p>
+<p><strong>Owner:</strong> SEO strategist and website consultant.</p>
+<h3 id="human-activities">Human activities</h3>
+<ul>
+<li>Interview the client</li>
+<li>Identify priority services</li>
+<li>Define target audiences</li>
+<li>Define qualified leads</li>
+<li>Understand the sales process</li>
+<li>Review existing positioning</li>
+<li>Gather analytics and Search Console data</li>
+<li>Conduct keyword research</li>
+<li>Review organic competitors</li>
+<li>Identify existing technical issues</li>
+<li>Define conversion objectives</li>
+</ul>
+<h3 id="inputs">Inputs</h3>
+<pre><code>client-input/
+├── interview-notes.md
+├── existing-materials/
+├── analytics-export.csv
+├── search-console-export.csv
+├── semrush-export.csv
+└── competitor-list.md</code></pre>
+<h3 id="claude-code-role">Claude Code role</h3>
+<p>Claude helps organise raw inputs, identify missing information, and create structured discovery documents.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Read all files in:
+
+- client-input/
+- seo/raw-research/
+
+Do not create website code.
+
+Create the following documents:
+
+- docs/website-brief.md
+- docs/business-objectives.md
+- docs/audience.md
+- docs/positioning.md
+- docs/conversion-strategy.md
+- docs/requirements.md
+
+Requirements:
+
+1. Separate confirmed facts from assumptions.
+2. Identify contradictions between source documents.
+3. List missing information that materially affects the website.
+4. Distinguish business objectives from SEO objectives.
+5. Define the primary and secondary conversions.
+6. Do not invent positioning, evidence, statistics, or client claims.
+7. Preserve source references in each document.
+
+At the end, provide:
+- confirmed findings
+- unresolved questions
+- strategic risks
+- recommended decisions requiring human approval</code></pre>
+<h3 id="deliverables">Deliverables</h3>
+<pre><code>docs/
+├── website-brief.md
+├── business-objectives.md
+├── audience.md
+├── positioning.md
+├── conversion-strategy.md
+└── requirements.md
+
+seo/
+├── current-performance.md
+├── keyword-research.csv
+├── competitor-analysis.md
+├── search-intent-map.md
+└── technical-baseline.md</code></pre>
+<h3 id="approval-gate">Approval gate</h3>
+<p>The consultant confirms: priority audience · priority services · commercial objectives · SEO opportunity · conversion objectives · scope · constraints.</p>
+<hr>
+<h2 id="phase-2-search-intent-analysis-and-keyword-clustering">Phase 2 — Search-intent analysis and keyword clustering</h2>
+<p><strong>Objective:</strong> Turn keyword research into defensible page opportunities.</p>
+<p><strong>Owner:</strong> SEO strategist and website consultant.</p>
+<h3 id="claude-code-role">Claude Code role</h3>
+<p>Claude analyses research exports, groups keywords, identifies intent overlap, and proposes page clusters. <strong>It does not make the final decision about whether a page should exist.</strong></p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Analyse:
+
+- seo/keyword-research.csv
+- seo/competitor-analysis.md
+- docs/business-objectives.md
+- docs/positioning.md
+
+Create:
+
+- seo/search-intent-map.md
+- seo/topic-clusters.md
+- seo/keyword-clusters.csv
+
+For each keyword or keyword group, identify:
+
+- primary search intent
+- secondary intent where relevant
+- commercial relevance
+- target audience
+- likely page type
+- whether the topic deserves a dedicated page
+- likely overlap with other clusters
+- risk of cannibalisation
+- priority: high, medium, or low
+
+Rules:
+
+- Do not create a separate page for every keyword.
+- Group keywords that clearly satisfy the same intent.
+- Distinguish informational intent from commercial service intent.
+- Flag uncertain classifications.
+- Do not treat search volume as the sole prioritisation factor.
+- Consider business value, competition, and conversion relevance.
+
+Provide a final section titled:
+&quot;Decisions requiring SEO strategist approval.&quot;</code></pre>
+<h3 id="human-review">Human review</h3>
+<ul>
+<li>Are keywords grouped by actual intent?</li>
+<li>Does each potential page have commercial or strategic relevance?</li>
+<li>Are synonymous terms unnecessarily separated?</li>
+<li>Are local pages genuinely justified?</li>
+<li>Are there missing topics competitors cover well?</li>
+</ul>
+<hr>
+<h2 id="phase-3-search-led-sitemap-and-url-architecture">Phase 3 — Search-led sitemap and URL architecture</h2>
+<p><strong>Objective:</strong> Determine which pages should exist and how they connect.</p>
+<p><strong>Owner:</strong> SEO strategist and website consultant.</p>
+<h3 id="claude-code-role">Claude Code role</h3>
+<p>Claude proposes sitemap options, URL structures, navigation, internal links, and redirect implications.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Read:
+
+- docs/business-objectives.md
+- docs/audience.md
+- docs/conversion-strategy.md
+- seo/search-intent-map.md
+- seo/topic-clusters.md
+- seo/keyword-clusters.csv
+- seo/current-performance.md
+
+Do not write website code.
+
+Propose a lean website architecture.
+
+Create:
+
+- docs/architecture/sitemap.md
+- docs/architecture/page-inventory.md
+- docs/architecture/navigation.md
+- docs/architecture/user-journeys.md
+- seo/architecture/keyword-to-page-map.csv
+- seo/architecture/url-structure.md
+- seo/architecture/internal-linking-plan.md
+- seo/architecture/redirect-plan.csv
+
+For each proposed page, document:
+
+- page name
+- proposed URL
+- page type
+- target search intent
+- primary topic
+- supporting topics
+- business objective
+- primary audience
+- primary conversion
+- parent page
+- required internal links
+- whether the page is new, retained, merged, or removed
+
+Rules:
+
+- Avoid multiple pages targeting the same intent.
+- Do not create thin location pages.
+- Preserve valuable existing URLs where practical.
+- Flag every URL change that requires a redirect.
+- Keep navigation understandable to users, not only search engines.
+- Prefer fewer strong templates over many highly specialised templates.
+
+Present two architecture options:
+1. Lean minimum viable architecture
+2. Expanded long-term SEO architecture
+
+Recommend one, with explicit trade-offs.</code></pre>
+<h3 id="approval-gate">Approval gate</h3>
+<p>Approve: sitemap · URLs · page inventory · navigation · keyword-to-page mapping · redirect strategy.</p>
+<hr>
+<h2 id="phase-4-repository-and-claude-code-setup">Phase 4 — Repository and Claude Code setup</h2>
+<p><strong>Objective:</strong> Create the technical foundation and persistent project instructions.</p>
+<p><strong>Owner:</strong> SEO strategist and website consultant.</p>
+<h3 id="claude-code-role">Claude Code role</h3>
+<p>Claude can initialise or inspect the repository, recommend structure, and create project instruction files.</p>
+<h3 id="prompt-example-inspection">Prompt example — inspection</h3>
+<pre><code>Inspect the current repository.
+
+Do not make changes yet.
+
+Report:
+
+1. Current framework and versions
+2. Existing routing model
+3. Current CSS architecture
+4. Existing component structure
+5. Content storage approach
+6. Metadata and SEO implementation
+7. Testing and validation commands
+8. Major inconsistencies or risks
+9. Files that should not be modified without review
+
+Then propose a target repository structure suitable for:
+
+- an SEO-led multi-page website
+- reusable page templates
+- structured copy supplied by a copywriter
+- shared CSS and design tokens
+- reusable sections
+- technical SEO
+- automated validation
+
+Do not assume a complete rewrite is necessary.
+Prefer adapting the existing architecture where it is sound.</code></pre>
+<h3 id="prompt-example-implementation">Prompt example — implementation</h3>
+<pre><code>Implement the approved repository foundation.
+
+Create or update:
+
+- CLAUDE.md
+- README.md
+- docs/
+- seo/
+- content/
+- references/
+- src/styles/
+- src/components/
+- src/templates/
+- src/content-models/
+- tests/
+
+Rules:
+
+- Do not remove existing working functionality.
+- Do not add unnecessary dependencies.
+- Preserve the existing framework conventions.
+- Add placeholder README files where folders would otherwise be empty.
+- Document all commands and architecture decisions.
+- Run the existing validation commands after implementation.</code></pre>
+<h3 id="root-structure">Root structure</h3>
+<pre><code>website-project/
+├── CLAUDE.md
+├── README.md
+├── docs/
+├── seo/
+├── content/
+├── references/
+├── public/
+├── src/
+└── tests/</code></pre>
+<hr>
+<h2 id="phase-5-project-instructions-in-claude-md">Phase 5 — Project instructions in <code>CLAUDE.md</code></h2>
+<p><strong>Objective:</strong> Create repeatable rules Claude follows across the project.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Create or update the root CLAUDE.md.
+
+It must include:
+
+1. Business and SEO context
+2. Role ownership
+3. Required documents to read
+4. Content ownership rules
+5. SEO page-creation rules
+6. Design-system rules
+7. CSS architecture rules
+8. Component and template rules
+9. Accessibility requirements
+10. Technical SEO requirements
+11. Validation commands
+12. Definition of done
+13. Prohibited actions
+
+Important role rules:
+
+- The SEO strategist and website consultant owns strategy, UX, design direction,
+  technical SEO, and final implementation decisions.
+- The copywriter owns final page copy and metadata wording.
+- Claude must not silently rewrite approved copy.
+- Claude must not create new indexable pages without an approved page strategy.
+- Claude must not invent testimonials, statistics, reviews, clients, locations,
+  or business claims.
+- Claude must report uncertainty instead of filling gaps with fabricated facts.
+
+Use concise, operational language.
+Do not fill CLAUDE.md with generic software-development advice.</code></pre>
+<hr>
+<h2 id="phase-6-page-strategy-and-seo-copy-brief">Phase 6 — Page strategy and SEO copy brief</h2>
+<p><strong>Objective:</strong> Define the purpose, search intent, conversion role, and required content of every priority page.</p>
+<p><strong>Owner:</strong> SEO strategist and website consultant.</p>
+<h3 id="claude-code-role">Claude Code role</h3>
+<p>Claude creates structured first drafts from the approved architecture.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Read:
+
+- docs/architecture/page-inventory.md
+- seo/architecture/keyword-to-page-map.csv
+- docs/audience.md
+- docs/positioning.md
+- docs/conversion-strategy.md
+- seo/competitor-analysis.md
+
+Create a page strategy for:
+
+/leistungen/prozessoptimierung/
+
+Store it at:
+
+docs/page-strategies/service-process-optimisation.md
+
+Include:
+
+- business objective
+- primary audience
+- stage of buyer journey
+- primary search intent
+- primary topic
+- supporting terminology
+- user questions
+- objections
+- required proof
+- primary conversion
+- secondary conversion
+- recommended section sequence
+- purpose of every section
+- required internal links
+- metadata requirements
+- structured-data considerations
+- copy-length guidance
+- content inputs still required
+
+Do not write final page copy.
+
+Distinguish:
+
+- mandatory content
+- optional content
+- content dependent on available evidence
+
+Flag competitor patterns that should not be copied.</code></pre>
+<h3 id="deliverable">Deliverable</h3>
+<pre><code>docs/page-strategies/
+├── homepage.md
+├── service-overview.md
+├── service-process-optimisation.md
+├── case-study.md
+├── article.md
+└── contact.md</code></pre>
+<h3 id="approval-gate">Approval gate</h3>
+<p>The consultant confirms that the page deserves to exist and that its strategy is distinct.</p>
+<hr>
+<h2 id="phase-7-copywriter-message-architecture">Phase 7 — Copywriter message architecture</h2>
+<p><strong>Objective:</strong> Create the argument and heading sequence before detailed copywriting.</p>
+<p><strong>Owner:</strong> Copywriter.</p>
+<p><strong>Claude Code role:</strong> Claude does not produce the final copy. It may validate the message architecture against the page brief.</p>
+<h3 id="copywriter-deliverable">Copywriter deliverable</h3>
+<pre><code>content/drafts/services/
+└── process-optimisation-message-architecture.md</code></pre>
+<h3 id="claude-validation-prompt">Claude validation prompt</h3>
+<pre><code>Compare:
+
+- docs/page-strategies/service-process-optimisation.md
+- content/drafts/services/process-optimisation-message-architecture.md
+
+Do not rewrite the message architecture.
+
+Produce a review covering:
+
+1. Alignment with search intent
+2. Alignment with the business objective
+3. Whether the section sequence forms a coherent argument
+4. Whether major user questions are addressed
+5. Whether proof appears at an appropriate point
+6. Whether the CTA progression is logical
+7. Missing content requirements
+8. Repetition between sections
+9. Potential layout implications
+10. Internal-link opportunities
+
+Classify each issue as:
+
+- strategy issue
+- copy issue
+- design or template issue
+- missing evidence
+- optional improvement
+
+Do not propose keyword stuffing.</code></pre>
+<hr>
+<h2 id="phase-8-visual-reference-analysis">Phase 8 — Visual reference analysis</h2>
+<p><strong>Objective:</strong> Define the visual direction using brand assets and reference websites.</p>
+<p><strong>Owner:</strong> SEO strategist and website consultant.</p>
+<h3 id="inputs">Inputs</h3>
+<pre><code>references/
+├── screenshots/
+├── brand/
+├── logos/
+├── imagery/
+└── reference-notes.md</code></pre>
+<h3 id="claude-code-role">Claude Code role</h3>
+<p>Claude inspects available local images and documents, then produces an implementation-oriented design brief.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Review all files under:
+
+- references/screenshots/
+- references/brand/
+- references/logos/
+- references/imagery/
+- references/reference-notes.md
+
+Also read:
+
+- docs/audience.md
+- docs/positioning.md
+- docs/page-strategies/
+- docs/architecture/sitemap.md
+
+Create:
+
+docs/design-direction.md
+
+Document:
+
+- intended visual character
+- colours and colour roles
+- typography direction
+- content widths
+- layout and grid principles
+- spacing rhythm
+- image treatment
+- card and border treatment
+- navigation behaviour
+- CTA hierarchy
+- section transitions
+- desktop and mobile principles
+- accessibility implications
+- SEO and content-readability requirements
+- design patterns to avoid
+
+Separate:
+
+1. Direct observations from references
+2. Recommended adaptations
+3. Decisions requiring consultant approval
+
+Do not copy a reference website literally.
+Do not infer fonts, colours, or measurements with false precision when they
+cannot be reliably determined.</code></pre>
+<hr>
+<h2 id="phase-9-design-tokens">Phase 9 — Design tokens</h2>
+<p><strong>Objective:</strong> Define the shared visual decisions that apply to all pages.</p>
+<p><strong>Owner:</strong> SEO strategist and website consultant. <strong>Production:</strong> Claude Code.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Read:
+
+- docs/design-direction.md
+- CLAUDE.md
+- existing styles and components
+
+Create or update:
+
+src/styles/tokens.css
+
+Include:
+
+- primitive colour palette
+- semantic colours
+- typography families
+- fluid heading scale
+- body text sizes
+- line heights
+- spacing scale
+- section spacing
+- content widths
+- container widths
+- border widths
+- radii
+- shadows
+- motion durations
+- easing
+- z-index levels
+
+Rules:
+
+- Use semantic tokens for components.
+- Avoid hard-coded design values outside the token system.
+- Keep the scale small and coherent.
+- Do not create near-duplicate values without a clear reason.
+- Support light and dark sections.
+- Use mobile-first defaults.
+- Do not change component files yet.
+
+After implementation, explain:
+- every token category
+- potentially controversial choices
+- values that require visual validation</code></pre>
+<hr>
+<h2 id="phase-10-system-preview-page">Phase 10 — System-preview page</h2>
+<p><strong>Objective:</strong> Review the design system visually before producing full pages.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Create a development-only design-system preview page at:
+
+src/app/system-preview/page.tsx
+
+Render:
+
+- all semantic colours
+- all heading levels
+- body, lead, small, and label text
+- links
+- button variants
+- form fields and states
+- cards
+- badges
+- borders and radii
+- light and dark sections
+- content container widths
+- spacing scale examples
+- focus states
+- mobile and desktop examples
+
+Requirements:
+
+- Use the actual production tokens and components.
+- Do not duplicate styles inside the preview page.
+- Clearly label every example.
+- Ensure the page is excluded from production indexing.
+- Add noindex metadata.
+- Keep it accessible and responsive.</code></pre>
+<h3 id="consultant-review">Consultant review</h3>
+<p>Review visually at mobile, tablet, laptop and wide-desktop widths. <strong>Approve before building many sections.</strong></p>
+<hr>
+<h2 id="phase-11-shared-css-foundations">Phase 11 — Shared CSS foundations</h2>
+<p><strong>Objective:</strong> Create the styling architecture used across all pages.</p>
+<p><strong>Production:</strong> Claude Code.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Using the approved tokens and design direction, create or update:
+
+src/styles/
+├── reset.css
+├── typography.css
+├── layout.css
+├── utilities.css
+├── components.css
+├── sections.css
+├── forms.css
+├── navigation.css
+└── global.css
+
+Responsibilities:
+
+reset.css
+- browser normalisation
+- box sizing
+- media defaults
+- reduced-motion handling
+- accessible focus foundations
+
+typography.css
+- body text
+- headings
+- links
+- lists
+- prose
+- labels and helper text
+
+layout.css
+- containers
+- sections
+- grids
+- stacks
+- split layouts
+- responsive behaviour
+
+utilities.css
+- only essential single-purpose utilities
+- accessibility helpers
+- visibility helpers
+
+components.css
+- shared low-level components only
+
+sections.css
+- shared section compositions only
+
+forms.css
+- fields, states, validation, groups
+
+navigation.css
+- header, desktop navigation, mobile navigation
+
+global.css
+- import order
+- document-level styles
+- site-wide exceptions only
+
+Rules:
+
+- Do not put page-specific styles in global.css.
+- Do not duplicate token values.
+- Avoid excessive utility classes.
+- Do not use !important except for documented accessibility utilities.
+- Keep selectors low-specificity.
+- Use mobile-first media queries.
+- Preserve existing working styles unless explicitly replaced.
+
+Run lint, tests, and build after implementation.</code></pre>
+<h3 id="typical-global-css">Typical <code>global.css</code></h3>
+<pre><code>@import url(&quot;./tokens.css&quot;);
+@import url(&quot;./reset.css&quot;);
+@import url(&quot;./typography.css&quot;);
+@import url(&quot;./layout.css&quot;);
+@import url(&quot;./components.css&quot;);
+@import url(&quot;./forms.css&quot;);
+@import url(&quot;./navigation.css&quot;);
+@import url(&quot;./sections.css&quot;);
+@import url(&quot;./utilities.css&quot;);
+
+html {
+  background: var(--color-background);
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::selection {
+  color: var(--color-selection-text);
+  background: var(--color-selection-background);
+}</code></pre>
+<hr>
+<h2 id="phase-12-reusable-ui-components">Phase 12 — Reusable UI components</h2>
+<p><strong>Objective:</strong> Build small, reusable interface elements before page sections.</p>
+<p><strong>Production:</strong> Claude Code.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Inspect the existing components and approved system-preview page.
+
+Build the following UI primitives only where they do not already exist:
+
+- Button
+- Container
+- Heading
+- Text
+- TextLink
+- Badge
+- Card
+- Input
+- Select
+- Textarea
+- Checkbox
+- Accordion
+
+For each component:
+
+- use TypeScript
+- define a minimal prop interface
+- use semantic HTML
+- support keyboard interaction
+- use existing CSS tokens
+- avoid inline styles
+- avoid unnecessary variants
+- include accessible names and states
+- include tests for important behaviour
+- add it to the system-preview page
+
+Before implementation, identify overlapping existing components and recommend
+whether to reuse, refactor, or replace them.
+
+Do not build page-specific components.</code></pre>
+<h3 id="consultant-review">Consultant review</h3>
+<p>Number of variants · visual hierarchy · accessibility · responsiveness · content flexibility · consistency.</p>
+<hr>
+<h2 id="phase-13-reusable-section-library">Phase 13 — Reusable section library</h2>
+<p><strong>Objective:</strong> Create reusable content sections used by templates.</p>
+<h3 id="typical-structure">Typical structure</h3>
+<pre><code>src/components/sections/
+├── Header/
+├── Breadcrumbs/
+├── Hero/
+├── LogoStrip/
+├── ProblemSection/
+├── BenefitsGrid/
+├── ServiceScope/
+├── ProcessSteps/
+├── MetricsSection/
+├── Testimonial/
+├── CaseStudyPreview/
+├── RelatedServices/
+├── RelatedContent/
+├── FaqSection/
+├── ContactForm/
+├── FinalCta/
+└── Footer/</code></pre>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Read:
+
+- docs/page-strategies/service-process-optimisation.md
+- content/drafts/services/process-optimisation-message-architecture.md
+- docs/design-direction.md
+- current UI components
+- current system-preview page
+
+Create only the reusable sections required for the representative service page.
+
+For each section:
+
+1. Define its purpose.
+2. Define required and optional content fields.
+3. Define supported variants.
+4. Define responsive behaviour.
+5. Use semantic HTML.
+6. Use existing UI components and design tokens.
+7. Support realistic variation in copy length.
+8. Avoid equal-height assumptions unless necessary.
+9. Avoid hiding search-critical content behind JavaScript.
+10. Add representative examples to the system-preview page.
+
+Do not create final page copy.
+Use realistic structural placeholders.
+
+Before implementation, provide:
+- proposed section list
+- component dependencies
+- variant recommendations
+- potential content constraints</code></pre>
+<hr>
+<h2 id="phase-14-content-schema">Phase 14 — Content schema</h2>
+<p><strong>Objective:</strong> Define the structured fields the copywriter must supply.</p>
+<p><strong>Owner:</strong> SEO strategist and website consultant. <strong>Production:</strong> Claude Code.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Using:
+
+- docs/page-strategies/service-process-optimisation.md
+- content/drafts/services/process-optimisation-message-architecture.md
+- the implemented section components
+
+Create:
+
+- src/content-models/service-page.ts
+- content/templates/service-page-copy-template.md
+
+The TypeScript model must define:
+
+- SEO metadata
+- breadcrumbs
+- hero
+- problem
+- outcomes
+- service scope
+- process
+- proof
+- related services
+- FAQ
+- related content
+- final CTA
+
+For every field, define:
+
+- required or optional status
+- data type
+- supported variants
+- relevant length guidance
+- whether the content is owned by the copywriter, SEO consultant, or technical system
+
+The Markdown template must be easy for a non-technical copywriter to complete.
+
+Do not add fields merely because they might be useful someday.
+Only include fields supported by the approved page strategy and template.</code></pre>
+<hr>
+<h2 id="phase-15-representative-service-page-template">Phase 15 — Representative service-page template</h2>
+<p><strong>Objective:</strong> Build one complete page type to validate the entire system.</p>
+<p><strong>Production:</strong> Claude Code.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Create a reusable ServicePageTemplate using the approved:
+
+- content model
+- UI components
+- section components
+- design tokens
+- page strategy
+
+Store it at:
+
+src/templates/ServicePageTemplate.tsx
+
+The default sequence is:
+
+1. Header
+2. Breadcrumbs
+3. Hero
+4. Trust or proof
+5. Problem
+6. Outcomes
+7. Service scope
+8. Process
+9. Case study or testimonial
+10. Related services
+11. FAQ
+12. Related insights
+13. Final CTA
+14. Footer
+
+Requirements:
+
+- Optional sections should not render when no content is provided.
+- Preserve semantic heading hierarchy.
+- The template must contain no final client copy.
+- Keep content separate from presentation.
+- Support mobile-first responsive behaviour.
+- Add stable image dimensions.
+- Support metadata and canonical configuration.
+- Support approved structured data only.
+- Add tracking identifiers to primary conversion actions.
+- Do not create page-specific CSS overrides unless documented.
+
+Create a representative development page using realistic placeholder content.
+Run lint, typecheck, tests, and build.</code></pre>
+<hr>
+<h2 id="phase-16-copywriter-produces-final-copy">Phase 16 — Copywriter produces final copy</h2>
+<p><strong>Objective:</strong> Create final language within the approved strategy and content structure.</p>
+<p><strong>Owner:</strong> Copywriter.</p>
+<h3 id="copy-format">Copy format</h3>
+<pre><code>content/approved/services/
+└── process-optimisation.md</code></pre>
+<p>The copywriter supplies: SEO title · meta description · H1 · introductory text · section headings · body copy · cards · process steps · proof text · FAQs · CTA copy · image notes where relevant.</p>
+<p><strong>Claude is not used to replace this work.</strong></p>
+<hr>
+<h2 id="phase-17-copy-validation-before-integration">Phase 17 — Copy validation before integration</h2>
+<p><strong>Objective:</strong> Identify structural or technical issues without rewriting approved text.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Validate:
+
+content/approved/services/process-optimisation.md
+
+Against:
+
+- docs/page-strategies/service-process-optimisation.md
+- src/content-models/service-page.ts
+- content/templates/service-page-copy-template.md
+
+Do not change the approved copy.
+
+Report:
+
+- missing required fields
+- content that exceeds documented length guidance
+- inconsistent heading hierarchy
+- unsupported section types
+- missing internal-link references
+- missing proof
+- duplicated arguments
+- metadata issues
+- claims that appear to require verification
+- content likely to create layout pressure
+- content that may not answer the documented search intent
+
+Classify each issue as:
+
+- blocking
+- recommended correction
+- optional improvement
+
+Assign likely ownership:
+
+- copywriter
+- SEO and website consultant
+- client evidence required
+- technical implementation</code></pre>
+<hr>
+<h2 id="phase-18-approved-copy-integration">Phase 18 — Approved-copy integration</h2>
+<p><strong>Objective:</strong> Map the copy into the template without silently changing it.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Integrate the approved copy from:
+
+content/approved/services/process-optimisation.md
+
+Into:
+
+src/content/services/process-optimisation.ts
+
+Use:
+
+src/content-models/service-page.ts
+
+Rules:
+
+- Preserve approved wording exactly.
+- Do not shorten, rewrite, or improve the copy.
+- Preserve heading hierarchy.
+- Do not omit content silently.
+- Do not invent missing fields.
+- Use visible TODO markers for unresolved required content.
+- Map approved internal links to existing routes.
+- Flag any URL that does not exist.
+- Escape content safely.
+- Do not hard-code copy inside the template.
+
+After integration, provide a mapping report showing:
+- source section
+- destination field
+- omitted optional fields
+- unresolved issues</code></pre>
+<hr>
+<h2 id="phase-19-copy-fit-and-design-review">Phase 19 — Copy-fit and design review</h2>
+<p><strong>Objective:</strong> Review the actual page with real copy.</p>
+<p><strong>Owners:</strong> SEO strategist and website consultant, together with the copywriter.</p>
+<p><strong>Consultant reviews:</strong> visual hierarchy · readability · content density · mobile behaviour · CTA prominence · page rhythm · navigation · search-entry usability · conversion flow.</p>
+<p><strong>Copywriter reviews:</strong> meaning · accuracy · tone · clarity · persuasion · section sequence · CTA wording · metadata wording.</p>
+<h3 id="claude-diagnostic-prompt">Claude diagnostic prompt</h3>
+<pre><code>Review the rendered representative service page and its source implementation.
+
+Do not make changes.
+
+Identify issues in:
+
+- copy fit
+- visual hierarchy
+- mobile layout
+- section balance
+- content density
+- heading hierarchy
+- CTA visibility
+- internal linking
+- accessibility
+- performance
+- design-system consistency
+
+For every issue, classify the likely root cause as:
+
+1. Copy length or structure
+2. Section component
+3. Page template
+4. Design token
+5. Responsive rule
+6. SEO strategy
+7. Missing evidence
+8. Technical defect
+
+Do not automatically recommend shortening copy.
+Explain the alternative design and template corrections where relevant.</code></pre>
+<h3 id="correction-prompt">Correction prompt</h3>
+<pre><code>Implement only the approved corrections listed below:
+
+[PASTE APPROVED CORRECTIONS]
+
+Rules:
+
+- Do not modify approved copy unless a correction explicitly authorises it.
+- Fix systemic issues at token, component, or template level where appropriate.
+- Avoid page-specific patches when the issue affects multiple pages.
+- Preserve current SEO metadata and URLs.
+- Run validation after implementation.
+- Summarise every changed file and the reason.</code></pre>
+<hr>
+<h2 id="phase-20-remaining-page-type-templates">Phase 20 — Remaining page-type templates</h2>
+<p><strong>Objective:</strong> Create only the additional templates justified by the approved page inventory.</p>
+<h3 id="typical-templates">Typical templates</h3>
+<pre><code>src/templates/
+├── HomepageTemplate.tsx
+├── ServiceOverviewTemplate.tsx
+├── ServicePageTemplate.tsx
+├── CaseStudyTemplate.tsx
+├── ArticleTemplate.tsx
+├── TopicHubTemplate.tsx
+├── AboutTemplate.tsx
+└── ContactTemplate.tsx</code></pre>
+<h3 id="planning-prompt">Planning prompt</h3>
+<pre><code>Read:
+
+- docs/architecture/page-inventory.md
+- existing ServicePageTemplate
+- existing sections and content models
+
+Determine which additional page templates are genuinely required.
+
+For every proposed template, explain:
+
+- which pages use it
+- its distinct user and search purpose
+- why an existing template cannot support it
+- required sections
+- reusable sections already available
+- new sections required
+- new content-model fields required
+- SEO metadata requirements
+- conversion behaviour
+
+Do not implement yet.
+
+Prefer configurable templates over duplicated template files.
+Flag page types that should be handled as variants rather than new templates.</code></pre>
+<h3 id="implementation-prompt">Implementation prompt</h3>
+<pre><code>Implement the approved page templates:
+
+[LIST APPROVED TEMPLATES]
+
+For each template:
+
+- create or extend a typed content model
+- reuse existing sections
+- add only justified new sections
+- support optional content safely
+- preserve semantic HTML
+- implement metadata and canonical handling
+- support internal linking
+- add development examples
+- add relevant tests
+- update documentation
+
+Do not add final copy.
+Run the complete validation suite.</code></pre>
+<hr>
+<h2 id="phase-21-page-production">Phase 21 — Page production</h2>
+<p><strong>Objective:</strong> Produce individual pages from approved templates and approved copy.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Create the page:
+
+[PAGE NAME AND URL]
+
+Inputs:
+
+- page strategy: [PATH]
+- approved copy: [PATH]
+- template: [PATH]
+- keyword-to-page map: seo/architecture/keyword-to-page-map.csv
+- internal-link plan: seo/architecture/internal-linking-plan.md
+
+Tasks:
+
+1. Validate the copy against the content model.
+2. Create the typed content file.
+3. Create the route using the approved template.
+4. Add metadata.
+5. Add breadcrumbs.
+6. Add approved internal links.
+7. Add approved structured data where supported.
+8. Add images with dimensions and alt-text placeholders where needed.
+9. Add conversion tracking identifiers.
+10. Run validation.
+
+Rules:
+
+- Do not rewrite approved copy.
+- Do not create new claims.
+- Do not create links to non-existent pages without reporting them.
+- Do not add page-specific styling unless the template cannot support a valid
+  requirement.
+- Report any need to extend the shared system before doing so.</code></pre>
+<hr>
+<h2 id="phase-22-functionality-and-behaviour">Phase 22 — Functionality and behaviour</h2>
+<p><strong>Objective:</strong> Implement navigation, forms, interactions, integrations, and tracking.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Implement the following website behaviour:
+
+- responsive navigation
+- accessible accordion interaction
+- contact form validation
+- success and error states
+- CRM submission
+- conversion tracking
+- analytics events
+- consent-aware script loading
+
+Before implementation:
+
+1. Inspect the existing architecture and dependencies.
+2. Identify privacy and security implications.
+3. Identify required environment variables.
+4. Propose the data flow.
+5. Identify failure states.
+6. Identify what can be tested locally.
+
+Implementation rules:
+
+- Use progressive enhancement.
+- Keep primary content available without interaction.
+- Use semantic controls.
+- Support keyboard operation.
+- Do not expose secrets in client-side code.
+- Do not log personal form data unnecessarily.
+- Provide visible success and error feedback.
+- Prevent duplicate submissions where practical.
+- Document external dependencies.
+- Add tests for critical behaviour.</code></pre>
+<hr>
+<h2 id="phase-23-technical-seo-implementation">Phase 23 — Technical SEO implementation</h2>
+<p><strong>Objective:</strong> Ensure indexable pages are technically accessible and correctly configured.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Audit and implement technical SEO across the project.
+
+Review:
+
+- metadata
+- titles and descriptions
+- canonical URLs
+- robots directives
+- XML sitemap
+- redirects
+- 404 handling
+- heading hierarchy
+- semantic landmarks
+- breadcrumbs
+- structured data
+- image dimensions
+- alt text handling
+- internal links
+- language declarations
+- hreflang where applicable
+- JavaScript rendering dependencies
+- indexation risks
+
+Rules:
+
+- Do not add structured data for information that is not visible on the page.
+- Do not invent ratings, reviews, prices, business addresses, or entities.
+- Do not change URLs without checking the approved redirect plan.
+- Do not noindex pages without explicit justification.
+- Distinguish implementation defects from strategic SEO decisions.
+
+Create:
+
+seo/technical-implementation-report.md
+
+Then implement only safe, approved technical corrections.
+Run the full build and validation suite.</code></pre>
+<hr>
+<h2 id="phase-24-multi-disciplinary-qa">Phase 24 — Multi-disciplinary QA</h2>
+<p><strong>Objective:</strong> Validate copy, SEO, UX, design, functionality, accessibility, and technical quality.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Perform a pre-launch audit of all production pages.
+
+Create a page-level QA matrix covering:
+
+- route
+- HTTP/render status
+- title
+- meta description
+- canonical
+- indexation setting
+- H1
+- heading hierarchy
+- internal links
+- broken links
+- image dimensions
+- missing alt text
+- structured data
+- mobile layout
+- keyboard navigation
+- forms
+- conversion tracking
+- content completeness
+- template consistency
+- build status
+
+Classify findings as:
+
+- launch blocker
+- high priority
+- medium priority
+- low priority
+
+Assign likely ownership:
+
+- SEO and website consultant
+- copywriter
+- client input
+- technical implementation
+
+Do not automatically fix strategic or copy issues.
+Safe technical defects may be grouped into a proposed correction batch.</code></pre>
+<h3 id="human-approval-gates">Human approval gates</h3>
+<ul>
+<li><strong>Copy approval</strong> — copywriter confirms final wording.</li>
+<li><strong>SEO approval</strong> — the consultant confirms correct intent targeting · metadata · internal links · canonicals · indexability · redirects.</li>
+<li><strong>Design and UX approval</strong> — the consultant confirms responsive behaviour · readability · hierarchy · conversion journey · visual consistency.</li>
+<li><strong>Technical approval</strong> — all required commands pass.</li>
+</ul>
+<hr>
+<h2 id="phase-25-launch-preparation">Phase 25 — Launch preparation</h2>
+<p><strong>Objective:</strong> Prepare production safely.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Prepare a launch-readiness report.
+
+Check:
+
+- environment variables
+- production build
+- hosting configuration
+- domain configuration dependencies
+- redirects
+- robots.txt
+- sitemap.xml
+- canonical host
+- analytics
+- consent management
+- CRM integrations
+- form destinations
+- error monitoring
+- 404 behaviour
+- image optimisation
+- security headers
+- staging noindex removal
+- production indexing settings
+- backup and rollback procedure
+
+Do not deploy.
+
+Create:
+
+docs/launch-readiness.md
+
+Separate:
+
+- confirmed ready
+- requires human action
+- requires third-party access
+- launch blockers
+- post-launch checks</code></pre>
+<hr>
+<h2 id="phase-26-post-launch-validation">Phase 26 — Post-launch validation</h2>
+<p><strong>Objective:</strong> Confirm that production behaves as expected.</p>
+<h3 id="prompt-example">Prompt example</h3>
+<pre><code>Run the available post-launch validation against the production URL:
+
+[PRODUCTION URL]
+
+Check:
+
+- all intended routes
+- redirects
+- canonical URLs
+- robots.txt
+- sitemap.xml
+- metadata
+- structured data output
+- forms
+- analytics event implementation
+- broken links
+- asset loading
+- client-side errors
+- mobile behaviour
+- production-only configuration differences
+
+Do not modify production configuration automatically.
+
+Create:
+
+seo/post-launch-validation.md
+
+List:
+- confirmed working
+- failures
+- probable causes
+- recommended corrective actions</code></pre>
+<hr>
+<h2 id="phase-27-seo-performance-monitoring-and-optimisation">Phase 27 — SEO performance monitoring and optimisation</h2>
+<p><strong>Objective:</strong> Improve the website using search and conversion evidence.</p>
+<p><strong>Owner:</strong> SEO strategist and website consultant.</p>
+<p><strong>Inputs:</strong> Google Search Console · Analytics · CRM outcomes · rank tracking · technical crawls · user behaviour data · client feedback.</p>
+<p><strong>Claude Code role:</strong> Claude can help analyse imported datasets and implement approved changes.</p>
+<h3 id="analysis-prompt">Analysis prompt</h3>
+<pre><code>Analyse:
+
+- seo/performance/search-console.csv
+- seo/performance/analytics.csv
+- seo/performance/rank-tracking.csv
+- seo/performance/conversions.csv
+- seo/architecture/keyword-to-page-map.csv
+
+For each landing page, report:
+
+- impressions
+- clicks
+- click-through rate
+- average position
+- organic sessions
+- conversions
+- conversion rate
+- target query alignment
+- unexpected query themes
+- possible cannibalisation
+- content gaps
+- internal-link opportunities
+
+Distinguish:
+
+- insufficient data
+- ranking problem
+- click-through problem
+- intent mismatch
+- conversion problem
+- technical problem
+
+Do not recommend changes based only on impressions or rankings.
+Prioritise qualified conversions and commercial relevance.</code></pre>
+<h3 id="experiment-planning-prompt">Experiment-planning prompt</h3>
+<pre><code>Create an optimisation backlog from:
+
+- seo/performance-analysis.md
+- current page strategies
+- current implementation
+
+For each proposed change, include:
+
+- evidence
+- affected page
+- hypothesis
+- proposed change
+- expected mechanism
+- primary metric
+- guardrail metric
+- implementation scope
+- risk
+- priority
+- minimum evaluation conditions
+
+Do not combine unrelated changes into one experiment.
+Do not recommend rewriting entire pages without evidence.</code></pre>
+<h3 id="implementation-prompt">Implementation prompt</h3>
+<pre><code>Implement the approved SEO experiment:
+
+[EXPERIMENT DESCRIPTION]
+
+Rules:
+
+- Preserve a record of the previous implementation.
+- Change only the approved variables.
+- Update seo/optimisation/change-log.md.
+- Add the implementation date.
+- Document the hypothesis and affected routes.
+- Preserve tracking.
+- Do not declare the experiment successful before measurement.</code></pre>
+<hr>
+<h2 id="complete-process-summary">Complete process summary</h2>
+<pre><code>Business and SEO discovery
+        ↓
+Keyword and search-intent analysis
+        ↓
+Search-led sitemap and URL architecture
+        ↓
+Repository and Claude Code setup
+        ↓
+CLAUDE.md project rules
+        ↓
+Page strategy and SEO copy briefs
+        ↓
+Copywriter message architecture
+        ↓
+Visual reference analysis
+        ↓
+Design tokens
+        ↓
+System-preview page
+        ↓
+Shared CSS foundations
+        ↓
+Reusable UI components
+        ↓
+Reusable section library
+        ↓
+Content schemas
+        ↓
+Representative service-page template
+        ↓
+Copywriter creates final copy
+        ↓
+Copy validation
+        ↓
+Approved-copy integration
+        ↓
+Copy-fit and design review
+        ↓
+Remaining page-type templates
+        ↓
+Individual page production
+        ↓
+Functionality and integrations
+        ↓
+Technical SEO implementation
+        ↓
+Copy, design, SEO, accessibility and technical QA
+        ↓
+Launch preparation
+        ↓
+Post-launch validation
+        ↓
+SEO and conversion monitoring
+        ↓
+Evidence-based optimisation</code></pre>
+<hr>
+<h2 id="core-working-rule">Core working rule</h2>
+<p>At every Claude Code stage, the prompt should define five things explicitly:</p>
+<ol>
+<li><strong>Inputs</strong> — which files Claude must read</li>
+<li><strong>Output</strong> — which files or deliverables it must create</li>
+<li><strong>Constraints</strong> — what it must not change or invent</li>
+<li><strong>Validation</strong> — which checks must be run</li>
+<li><strong>Decision boundary</strong> — what requires human approval</li>
+</ol>
+<p>This prevents Claude from turning an implementation task into an uncontrolled strategy, design, copywriting, and development exercise.</p>
+<footer class="doc-footer">
+  Generated from <code>end-to-end-seo-website-production-process.md</code> by <code>build-html-twins.py</code>. Edit the Markdown, then re-run the script — do not hand-edit this file.
+</footer>
+</main>
+</body>
+</html>

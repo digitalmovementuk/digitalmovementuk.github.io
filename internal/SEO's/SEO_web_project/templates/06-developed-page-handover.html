@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06 · Developed Page Handover — Digital Movement</title>
+<link rel="stylesheet" href="../assets/process.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Digital Movement · Web Project Operating Process</p>
+    <h1>06 · Developed Page Handover</h1>
+    <p class="sub">Phase 6 — Development. What was built, how it is structured, and what QA needs to know.</p>
+    <span class="fidelity-tag">Mid-fi · internal</span>
+  </div>
+</header>
+<main>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td><strong>Client / project</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Page / template</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Owner</strong></td><td>Web Developer — <em>name</em></td></tr>
+<tr><td><strong>Version</strong></td><td>v0.1 — <em>date</em></td></tr>
+<tr><td><strong>Gate</strong></td><td>Gate 3 — hi-fi</td></tr>
+<tr><td><strong>Input</strong></td><td><a href="05-design-mockup-spec.html">05 · Design Mockup Spec</a> · <a href="03-copy-document.html">03 · Copy Document</a> · <a href="foundations/F3-development-standards.html">F3 Development Standards</a></td></tr>
+<tr><td><strong>Next deliverable</strong></td><td><a href="07-test-report.html">07 · Test Report</a></td></tr>
+<tr><td><strong>Preview URL</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Repository</strong></td><td><em>…</em></td></tr>
+</tbody></table></div>
+<blockquote><p><strong>How to use this.</strong> The Developer fills this in and hands it to QA. QA does not start without it. It exists so that testing is against a stated intent, not against a guess.  <strong>Build order:</strong> shared stylesheet token skeleton → one template built end to end → pilot page finished completely → remaining pages populated. Components get promoted to the shared stylesheet on their <strong>second</strong> use, not their third, and never before.  <strong>Never silently fix copy or change structure.</strong> If something in 03 or 05 is wrong, raise it — a fix nobody knows about is a defect QA cannot catch.</p></blockquote>
+<hr>
+<h2 id="1-what-was-built">1. What was built</h2>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Pages / templates in this handover</td><td><em>…</em></td></tr>
+<tr><td>Deviations from the approved design</td><td><em>…and why. If none, write "none".</em></td></tr>
+<tr><td>Known incomplete items</td><td><em>…</em></td></tr>
+<tr><td>Content still placeholder</td><td><em>should be none — list any</em></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="2-stack-and-structure">2. Stack and structure</h2>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Stack</td><td><em>…</em></td></tr>
+<tr><td>Build tooling</td><td><em>…</em></td></tr>
+<tr><td>Node / package manager version</td><td><em>…</em></td></tr>
+<tr><td>CMS</td><td><em>…</em></td></tr>
+<tr><td>Repository and branch</td><td><em>…</em></td></tr>
+<tr><td>Deploy target</td><td><em>GitHub Pages by default</em></td></tr>
+<tr><td>Base path</td><td><em>project Pages sites need the basePath set, or raw asset paths 404</em></td></tr>
+</tbody></table></div>
+<p><strong>File map</strong></p>
+<pre><code>/
+├── index.html
+├── assets/
+│   ├── styles.css        ← the shared stylesheet, single source of truth
+│   ├── …
+└── …</code></pre>
+<hr>
+<h2 id="3-shared-stylesheet">3. Shared stylesheet</h2>
+<p><em>Anything appearing on two or more pages is defined once, here. Per-page duplicated CSS is what causes cross-page drift.</em></p>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Path</td><td><em>…</em></td></tr>
+<tr><td>Token block location</td><td><em>…</em></td></tr>
+<tr><td>Are any tokens declared twice?</td><td><em>must be no</em></td></tr>
+<tr><td>Pages hardcoding brand values inline</td><td><em>must be zero — list any</em></td></tr>
+<tr><td><code>!important</code> rules present</td><td><em>list each, with the reason</em></td></tr>
+</tbody></table></div>
+<p><strong>Components in the shared stylesheet</strong></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Component</th>
+<th>Class</th>
+<th>Used on</th>
+<th>Variants</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="4-responsive-implementation">4. Responsive implementation</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Breakpoint</th>
+<th>Applied</th>
+<th>Notes</th>
+</tr></thead>
+<tbody>
+<tr><td>390</td><td></td><td></td></tr>
+<tr><td>768</td><td></td><td></td></tr>
+<tr><td>1024</td><td></td><td></td></tr>
+<tr><td>1440</td><td></td><td></td></tr>
+</tbody></table></div>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Mobile block is last in the stylesheet</li>
+<li class="task-list-item"><input type="checkbox" disabled> No horizontal overflow at 390px</li>
+<li class="task-list-item"><input type="checkbox" disabled> Wide content (tables, code, diagrams) scrolls in its own container</li>
+</ul>
+<hr>
+<h2 id="5-forms-and-endpoints">5. Forms and endpoints</h2>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Form endpoint URL</td><td><em>…</em></td></tr>
+<tr><td>Method / content type</td><td><em>…</em></td></tr>
+<tr><td>Required fields sent</td><td><em>…</em></td></tr>
+<tr><td>Consent field sent</td><td><em>required — the endpoint rejects without it</em></td></tr>
+<tr><td>Origin allowlist updated</td><td><em>the sending domain must be on it</em></td></tr>
+<tr><td>IDN / punycode domain?</td><td><em>if the domain has umlauts, the allowlist needs the punycode form</em></td></tr>
+<tr><td>Test submission made</td><td><em>date, and where it landed</em></td></tr>
+<tr><td>Failure fallback</td><td><em>…</em></td></tr>
+</tbody></table></div>
+<blockquote><p>A form that posts to <code>mailto:</code> delivers nothing. If any form on this build does, it is a blocker, not a note.</p></blockquote>
+<hr>
+<h2 id="6-analytics-and-tracking">6. Analytics and tracking</h2>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Analytics installed</td><td><em>…</em></td></tr>
+<tr><td>Property / measurement ID</td><td><em>…</em></td></tr>
+<tr><td>Present on every page?</td><td><em>…</em></td></tr>
+<tr><td>Conversion events configured</td><td><em>…</em></td></tr>
+<tr><td>Fires only after consent</td><td><em>required</em></td></tr>
+<tr><td>Search Console property</td><td><em>…</em></td></tr>
+<tr><td>Sitemap path and status</td><td><em>must return 200</em></td></tr>
+<tr><td>robots.txt</td><td><em>…</em></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="7-performance">7. Performance</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Metric</th>
+<th>Result</th>
+<th>Target</th>
+</tr></thead>
+<tbody>
+<tr><td>LCP (mobile)</td><td></td><td><em>&lt; 2.5s</em></td></tr>
+<tr><td>CLS</td><td></td><td><em>&lt; 0.1</em></td></tr>
+<tr><td>INP</td><td></td><td><em>&lt; 200ms</em></td></tr>
+<tr><td>Total page weight</td><td></td><td></td></tr>
+<tr><td>Largest asset</td><td></td><td></td></tr>
+<tr><td>Fonts self-hosted</td><td></td><td><em>yes</em></td></tr>
+<tr><td>Images modern format + sized</td><td></td><td></td></tr>
+<tr><td>Render-blocking resources</td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="8-accessibility-implementation">8. Accessibility implementation</h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> One <code>&lt;h1&gt;</code>, heading order unbroken</li>
+<li class="task-list-item"><input type="checkbox" disabled> Landmarks: <code>header</code>, <code>nav</code>, <code>main</code>, <code>footer</code></li>
+<li class="task-list-item"><input type="checkbox" disabled> Skip-to-content link</li>
+<li class="task-list-item"><input type="checkbox" disabled> All images have alt text; decorative ones <code>alt=&quot;&quot;</code></li>
+<li class="task-list-item"><input type="checkbox" disabled> Form labels bound to inputs</li>
+<li class="task-list-item"><input type="checkbox" disabled> Errors announced, not colour-only</li>
+<li class="task-list-item"><input type="checkbox" disabled> Visible focus on every interactive element</li>
+<li class="task-list-item"><input type="checkbox" disabled> Fully keyboard operable</li>
+<li class="task-list-item"><input type="checkbox" disabled> <code>lang</code> attribute set</li>
+<li class="task-list-item"><input type="checkbox" disabled> <code>prefers-reduced-motion</code> respected</li>
+</ul>
+<hr>
+<h2 id="9-legal-layer">9. Legal layer</h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Privacy policy live and linked from the footer</li>
+<li class="task-list-item"><input type="checkbox" disabled> Imprint / Impressum live <em>(DE)</em></li>
+<li class="task-list-item"><input type="checkbox" disabled> Terms live <em>(if applicable)</em></li>
+<li class="task-list-item"><input type="checkbox" disabled> Cookie consent blocks tracking until accepted</li>
+<li class="task-list-item"><input type="checkbox" disabled> Consent choice persists and can be withdrawn</li>
+<li class="task-list-item"><input type="checkbox" disabled> Company details in footer <em>(UK)</em></li>
+</ul>
+<hr>
+<h2 id="10-what-qa-should-focus-on">10. What QA should focus on</h2>
+<p><em>Where you are least confident, and what changed late. Be honest — this is the most useful section in the document.</em></p>
+<ul>
+<li><em>…</em></li>
+</ul>
+<hr>
+<h2 id="definition-of-done">Definition of Done</h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Matches the approved design; every deviation listed</li>
+<li class="task-list-item"><input type="checkbox" disabled> Zero placeholder content</li>
+<li class="task-list-item"><input type="checkbox" disabled> All shared styles in the shared stylesheet, nothing duplicated per page</li>
+<li class="task-list-item"><input type="checkbox" disabled> Form tested with a real submission that arrived</li>
+<li class="task-list-item"><input type="checkbox" disabled> Analytics verified firing on every page, after consent</li>
+<li class="task-list-item"><input type="checkbox" disabled> Sitemap returns 200 and is submitted</li>
+<li class="task-list-item"><input type="checkbox" disabled> Performance targets met or the gap explained</li>
+<li class="task-list-item"><input type="checkbox" disabled> Accessibility checklist complete</li>
+<li class="task-list-item"><input type="checkbox" disabled> Legal layer live</li>
+<li class="task-list-item"><input type="checkbox" disabled> Preview URL working and shared with QA</li>
+</ul>
+<p><strong>Handed to QA by:</strong> <em>…</em> <strong>Date:</strong> <em>…</em></p>
+<footer class="doc-footer">
+  Generated from <code>templates/06-developed-page-handover.md</code> by <code>build-html-twins.py</code>. Edit the Markdown, then re-run the script — do not hand-edit this file.
+</footer>
+</main>
+</body>
+</html>

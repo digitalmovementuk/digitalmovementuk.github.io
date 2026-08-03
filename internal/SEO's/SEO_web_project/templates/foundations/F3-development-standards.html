@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F3 · Development Standards — Digital Movement</title>
+<link rel="stylesheet" href="../../assets/process.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Digital Movement · Web Project Operating Process</p>
+    <h1>F3 · Development Standards</h1>
+    <p class="sub">Shared foundation. The rules every build follows, so that any of us can pick up any project.</p>
+    <span class="fidelity-tag">Mid-fi · internal</span>
+  </div>
+</header>
+<main>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td><strong>Scope</strong></td><td><em>house default / project override for …</em></td></tr>
+<tr><td><strong>Owner</strong></td><td>Web Developer</td></tr>
+<tr><td><strong>Version</strong></td><td>v1.0 — <em>date</em></td></tr>
+<tr><td><strong>Status</strong></td><td>living</td></tr>
+<tr><td><strong>Feeds</strong></td><td><a href="../06-developed-page-handover.html">06 · Developed Page Handover</a> · <a href="../07-test-report.html">07 · Test Report</a></td></tr>
+</tbody></table></div>
+<blockquote><p><strong>How to use this.</strong> The house defaults below apply unless a project records an override in section 8, with a reason. An undocumented deviation is a defect.</p></blockquote>
+<hr>
+<h2 id="1-stack-and-hosting">1. Stack and hosting</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th></th>
+<th>Default</th>
+<th>This project</th>
+</tr></thead>
+<tbody>
+<tr><td>Markup</td><td>semantic HTML5</td><td></td></tr>
+<tr><td>Styling</td><td>one shared stylesheet, CSS custom properties</td><td></td></tr>
+<tr><td>JavaScript</td><td>as little as possible, progressive enhancement</td><td></td></tr>
+<tr><td>Framework</td><td>none unless justified</td><td></td></tr>
+<tr><td>Hosting</td><td><strong>GitHub / GitHub Pages</strong></td><td></td></tr>
+<tr><td>Never</td><td><strong>Vercel</strong></td><td></td></tr>
+<tr><td>Version control</td><td>git, one repo per site</td><td></td></tr>
+<tr><td>Branching</td><td><em>…</em></td></tr>
+</tbody></table></div>
+<blockquote><p><strong>The basePath trap.</strong> A project Pages site is served from <code>/&lt;repo&gt;/</code>. Root-relative asset paths (<code>/assets/…</code>) 404 there. Either set the base path correctly or use relative paths — and check the rendered page, not the source.</p></blockquote>
+<hr>
+<h2 id="2-coding-standards">2. Coding standards</h2>
+<p><strong>HTML</strong></p>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> One <code>&lt;h1&gt;</code> per page, heading order unbroken</li>
+<li class="task-list-item"><input type="checkbox" disabled> Landmarks: <code>header</code>, <code>nav</code>, <code>main</code>, <code>footer</code></li>
+<li class="task-list-item"><input type="checkbox" disabled> <code>lang</code> attribute set correctly</li>
+<li class="task-list-item"><input type="checkbox" disabled> Semantic elements over <code>div</code> wherever one exists</li>
+<li class="task-list-item"><input type="checkbox" disabled> Buttons are <code>&lt;button&gt;</code>, links are <code>&lt;a&gt;</code> — never the reverse</li>
+<li class="task-list-item"><input type="checkbox" disabled> Form inputs have bound <code>&lt;label&gt;</code> elements</li>
+<li class="task-list-item"><input type="checkbox" disabled> No inline styles</li>
+</ul>
+<p><strong>CSS</strong></p>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> All shared styles in the shared stylesheet</li>
+<li class="task-list-item"><input type="checkbox" disabled> Tokens declared exactly once</li>
+<li class="task-list-item"><input type="checkbox" disabled> No brand hexes hardcoded in a page</li>
+<li class="task-list-item"><input type="checkbox" disabled> Class naming convention followed: <em>…</em></li>
+<li class="task-list-item"><input type="checkbox" disabled> <code>!important</code> only with a recorded reason</li>
+<li class="task-list-item"><input type="checkbox" disabled> Mobile block last in the file</li>
+<li class="task-list-item"><input type="checkbox" disabled> Wide content scrolls in its own <code>overflow-x: auto</code> container</li>
+</ul>
+<p><strong>JavaScript</strong></p>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Page works with JS disabled for anything essential</li>
+<li class="task-list-item"><input type="checkbox" disabled> No blocking scripts in <code>&lt;head&gt;</code></li>
+<li class="task-list-item"><input type="checkbox" disabled> No console errors or warnings</li>
+<li class="task-list-item"><input type="checkbox" disabled> Third-party scripts load after consent</li>
+<li class="task-list-item"><input type="checkbox" disabled> Event listeners cleaned up</li>
+</ul>
+<hr>
+<h2 id="3-performance-budget">3. Performance budget</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Hard limit</th>
+</tr></thead>
+<tbody>
+<tr><td>LCP (mobile, field)</td><td>&lt; 2.0s</td><td>2.5s</td></tr>
+<tr><td>CLS</td><td>&lt; 0.05</td><td>0.1</td></tr>
+<tr><td>INP</td><td>&lt; 150ms</td><td>200ms</td></tr>
+<tr><td>Lighthouse performance</td><td>≥ 95</td><td>90</td></tr>
+<tr><td>Total page weight</td><td>&lt; 800KB</td><td>1.5MB</td></tr>
+<tr><td>Largest image</td><td>&lt; 200KB</td><td>400KB</td></tr>
+<tr><td>Web fonts</td><td>≤ 2 families, ≤ 4 files</td><td></td></tr>
+<tr><td>Third-party scripts</td><td>0 before consent</td><td></td></tr>
+</tbody></table></div>
+<p><strong>Required practices</strong></p>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Images: modern format, correct dimensions, <code>width</code>/<code>height</code> set, lazy below the fold</li>
+<li class="task-list-item"><input type="checkbox" disabled> Hero image preloaded and never lazy-loaded</li>
+<li class="task-list-item"><input type="checkbox" disabled> Fonts self-hosted, subset, <code>font-display: swap</code></li>
+<li class="task-list-item"><input type="checkbox" disabled> Critical CSS inline where it measurably helps</li>
+<li class="task-list-item"><input type="checkbox" disabled> No render-blocking resources</li>
+</ul>
+<hr>
+<h2 id="4-seo-standards">4. SEO standards</h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Unique title tag ≤ 60 characters</li>
+<li class="task-list-item"><input type="checkbox" disabled> Unique meta description ≤ 155 characters</li>
+<li class="task-list-item"><input type="checkbox" disabled> One H1, matching the copy document</li>
+<li class="task-list-item"><input type="checkbox" disabled> Clean, readable, lowercase, hyphenated URLs</li>
+<li class="task-list-item"><input type="checkbox" disabled> Canonical tag on every page</li>
+<li class="task-list-item"><input type="checkbox" disabled> Open Graph and Twitter card tags</li>
+<li class="task-list-item"><input type="checkbox" disabled> Structured data valid, matching visible content</li>
+<li class="task-list-item"><input type="checkbox" disabled> <code>robots.txt</code> present and correct</li>
+<li class="task-list-item"><input type="checkbox" disabled> XML sitemap present, returning 200, submitted</li>
+<li class="task-list-item"><input type="checkbox" disabled> No <code>noindex</code> surviving from staging</li>
+<li class="task-list-item"><input type="checkbox" disabled> Internal links use descriptive anchor text</li>
+<li class="task-list-item"><input type="checkbox" disabled> Changed URLs 301-redirected</li>
+<li class="task-list-item"><input type="checkbox" disabled> SEO and service pages pass the 242-item <code>seo-page-qa-gate</code> with zero blockers</li>
+</ul>
+<hr>
+<h2 id="5-accessibility-standard">5. Accessibility standard</h2>
+<p><strong>Target: WCAG 2.2 AA.</strong></p>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Text contrast ≥ 4.5:1, large text ≥ 3:1 — measured on the rendered page</li>
+<li class="task-list-item"><input type="checkbox" disabled> Non-text and UI contrast ≥ 3:1</li>
+<li class="task-list-item"><input type="checkbox" disabled> Visible focus on every interactive element</li>
+<li class="task-list-item"><input type="checkbox" disabled> Focus order matches visual order</li>
+<li class="task-list-item"><input type="checkbox" disabled> Fully keyboard operable, no traps</li>
+<li class="task-list-item"><input type="checkbox" disabled> Skip-to-content link</li>
+<li class="task-list-item"><input type="checkbox" disabled> Alt text on every image; decorative ones <code>alt=&quot;&quot;</code></li>
+<li class="task-list-item"><input type="checkbox" disabled> Errors announced and identified by more than colour</li>
+<li class="task-list-item"><input type="checkbox" disabled> Tap targets ≥ 44×44px</li>
+<li class="task-list-item"><input type="checkbox" disabled> Usable at 200% zoom</li>
+<li class="task-list-item"><input type="checkbox" disabled> <code>prefers-reduced-motion</code> respected</li>
+<li class="task-list-item"><input type="checkbox" disabled> Automated scan clean, plus a manual keyboard and screen-reader pass</li>
+</ul>
+<hr>
+<h2 id="6-forms-and-data">6. Forms and data</h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Forms post to the real endpoint — <strong>never <code>mailto:</code></strong>, which delivers nothing</li>
+<li class="task-list-item"><input type="checkbox" disabled> Sending domain is on the endpoint's origin allowlist</li>
+<li class="task-list-item"><input type="checkbox" disabled> Domains with umlauts must be allowlisted in their <strong>punycode</strong> form</li>
+<li class="task-list-item"><input type="checkbox" disabled> Consent field sent with every submission</li>
+<li class="task-list-item"><input type="checkbox" disabled> Consent checkbox unticked by default, purpose named, privacy policy linked</li>
+<li class="task-list-item"><input type="checkbox" disabled> Server-side validation, not only client-side</li>
+<li class="task-list-item"><input type="checkbox" disabled> Spam protection that does not break accessibility</li>
+<li class="task-list-item"><input type="checkbox" disabled> Success and failure states both handled, with a usable fallback</li>
+<li class="task-list-item"><input type="checkbox" disabled> A real test submission verified as arriving before launch</li>
+</ul>
+<hr>
+<h2 id="7-security-and-privacy">7. Security and privacy</h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> HTTPS enforced, HTTP redirected</li>
+<li class="task-list-item"><input type="checkbox" disabled> No secrets, keys or credentials in the repository</li>
+<li class="task-list-item"><input type="checkbox" disabled> Dependencies current, no known critical vulnerabilities</li>
+<li class="task-list-item"><input type="checkbox" disabled> No tracking before consent</li>
+<li class="task-list-item"><input type="checkbox" disabled> Personal data minimised — collect only what is used</li>
+<li class="task-list-item"><input type="checkbox" disabled> Privacy policy names every third party that receives data</li>
+<li class="task-list-item"><input type="checkbox" disabled> External links: <code>rel=&quot;noopener&quot;</code></li>
+</ul>
+<hr>
+<h2 id="8-project-overrides">8. Project overrides</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Standard</th>
+<th>House default</th>
+<th>This project</th>
+<th>Reason</th>
+<th>Approved by</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="9-definition-of-done-for-any-build">9. Definition of Done for any build</h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Matches the approved design; deviations documented</li>
+<li class="task-list-item"><input type="checkbox" disabled> Zero placeholder content</li>
+<li class="task-list-item"><input type="checkbox" disabled> All checklists above passed or explicitly overridden</li>
+<li class="task-list-item"><input type="checkbox" disabled> No console errors</li>
+<li class="task-list-item"><input type="checkbox" disabled> Verified in a rendered browser, not by reading the source</li>
+<li class="task-list-item"><input type="checkbox" disabled> Handover document (<a href="../06-developed-page-handover.html">06</a>) complete</li>
+<li class="task-list-item"><input type="checkbox" disabled> Handed to QA, not self-approved</li>
+</ul>
+<p><strong>Last reviewed:</strong> <em>…</em> <strong>By:</strong> <em>…</em></p>
+<footer class="doc-footer">
+  Generated from <code>templates/foundations/F3-development-standards.md</code> by <code>build-html-twins.py</code>. Edit the Markdown, then re-run the script — do not hand-edit this file.
+</footer>
+</main>
+</body>
+</html>

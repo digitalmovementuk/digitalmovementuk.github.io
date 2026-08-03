@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04 · Wireframe Spec — Digital Movement</title>
+<link rel="stylesheet" href="../assets/process.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Digital Movement · Web Project Operating Process</p>
+    <h1>04 · Wireframe Spec</h1>
+    <p class="sub">Phase 4 — Wireframe. Structure and content placement, with no styling to argue about.</p>
+    <span class="fidelity-tag">Mid-fi · internal</span>
+  </div>
+</header>
+<main>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td><strong>Client / project</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Page type</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Owner</strong></td><td>Web Designer — <em>name</em></td></tr>
+<tr><td><strong>Version</strong></td><td>v0.1 — <em>date</em></td></tr>
+<tr><td><strong>Gate</strong></td><td><strong>Gate 1 — lo-fi. Two rounds.</strong></td></tr>
+<tr><td><strong>Input</strong></td><td><a href="02-page-blueprint.html">02 · Page Blueprint</a> · <a href="03-copy-document.html">03 · Copy Document</a></td></tr>
+<tr><td><strong>Next deliverable</strong></td><td><a href="05-design-mockup-spec.html">05 · Design Mockup Spec</a></td></tr>
+<tr><td><strong>Wireframe file</strong></td><td><em>path or link</em></td></tr>
+</tbody></table></div>
+<blockquote><p><strong>How to use this.</strong> One wireframe per <strong>page type</strong>, not per page. Build it with the real copy from 03 — never lorem ipsum, never placeholder boxes standing in for text of unknown length.  <strong>Colour, fonts and imagery are out of bounds at this gate.</strong> Say so explicitly when you send it, and send three to five specific questions with it, or you will get feedback about the shade of blue instead of about the structure.  <strong>House rules that apply now:</strong> a visible on-page fidelity tag reading <code>LOW-FI</code>, a real mobile layout at mobile width (not a squashed desktop one), and the hero occupying roughly the first two thirds of the viewport.</p></blockquote>
+<hr>
+<h2 id="1-layout-structure">1. Layout structure</h2>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Breakpoints</td><td><em>e.g. 390 / 768 / 1024 / 1440</em></td></tr>
+<tr><td>Grid</td><td><em>e.g. 12-col desktop, 4-col mobile</em></td></tr>
+<tr><td>Max content width</td><td><em>…</em></td></tr>
+<tr><td>Gutter / margin</td><td><em>…</em></td></tr>
+<tr><td>Vertical rhythm</td><td><em>…</em></td></tr>
+<tr><td>Hero height</td><td><em>≈66vh — never 100vh</em></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="2-content-blocks">2. Content blocks</h2>
+<p><em>In priority-guide order. One row per block. "Copy ref" points back to the section in 03.</em></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Block</th>
+<th>Copy ref</th>
+<th>Desktop layout</th>
+<th>Mobile layout</th>
+<th>Media</th>
+<th>Interactive</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>Hero</td><td>03 §2.1</td><td><em>2-col: copy left, form right</em></td><td><em>stacked, copy then form</em></td><td><em>…</em></td><td><em>form</em></td></tr>
+<tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>3</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>5</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Card and grid blocks</strong> — how the last row behaves</p>
+<p><em>Three cards over two means the two below are each wider. Never orphaned, never centred. A wrapping flex with <code>flex: 1 1 &lt;floor&gt;</code> does this; <code>auto-fit</code> grid cannot.</em></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Block</th>
+<th>Items</th>
+<th>Desktop columns</th>
+<th>Last-row rule</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="3-navigation">3. Navigation</h2>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Nav items, in order</td><td><em>…</em></td></tr>
+<tr><td>Nav CTA</td><td><em>…</em></td></tr>
+<tr><td>Mobile pattern</td><td><em>…</em></td></tr>
+<tr><td>Sticky?</td><td><em>…</em></td></tr>
+<tr><td>Current-page indicator</td><td><em>…</em></td></tr>
+<tr><td>Footer columns</td><td><em>…</em></td></tr>
+<tr><td>Legal links in footer</td><td><em>…</em></td></tr>
+<tr><td>Skip-to-content link</td><td><em>required</em></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="4-forms">4. Forms</h2>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Where forms appear</td><td><em>Hero and page bottom. On SEO pages, nowhere else.</em></td></tr>
+<tr><td>Fields, in order</td><td><em>…</em></td></tr>
+<tr><td>Field widths</td><td><em>…</em></td></tr>
+<tr><td>Consent checkbox</td><td><em>unticked by default, privacy policy linked</em></td></tr>
+<tr><td>Submit endpoint</td><td><em>…</em></td></tr>
+<tr><td>Error placement</td><td><em>inline, below the field</em></td></tr>
+<tr><td>Success behaviour</td><td><em>…</em></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="5-responsive-behaviour">5. Responsive behaviour</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Block</th>
+<th>390px</th>
+<th>768px</th>
+<th>1024px+</th>
+<th>Reflow note</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Mobile check</strong> — the mobile layout follows the bizee.com reference for type size, spacing and alignment. Headings and intros centred; body copy and cards left-aligned.</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Mobile is a genuine layout, not a narrowed desktop</li>
+<li class="task-list-item"><input type="checkbox" disabled> Tap targets ≥ 44px</li>
+<li class="task-list-item"><input type="checkbox" disabled> No horizontal scrolling at 390px</li>
+<li class="task-list-item"><input type="checkbox" disabled> Longest German string tested in every constrained element</li>
+</ul>
+<hr>
+<h2 id="6-content-length-reality-check">6. Content length reality check</h2>
+<p><em>Where the copy is longest, and whether the block survives it.</em></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Element</th>
+<th>Longest real string</th>
+<th>Chars</th>
+<th>Fits?</th>
+<th>Fix</th>
+</tr></thead>
+<tbody>
+<tr><td>H1</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Nav item</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Button</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Card heading</td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="7-questions-for-the-client-at-this-gate">7. Questions for the client at this gate</h2>
+<p><em>Send three to five. Specific, structural, answerable. This is what stops colour feedback.</em></p>
+<ol>
+<li><em>…</em></li>
+<li><em>…</em></li>
+<li><em>…</em></li>
+</ol>
+<hr>
+<h2 id="8-feedback-log">8. Feedback log</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Round</th>
+<th>Date</th>
+<th>Feedback</th>
+<th>In scope?</th>
+<th>Action</th>
+<th>Resolved</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><em>Round 3 is a priced change request, not a revision.</em></p>
+<hr>
+<h2 id="definition-of-done">Definition of Done</h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> <code>LOW-FI</code> fidelity tag visible on the page</li>
+<li class="task-list-item"><input type="checkbox" disabled> Real copy throughout — zero lorem ipsum</li>
+<li class="task-list-item"><input type="checkbox" disabled> One wireframe per page type, all types covered</li>
+<li class="task-list-item"><input type="checkbox" disabled> Hero ≈66vh</li>
+<li class="task-list-item"><input type="checkbox" disabled> Mobile layout genuinely reflows</li>
+<li class="task-list-item"><input type="checkbox" disabled> Card grids: last row fills the width</li>
+<li class="task-list-item"><input type="checkbox" disabled> Longest real strings tested</li>
+<li class="task-list-item"><input type="checkbox" disabled> Form placement follows the house rule</li>
+<li class="task-list-item"><input type="checkbox" disabled> Three to five specific questions sent with it</li>
+<li class="task-list-item"><input type="checkbox" disabled> Client signed off — Gate 1 closed in two rounds or fewer</li>
+</ul>
+<p><strong>Signed off by:</strong> <em>…</em> <strong>Date:</strong> <em>…</em></p>
+<footer class="doc-footer">
+  Generated from <code>templates/04-wireframe-spec.md</code> by <code>build-html-twins.py</code>. Edit the Markdown, then re-run the script — do not hand-edit this file.
+</footer>
+</main>
+</body>
+</html>

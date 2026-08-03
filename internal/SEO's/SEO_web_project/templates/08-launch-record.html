@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>08 · Launch Record — Digital Movement</title>
+<link rel="stylesheet" href="../assets/process.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Digital Movement · Web Project Operating Process</p>
+    <h1>08 · Launch Record</h1>
+    <p class="sub">Phase 8 — Publish &amp; Optimize. What went live, when, and what happens next.</p>
+    <span class="fidelity-tag">Mid-fi · internal</span>
+  </div>
+</header>
+<main>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td><strong>Client / project</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Page / site</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Owner</strong></td><td>Web Developer — <em>name</em></td></tr>
+<tr><td><strong>Version</strong></td><td>v1.0 — <em>date</em></td></tr>
+<tr><td><strong>Gate</strong></td><td>Go-live sign-off</td></tr>
+<tr><td><strong>Input</strong></td><td><a href="07-test-report.html">07 · Test Report</a> — must read GO</td></tr>
+<tr><td><strong>Live URL</strong></td><td><em>…</em></td></tr>
+<tr><td><strong>Launched</strong></td><td><em>date and time</em></td></tr>
+</tbody></table></div>
+<blockquote><p><strong>How to use this.</strong> Fill in section 1 before touching anything, section 2 during launch, section 3 immediately after, and section 5 at each review point. This is also the rollback document — if launch goes wrong at 18:00 on a Friday, this is the page you open.</p></blockquote>
+<hr>
+<h2 id="1-pre-launch">1. Pre-launch</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Check</th>
+<th>Done by</th>
+<th>Verified</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>Test report says GO, zero blockers open</td><td></td><td></td></tr>
+<tr><td>2</td><td>Client has approved go-live in writing</td><td></td><td></td></tr>
+<tr><td>3</td><td>Backup of the existing site taken</td><td></td><td></td></tr>
+<tr><td>4</td><td>DNS records recorded as they are now</td><td></td><td></td></tr>
+<tr><td>5</td><td>TTL lowered ahead of a DNS change</td><td></td><td></td></tr>
+<tr><td>6</td><td>SSL certificate ready</td><td></td><td></td></tr>
+<tr><td>7</td><td>Staging <code>noindex</code> removed</td><td></td><td></td></tr>
+<tr><td>8</td><td>Redirect map ready for every changed URL</td><td></td><td></td></tr>
+<tr><td>9</td><td>Analytics and consent verified on the production build</td><td></td><td></td></tr>
+<tr><td>10</td><td>Form endpoint points at production, origin allowlisted</td><td></td><td></td></tr>
+<tr><td>11</td><td>Launch window agreed — not Friday afternoon</td><td></td><td></td></tr>
+<tr><td>12</td><td>Rollback plan written <em>(section 4)</em></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="2-deployment">2. Deployment</h2>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Method</td><td><em>GitHub Pages — never Vercel</em></td></tr>
+<tr><td>Repository / branch</td><td><em>…</em></td></tr>
+<tr><td>Commit deployed</td><td><em>…</em></td></tr>
+<tr><td>Custom domain</td><td><em>…</em></td></tr>
+<tr><td>DNS provider and records changed</td><td><em>…</em></td></tr>
+<tr><td>HTTPS enforced</td><td><em>…</em></td></tr>
+<tr><td>Deployed at</td><td><em>…</em></td></tr>
+<tr><td>Deployed by</td><td><em>…</em></td></tr>
+</tbody></table></div>
+<p><strong>URL inventory</strong> — every URL now live</p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>URL</th>
+<th>Status</th>
+<th>In sitemap</th>
+<th>Indexable</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Redirects</strong></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Old URL</th>
+<th>New URL</th>
+<th>Type</th>
+<th>Verified</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td>301</td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="3-post-launch-verification">3. Post-launch verification</h2>
+<p><em>Within one hour of go-live.</em></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Check</th>
+<th>Result</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>Live URL loads over HTTPS</td><td></td></tr>
+<tr><td>2</td><td>HTTP redirects to HTTPS</td><td></td></tr>
+<tr><td>3</td><td>www / non-www resolves as intended</td><td></td></tr>
+<tr><td>4</td><td>No mixed-content warnings</td><td></td></tr>
+<tr><td>5</td><td>Every URL in the inventory returns 200</td><td></td></tr>
+<tr><td>6</td><td>Real form submission sent — and arrived</td><td></td></tr>
+<tr><td>7</td><td>Analytics recording live traffic</td><td></td></tr>
+<tr><td>8</td><td>Consent banner behaves as tested</td><td></td></tr>
+<tr><td>9</td><td>robots.txt correct on production</td><td></td></tr>
+<tr><td>10</td><td>Sitemap returns 200 on production</td><td></td></tr>
+<tr><td>11</td><td>Sitemap submitted to Search Console</td><td></td></tr>
+<tr><td>12</td><td>Rendered page checked in a browser, not just source</td><td></td></tr>
+<tr><td>13</td><td>Mobile checked on a real device</td><td></td></tr>
+<tr><td>14</td><td>Social share preview renders correctly</td><td></td></tr>
+</tbody></table></div>
+<p><strong>Test lead arrived at:</strong> <em>…</em> <strong>on</strong> <em>…</em></p>
+<hr>
+<h2 id="4-rollback-plan">4. Rollback plan</h2>
+<div class="table-scroll"><table class="meta">
+<tbody>
+<tr><td>Trigger to roll back</td><td><em>…</em></td></tr>
+<tr><td>How</td><td><em>…</em></td></tr>
+<tr><td>Time needed</td><td><em>…</em></td></tr>
+<tr><td>Who decides</td><td><em>…</em></td></tr>
+<tr><td>Backup location</td><td><em>…</em></td></tr>
+<tr><td>DNS records to restore</td><td><em>…</em></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="5-monitoring-and-optimisation">5. Monitoring and optimisation</h2>
+<p><strong>Tracking in place</strong></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Tool</th>
+<th>Property / ID</th>
+<th>Access given to</th>
+<th>Verified</th>
+</tr></thead>
+<tbody>
+<tr><td>Analytics</td><td></td><td></td><td></td></tr>
+<tr><td>Search Console</td><td></td><td></td><td></td></tr>
+<tr><td>Uptime monitor</td><td></td><td></td><td></td></tr>
+<tr><td>Error monitoring</td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Baseline at launch</strong></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>Metric</th>
+<th>Value at launch</th>
+<th>Date</th>
+</tr></thead>
+<tbody>
+<tr><td>Indexed pages</td><td></td><td></td></tr>
+<tr><td>Impressions / month</td><td></td><td></td></tr>
+<tr><td>Clicks / month</td><td></td><td></td></tr>
+<tr><td>Conversions / month</td><td></td><td></td></tr>
+<tr><td>LCP (field)</td><td></td><td></td></tr>
+</tbody></table></div>
+<p><strong>Review schedule</strong></p>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>When</th>
+<th>What we look at</th>
+<th>Owner</th>
+<th>Done</th>
+</tr></thead>
+<tbody>
+<tr><td>Day 3</td><td>Indexing, crawl errors, forms still arriving</td><td></td><td></td></tr>
+<tr><td>Week 2</td><td>First traffic and conversion data, search queries</td><td></td><td></td></tr>
+<tr><td>Month 1</td><td>KPI vs the target in the Website Brief</td><td></td><td></td></tr>
+<tr><td>Month 3</td><td>Content and conversion improvements</td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="6-handover-to-the-client">6. Handover to the client</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Item</th>
+<th>Delivered</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>Live URL</td><td></td></tr>
+<tr><td>2</td><td>Analytics access</td><td></td></tr>
+<tr><td>3</td><td>Search Console access</td><td></td></tr>
+<tr><td>4</td><td>CMS access and a short how-to</td><td></td></tr>
+<tr><td>5</td><td>Copy document <em>(stays live — it is the record of what the site says)</em></td><td></td></tr>
+<tr><td>6</td><td>Brand &amp; style system</td><td></td></tr>
+<tr><td>7</td><td>Where the code lives</td><td></td></tr>
+<tr><td>8</td><td>Who to contact for what</td><td></td></tr>
+<tr><td>9</td><td>What is and is not covered after launch</td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="7-outstanding-items">7. Outstanding items</h2>
+<div class="table-scroll"><table>
+<thead><tr>
+<th>#</th>
+<th>Item</th>
+<th>Severity</th>
+<th>Owner</th>
+<th>Due</th>
+</tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<hr>
+<h2 id="8-retrospective">8. Retrospective</h2>
+<p><strong>What worked</strong></p>
+<ul>
+<li><em>…</em></li>
+</ul>
+<p><strong>What cost us time or money</strong></p>
+<ul>
+<li><em>…</em></li>
+</ul>
+<p><strong>Changes to fold back into the process templates</strong></p>
+<ul>
+<li><em>…</em></li>
+</ul>
+<p><em>A gate that failed twice for the same reason means the template is wrong, not the person. Fix the template.</em></p>
+<hr>
+<h2 id="definition-of-done">Definition of Done</h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" disabled> Test report said GO with zero blockers</li>
+<li class="task-list-item"><input type="checkbox" disabled> Client approved go-live in writing</li>
+<li class="task-list-item"><input type="checkbox" disabled> Backup taken and rollback plan written before deployment</li>
+<li class="task-list-item"><input type="checkbox" disabled> All 14 post-launch verifications passed</li>
+<li class="task-list-item"><input type="checkbox" disabled> A real lead was submitted and arrived</li>
+<li class="task-list-item"><input type="checkbox" disabled> Analytics confirmed recording live traffic</li>
+<li class="task-list-item"><input type="checkbox" disabled> Sitemap submitted</li>
+<li class="task-list-item"><input type="checkbox" disabled> Baseline metrics recorded</li>
+<li class="task-list-item"><input type="checkbox" disabled> Review schedule booked in the calendar</li>
+<li class="task-list-item"><input type="checkbox" disabled> Client handover complete</li>
+<li class="task-list-item"><input type="checkbox" disabled> Retrospective written and improvements folded back into the templates</li>
+</ul>
+<p><strong>Signed off by:</strong> <em>…</em> <strong>Date:</strong> <em>…</em></p>
+<footer class="doc-footer">
+  Generated from <code>templates/08-launch-record.md</code> by <code>build-html-twins.py</code>. Edit the Markdown, then re-run the script — do not hand-edit this file.
+</footer>
+</main>
+</body>
+</html>
