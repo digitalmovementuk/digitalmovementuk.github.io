@@ -2,32 +2,48 @@ User-agent: *
 Disallow: /
 
 # Link-preview crawlers may read the share page for the SOP process map, so a
-# shared link renders a card. Everything else on this host stays closed, and
+# shared link renders a card. They may also read the Direct Couriers proposal.
+# Everything else on this host stays closed, and
 # the pages themselves carry noindex.
 User-agent: facebookexternalhit
 Allow: /internal/seo-web-project/
+Allow: /success/directcourier/
 Disallow: /
 
 User-agent: facebookcatalog
 Allow: /internal/seo-web-project/
+Allow: /success/directcourier/
 Disallow: /
 
 User-agent: WhatsApp
 Allow: /internal/seo-web-project/
+Allow: /success/directcourier/
 Disallow: /
 
 User-agent: Twitterbot
 Allow: /internal/seo-web-project/
+Allow: /success/directcourier/
 Disallow: /
 
 User-agent: LinkedInBot
 Allow: /internal/seo-web-project/
+Allow: /success/directcourier/
 Disallow: /
 
 User-agent: Slackbot-LinkExpanding
 Allow: /internal/seo-web-project/
+Allow: /success/directcourier/
 Disallow: /
 
 User-agent: TelegramBot
 Allow: /internal/seo-web-project/
+Allow: /success/directcourier/
+Disallow: /
+
+User-agent: Discordbot
+Allow: /success/directcourier/
+Disallow: /
+
+User-agent: SkypeUriPreview
+Allow: /success/directcourier/
 Disallow: /
