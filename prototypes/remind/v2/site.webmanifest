@@ -1,0 +1,24 @@
+{
+  "name": "Re;mind Mental Health Therapies",
+  "short_name": "Re;mind",
+  "lang": "en-GB",
+  "start_url": "/prototypes/remind/v2/",
+  "scope": "/prototypes/remind/v2/",
+  "display": "browser",
+  "background_color": "#f2fcf7",
+  "theme_color": "#006b54",
+  "icons": [
+    {
+      "src": "/prototypes/remind/v2/brand/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/prototypes/remind/v2/brand/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
