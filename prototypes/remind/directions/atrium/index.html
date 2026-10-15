@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.documentElement.classList.add('js');</script><!-- before first paint: the preloader panel must cover the page from the first frame (reference behaviour) -->
+  <title>Re;mind — Therapy shaped around you</title>
+  <meta name="description" content="Counselling, EMDR, hypnotherapy, VR therapy and coaching in Whiteley, Hampshire. In person or online, with a brief introductory consultation first.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600&family=Noto+Serif+Display:wght@200;300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader_wrap"><div class="loader_img"><img src="assets/roundel-224.webp" alt="" width="224" height="224"></div></div>
+    <div class="loader_bg"></div>
+  </div>
+  <div class="cursor" aria-hidden="true"><div class="cursor-dot"></div></div>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 12 12"><path d="M1 6h10M6.5 1.5 11 6l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-down" viewBox="0 0 16 16"><path d="M8 1v14M2.5 9.5 8 15l5.5-5.5" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <div class="navbar">
+    <div class="navbar_component" role="banner">
+      <div class="navbar_container">
+        <a class="logo-link" href="/" aria-label="Re;mind home">
+          <span class="logo-mark">
+            <svg class="logo-ring logo-ring--static" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+            <svg class="logo-ring logo-ring--draw" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23.5" fill="none" stroke="currentColor" stroke-width="1" pathLength="100"/></svg>
+            <img src="assets/remind-mark.png" alt="" width="126" height="158">
+          </span>
+          <span class="logo-word" aria-hidden="true">Re;mind</span>
+        </a>
+
+        <nav aria-label="Main">
+          <ul class="menu" id="menu">
+            <li><a class="nav-link" href="#intro"><span class="nav-txt">About</span></a></li>
+            <li><a class="nav-link" href="/#team"><span class="nav-txt">Team</span></a></li>
+            <li class="has-dd">
+              <button class="dd-toggle" type="button" aria-expanded="false" aria-controls="dd-therapies">
+                <span class="nav-txt">Therapies</span>
+                <svg class="chevron" viewBox="0 0 9 6" aria-hidden="true"><path d="M1 1l3.5 3.5L8 1" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <ul class="dd-list" id="dd-therapies">
+                <li><a class="dd-item" href="/#counselling"><span>Counselling</span><span class="ring"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+                <li><a class="dd-item" href="/#emdr"><span>EMDR</span><span class="ring"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+                <li><a class="dd-item" href="/#hypnotherapy"><span>Hypnotherapy</span><span class="ring"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+                <li><a class="dd-item" href="/vr-therapy-hampshire/"><span>VR therapy</span><span class="ring"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+                <li><a class="dd-item" href="/#coaching"><span>Coaching</span><span class="ring"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+                <li><a class="dd-item" href="/#therapist-mentoring"><span>Therapist mentoring</span><span class="ring"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+              </ul>
+            </li>
+            <li><a class="nav-link" href="/#visit"><span class="nav-txt">Fees</span></a></li>
+            <li><a class="nav-link" href="/#questions"><span class="nav-txt">FAQ</span></a></li>
+            <li><a class="nav-link" href="#find-us"><span class="nav-txt">Find us</span></a></li>
+            <li><a class="nav-link" href="/#contact"><span class="nav-txt">Contact</span></a></li>
+            <li class="menu-cta">
+              <a class="btn btn--small" href="/#contact">
+                <span class="btn-text">Talk to us</span>
+                <span class="btn-circles"><span class="btn-circle"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span><span class="btn-circle-hover"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+                <span class="btn-mask"></span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <a class="btn btn--small nav-cta" href="/#contact">
+            <span class="btn-text">Talk to us</span>
+            <span class="btn-circles"><span class="btn-circle"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span><span class="btn-circle-hover"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+            <span class="btn-mask"></span>
+          </a>
+          <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu"><span></span><span></span><span></span></button>
+          <a class="icon-btn" href="tel:+447575040401" aria-label="Call Re;mind on 07575 040 401">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 3.5h3l1.6 4-2 1.3a11.5 11.5 0 0 0 6.1 6.1l1.3-2 4 1.6v3a1.6 1.6 0 0 1-1.7 1.6A15.9 15.9 0 0 1 3.9 5.2 1.6 1.6 0 0 1 5.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <header class="hero">
+      <div class="padding-global">
+        <div class="container">
+          <div class="hero_content">
+            <div class="hero_flex">
+              <div class="hero_headline">
+                <h1 class="h1-super">Looking for mental health therapy in Hampshire? Re;mind, shaped around you.</h1>
+              </div>
+              <div class="halfsplit is-stretch">
+                <div class="arrow-scroll">
+                  <a class="scroll-to" href="#intro">
+                    <span class="scroll-outer">
+                      <span class="scroll-circle"><span class="scroll-arrows"><svg aria-hidden="true"><use href="#i-down"/></svg><svg aria-hidden="true"><use href="#i-down"/></svg></span></span>
+                      <span class="scroll-circle-hover"><span class="scroll-arrows"><svg aria-hidden="true"><use href="#i-down"/></svg><svg aria-hidden="true"><use href="#i-down"/></svg></span></span>
+                    </span>
+                    <span class="text-m text-light">Scroll to explore</span>
+                  </a>
+                </div>
+                <div class="hero_text_block">
+                  <div class="line is-alternate" aria-hidden="true"></div>
+                  <div class="mt-m">
+                    <p class="text-m text-light"><strong>Re;mind is a small, independent practice in Whiteley, Hampshire, offering counselling, EMDR, hypnotherapy, VR therapy and coaching to adults and young adults.</strong> We see people in person in Whiteley, near Fareham, or online by video. A brief introductory consultation helps you choose an approach, and we are open <strong>seven days a week</strong>, with <strong>weekday evenings</strong> until 10pm.</p>
+                  </div>
+                  <div class="mt-m">
+                    <div class="btn-group">
+                      <a class="btn" href="/#contact">
+                        <span class="btn-text">Talk to us</span>
+                        <span class="btn-circles"><span class="btn-circle"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span><span class="btn-circle-hover"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+                        <span class="btn-mask"></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero_bg" aria-hidden="true">
+        <div class="hero_base"></div>
+        <div class="hero_media">
+          <div class="hero_zoom">
+            <img src="assets/therapy-room-1440.webp" srcset="assets/therapy-room-960.webp 960w, assets/therapy-room-1440.webp 1440w" sizes="100vw" width="1440" height="960" alt="" fetchpriority="high">
+          </div>
+        </div>
+        <div class="hero_overlay"></div>
+      </div>
+    </header>
+
+    <section class="section_intro" id="intro" aria-labelledby="intro-heading">
+      <div class="padding-global">
+        <div class="container">
+          <div class="pad-section-l">
+            <div class="h2-wrap">
+              <h2 class="h2-layout" id="intro-heading">Therapy shaped around you, for adults and young adults, in person in Whiteley or online</h2>
+            </div>
+            <div class="mt-xh">
+              <div class="halfsplit">
+                <div class="col-half" aria-hidden="true"></div>
+                <div class="col-half">
+                  <div class="line mb-m" aria-hidden="true"></div>
+                  <p class="text-m">Re;mind offers mental health therapy in Hampshire from calm, private rooms in Whiteley, a short drive from Fareham, Southampton and Portsmouth. We are a small, independent practice founded by Susie Deacon, with counsellors and a clinical psychologist under one roof.</p>
+                  <p class="text-m">If travelling is hard, we also work online by video. We listen first, then agree a plan that helps you feel steadier.</p>
+                  <div class="mt-m">
+                    <div class="btn-group">
+                      <a class="btn" href="/#team">
+                        <span class="btn-text">Meet the team</span>
+                        <span class="btn-circles"><span class="btn-circle"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span><span class="btn-circle-hover"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+                        <span class="btn-mask"></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section_find" id="find-us" aria-labelledby="find-heading">
+      <div class="padding-global">
+        <div class="container">
+          <div class="feature">
+            <div class="halfsplit">
+              <div class="media-col">
+                <div class="mt-m">
+                  <div class="media-wrap">
+                    <img src="assets/hampshire-landscape-1600.webp" srcset="assets/hampshire-landscape-1024.webp 1024w, assets/hampshire-landscape-1600.webp 1600w" sizes="(max-width: 991px) 100vw, 44vw" width="1600" height="1067" alt="Sailboats at anchor on calm Solent water off Milford on Sea, Hampshire, in soft light" loading="lazy">
+                  </div>
+                </div>
+              </div>
+              <div class="col-half">
+                <div class="mb-xxs"><h3 class="h5-serif" id="find-heading">Where to find us</h3></div>
+                <div class="line" aria-hidden="true"></div>
+                <ul class="rows">
+                  <li>
+                    <div class="row">
+                      <h4 class="h4-sans">Whiteley</h4>
+                      <div class="row-flex">
+                        <div class="row-text"><span>43 &amp; 44 Steel House,</span><span>Solent Business Park</span></div>
+                        <a class="btn btn--tertiary" href="https://www.google.com/maps/search/?api=1&query=Steel+House+Solent+Business+Park+Parkway+Whiteley+PO15+7FP" target="_blank" rel="noopener">
+                          <span class="btn-text">Directions</span>
+                          <span class="btn-circles"><span class="btn-circle"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span><span class="btn-circle-hover"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+                          <span class="btn-mask"></span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="line" aria-hidden="true"></div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <h4 class="h4-sans">Online</h4>
+                      <div class="row-flex">
+                        <div class="row-text"><span>Video sessions,</span><span>if travelling is hard</span></div>
+                        <a class="btn btn--tertiary" href="/#contact">
+                          <span class="btn-text">Talk to us</span>
+                          <span class="btn-circles"><span class="btn-circle"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span><span class="btn-circle-hover"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+                          <span class="btn-mask"></span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="line" aria-hidden="true"></div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <h4 class="h4-sans">Getting here</h4>
+                      <div class="row-flex">
+                        <div class="row-text"><span>Free parking, lift,</span><span>accessible building</span></div>
+                        <a class="btn btn--tertiary" href="https://www.google.com/maps/search/?api=1&query=Steel+House+Solent+Business+Park+Parkway+Whiteley+PO15+7FP" target="_blank" rel="noopener">
+                          <span class="btn-text">Directions</span>
+                          <span class="btn-circles"><span class="btn-circle"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span><span class="btn-circle-hover"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+                          <span class="btn-mask"></span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="line" aria-hidden="true"></div>
+                  </li>
+                </ul>
+                <div class="mt-m">
+                  <div class="btn-group">
+                    <a class="btn" href="/#contact">
+                      <span class="btn-text">Talk to us</span>
+                      <span class="btn-circles"><span class="btn-circle"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span><span class="btn-circle-hover"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+                      <span class="btn-mask"></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
