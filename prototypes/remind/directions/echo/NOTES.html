@@ -1,0 +1,154 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Echo NOTES v1.1</title><style>body{margin:0;background:#f2fcf7;color:#17252a;font:16px/1.65 system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:40px 24px}h1{color:#006b54}pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#006b54}</style><main><h1>Echo — NOTES v1.1</h1><pre># Echo — v1.1 build and visual QA, 15 October 2026
+
+## v1.1 change log
+
+- 15.10.2026 — Finished the v1.1 browser audit and repaired the findings below. Current records supersede the inherited v1.0 descriptions in the archive. No live publication, call, email, purchase or paid research was performed.
+- Scope: hero plus first two reference sections, with existing additional content retained. Reference: Twofold Therapy. The specific replication brief overrides generic hero-height/alignment/style defaults.
+
+## Current media
+
+One composited hero film, supplied in two responsive encodes: hero-echo-1920.mp4 (1920×1080, 12 s, 2,924,837 bytes) and hero-echo-720x1280.mp4 (720×1280, 12 s, 1,376,962 bytes). Both are H.264 with no audio. The portrait source is selected on narrow portrait screens. Existing CSS records Pexels / cottonbro studio source IDs 7761104 and 7761097; see CREDITS.md. It is not two independent on-page video slots.
+
+## Findings
+
+| Severity | Finding | Status / correction | Evidence |
+|---|---|---|---|
+| Medium | Phone menu, service links and footer action had 13–23 px control heights. | Fixed: minimum 44 px phone control height while preserving typography. | styles.css; qa/audit-matrix-after.json |
+| Medium | NOTES/CREDITS still described an animated hero still; current film sources were omitted. | Fixed: current encodes and recoverable source IDs documented; older still record archived. | CREDITS.md; qa/audit-matrix-after.json |
+| Low | Current desktop/iPhone visual evidence was missing. | Fixed: two screenshot rounds plus iframe/menu/video checks. | qa/audit-before-*-scroll.jpg; qa/audit-after-*-scroll.jpg |
+
+## Current differences and limits
+
+The wordmark is Re;mind rather than Twofold; its draw is a GSAP text/line reveal rather than the reference’s bespoke Lottie artwork. The hero uses different stock subjects; no identity, nationality, staff or client relationship is claimed. Lower double-exposure landscape composites remain. Lenis, GSAP and fonts require network access.
+
+This is a design-direction excerpt, not a completed production site. Secondary team, FAQ, fee, privacy or service-page destinations may remain placeholders where their pages are outside this brief. Primary contact actions are usable; no external call or message was sent. Font substitution and Re;mind copy/photography create intentional differences from the reference.
+
+## Evidence from this finish pass
+
+Two browser rounds were completed on the local preview, followed by a real hub-iframe pass. The desktop and iPhone 14 Pro scroll composites were inspected by eye; the inherited reference comparison shown below was also inspected. Screenshots are local QA artifacts (gitignored).
+
+| Round | Browser / viewport | Result |
+|---|---|---|
+| Before fixes | chromium desktop — 1440×900 CSS px | Scroll width 1440 px; 6 broken images; 0 JS/HTTP errors |
+| Before fixes | chromium short — 1440×780 CSS px | Scroll width 1440 px; 6 broken images; 0 JS/HTTP errors |
+| Before fixes | chromium laptop — 1280×800 CSS px | Scroll width 1280 px; 6 broken images; 0 JS/HTTP errors |
+| Before fixes | chromium tablet-wide — 1024×768 CSS px | Scroll width 1024 px; 6 broken images; 0 JS/HTTP errors |
+| Before fixes | chromium tablet — 768×1024 CSS px | Scroll width 768 px; 6 broken images; 0 JS/HTTP errors |
+| Before fixes | webkit iphone14 — 393×660 CSS px | Scroll width 393 px; 6 broken images; 0 JS/HTTP errors |
+| Before fixes | webkit iphoneSE — 320×568 CSS px | Scroll width 320 px; 6 broken images; 0 JS/HTTP errors |
+| After fixes | chromium desktop — 1440×900 CSS px | Scroll width 1440 px; 6 broken images; 0 JS/HTTP errors |
+| After fixes | webkit iphone14 — 393×660 CSS px | Scroll width 393 px; 6 broken images; 0 JS/HTTP errors |
+| After fixes | webkit iphoneSE — 320×568 CSS px | Scroll width 320 px; 6 broken images; 0 JS/HTTP errors |
+| Actual hub iframe | chromium 1440×860 CSS px | No overflow; scroll reached 1376 px; 0 JS errors |
+| Actual hub iframe | webkit 393×616 CSS px | No overflow; scroll reached 985 px; 0 JS errors |
+
+- Current screenshots: `qa/audit-before-desktop-scroll.jpg`, `qa/audit-before-iphone14-scroll.jpg`, `qa/audit-after-desktop-scroll.jpg`, `qa/audit-after-iphone14-scroll.jpg`; first-screen files cover the other sizes.
+- Embedded first-screen and scroll views: `qa/audit-iframe-desktop*.png`, `qa/audit-iframe-iphone14*.png`. The actual hub uses a 40 px desktop bar and 44 px phone bar, hence the shorter iframe heights.
+- Phone menu: `qa/audit-menu-iphone14.png`; click changes `aria-expanded` to true, Escape returns it to false in WebKit. Grove’s accordion also opened successfully in both engines.
+- Reduced motion was checked after a fresh reload in Chromium desktop and WebKit iPhone: no headings hidden by opacity, zero running CSS/Web Animations; any video paused at time 0 and hidden to show its poster. See `qa/audit-matrix-after.json`.
+- Hero video playback and pause-on-scroll, where applicable, recorded in `qa/audit-interactions.json`. No call or email handler was launched.
+- Reference comparison inspected: `../04-twofold/qa/r6-desktop-hero.jpg` (path relative to the v1.1 round root).
+- Remaining test limits: no physical handset, screen-reader session, axe/Lighthouse scoring, frame-by-frame new live-reference timing capture, pixel-level contrast certification, or measured CLS run. This pass must not be described as full production accessibility/performance certification.
+- Temporary QA servers were stopped after the browser runners completed. Preview commands use a local HTTP server; no deployment was performed.
+
+
+## Archived v1.0 extraction and prior QA
+
+The following is historical evidence. Its still-image descriptions, earlier asset treatments, and older QA counts must not be read as the current v1.1 state.
+
+# Re;mind × Twofold Therapy — design-system notes (v1.2, 15 October 2026)
+
+Change log
+- 1.2 (15.10.2026) — Orchestrator review: wordmark set in the brand&#x27;s own case (&quot;Re;mind&quot;, superscript MHT kept, same font and edge-to-edge fit); double exposures rebuilt as graded composites with one subject on a light ground (hero: therapy room × woodland; big photo: meadow × its own mirrored tree; second photo: hazy Portsmouth sky × woodland), real blacks (normalised), tint cut to a 14 % soft-light green; QA r6 + motion re-capture.
+- 1.1 (15.10.2026) — Motion addendum applied: full motion inventory of the reference (§4) measured live with Playwright, motion layer rebuilt on the reference&#x27;s own stack (GSAP 3.13 + ScrollTrigger, Lenis), hero still given video-like motion, motion QA sheets in `qa/motion-*.jpg`.
+- 1.0 (15.10.2026) — First version. Reference extracted live with Playwright (Chromium 1440×900, WebKit iPhone 14 Pro) from https://twofoldny.com/ on 15.10.2026; hero composition read from the Firecrawl cloud screenshots because the Vimeo video is blocked on this network.
+
+Reference: Twofold Therapy, New York (Awwwards Honorable Mention, August 2026). Stack observed in the loaded bundles: Nuxt + Sanity, GSAP + ScrollTrigger + SplitText, Lenis (`html.lenis`), lottie-web (wordmark), Vimeo progressive MP4 hero, Utopia-style fluid type/space scale, Vue-scoped CSS. No CSS `@keyframes`, no custom cursor.
+
+## 1. Type
+
+| Role | Reference (measured) | This variant |
+|---|---|---|
+| Primary sans | `GT-America-Standard-Medium` (Grilli Type, commercial, self-hosted woff2) | **Archivo** (Google Fonts, variable wdth 62–125 / wght 100–900), weight 580, width 100 — Archivo 500 reads lighter than GT America Medium, 580 matches the stroke |
+| Secondary serif | `GT-Super-Text-Book` (Grilli Type, commercial) | **Newsreader** (Google Fonts, variable, optical size auto), weight 400 |
+| Wordmark | Lottie SVG of &quot;TWOFOLD THERAPY&quot; + superscript &quot;TPG&quot; (set in caps), width 100 % of the padded hero, box 1390×126 px at 1440 (cap height ≈ 91 px), 351×32 px on iPhone | &quot;Re;mind&quot; in the brand&#x27;s own case + superscript &quot;MHT&quot;, Archivo 700 at width 125 %, `main.js` fits the font-size so the wordmark spans the same inner width (see §5 for the resulting box height) |
+
+Fluid scale (identical clamp() values copied from the reference; px at 1440 / 393):
+
+| Token | Value | 1440 | 393 |
+|---|---|---|---|
+| step-1 | clamp(.809rem, .7621rem + .2345vw, 1.0113rem) | 15.57 | 13.12 |
+| step-2 | clamp(1.309rem, 1.2331rem + .3794vw, 1.6362rem) | 25.19 | 21.22 |
+| step-3 | clamp(2.1179rem, 1.9951rem + .6139vw, 2.6474rem) | 40.76 | 34.30 |
+| step-6 (space-5xl) | clamp(8.971rem, 8.4509rem + 2.6003vw, 11.2138rem) | 172.7 | 145.4 |
+| step-7 (space-6xl) | clamp(14.5151rem, 13.6736rem + 4.2073vw, 18.1439rem) | 279 | 235 |
+| space-xs / s / m / l / xl / 2xl | step −2 / −1 / 0 / 1 / 2 / 3 | 3.68 / 5.95 / 9.62 / 15.57 / 25.19 / 40.76 | 3.1 / 5.0 / 8.1 / 13.1 / 21.2 / 34.3 |
+
+Settings: header and footer step-1, line-height 100 %, letter-spacing 0 · small text step-1, 120 %, −.01em · lead/body paragraphs step-2, 110 %, −.02em · centred statement step-3, 100 %, −.03em (phone: step-2, 110 %, −.02em) · service names serif step-2, 110 %, −.02em · popup menu step-2. Body `line-height: 1`; the reference hides scrollbars (`scrollbar-width: none`), kept.
+
+## 2. Colour roles → Re;mind
+
+| Reference | Role | Re;mind |
+|---|---|---|
+| `#000` | text, hairline underlines | `#17252A` deep ink |
+| `#fff` | page, statement block, section backgrounds | `#F2FCF7` pale mint (light stays light) |
+| `#eaeaea` | hairlines (photo line, service rows) | `rgba(23,37,42,.12)` |
+| `#cdcdcd` / `#f2f2f2` at 30 % + blur 10px | popup menu border / glass | `rgba(23,37,42,.24)` / `rgba(242,252,247,.3)` + blur 10px |
+| `#ecebec`, `#d4d4d2` | image placeholders | `#DCEBE4` |
+| `#17236f` navy (declared accent, unused on the homepage) | accent | `#006B54` green, used as the colour wash on every photograph |
+| — | focus ring, text selection | `#00C096` mint |
+| white | hero wordmark | white, kept |
+
+Photo treatment: the three double exposures are graded composites made with sharp (`assets/dx-*.webp`), each with one clear subject on a light ground and a deliberately placed second exposure multiplied in (dark ghost on light ground, as on the reference): hero = therapy room × woodland trunks (50 %) with a touch of dappled light (screen 30 %); big photo = meadow × its own mirrored tree over the open sky (50 %); second photo = hazy Portsmouth sky × woodland trunks (42 %). Saturation .82, levels normalised for real blacks, green tint only as a 14 % soft-light layer (the reference is neutral-warm). In the browser only a faint grain (.08–.11), a light wash for wordmark legibility and, on the hero, a drifting dappled-light layer (screen, 30 %) remain; services images keep the mild CSS desaturation.
+
+## 3. Layout (all measured at 1440×900 and 393×660)
+
+- 4-column grid everywhere, column-gap space-l (15.57), page padding space-xl (25.19); phone padding space-l (13.1). ≤1500 px the lead paragraph spans columns 2–4 (the reference&#x27;s own breakpoint); ≤1000 px phone layout.
+- Header: fixed, 4-col grid, padding-top 1.1 × l (17.1), logo col 1, nav col 2 (gap xl), contact col 4 right; phone: &quot;Menu&quot; button cols 2–4 right, popup glass menu with links right-aligned in cols 2–4.
+- Hero: `position: fixed; z-index: -2; height: 100vh`; `.main { margin-top: 100vh }` so the page scrolls over it (curtain). Wordmark flex-end, padding-bottom xs (phone xl).
+- Section 1 (statement): 100vh flex-centred; line 2 margin-top −1.25 × m, both lines padded s, `overflow: hidden` wrappers for the word reveal. Matches 1306/1347 px reference word tops (900 vh block).
+- Section 2 (big photo + About): photo 3/2 inside the page padding (phone 1.2/1), image 120 % tall at top −10 % for parallax; About directly below: label absolute col 1 (margin-top 1.2 × m, padding-top s), lead cols 2–4, body cols 1–3 with no row gap (measured 2742 → 2797 px on the reference, 2742 → 2797 here).
+- Second photo: hairline cols 2–4 (padding-top s), photo cols 2–3 at 1.2/1, small text col 4 (three paragraphs, later ones indented); phone: full width, text in cols 2–4. Gap between blocks space-5xl.
+- Services: hairline cols 2–3 in the first row, lead cols 2–4, body cols 1–3, list padding-top 5xl, rows gap 2xl; each row 4 columns (gap m), border-top, padding m / 5vh, number col 1, serif name cols 2–3, description col 4 (padding-bottom xl); phone shows a 4:3 image in cols 2–4 under the name.
+- Footer: 35vh (phone 20vh), 8 columns, align-content end, padding-bottom 1.3 × l (phone .8 × l), page background (the fixed hero would otherwise show through).
+
+## 4. Motion inventory (reference measured live on 15.10.2026) and rebuild
+
+Stack found on twofoldny.com (Playwright, resource list + bundle signatures): **Lenis** (`html.lenis`; signature in `DlKarG0n.js`, `BR6bo7RQ.js`), **GSAP + ScrollTrigger + SplitText** (`C_ssuNxp.js`, `BPv5nG8Y.js`, `BR6bo7RQ.js`), **Lottie** (wordmark, `BR6bo7RQ.js`), **Vimeo** progressive MP4 in `&lt;video autoplay muted playsinline&gt;` (no loop attribute), IntersectionObserver. CSS transitions only for page-enter (1.5 s), page-leave (.4 s), popup menu (.5 s), big-photo image fade (.6 s) and the hover-image opacity (.2 s). No CSS keyframes, no custom cursor (`cursor: auto`, no cursor element), no marquee, counters or accordions.
+
+Rebuilt with the same free libraries: GSAP 3.13.0 + ScrollTrigger from cdnjs, Lenis 1.x from jsDelivr; CSS transitions kept where the reference uses CSS. Every value below was measured on the reference and re-measured on this page (`qa/motion-reference-measurements.json`, `qa/motion-variant-measurements.json`).
+
+| # | Element | Trigger | Effect on the reference (measured) | Duration / easing | Library | Rebuilt as |
+|---|---|---|---|---|---|---|
+| 1 | Whole page | load | `.page-enter-active` fade | 1.5 s cubic-bezier(.22,1,.36,1) | CSS (Nuxt) | same CSS on `.page-container` |
+| 2 | Hero block | load, once the video can play | opacity 0 → 1 starting ≈ 0.9 s after navigation (0.003 @ 900 ms, 0.15 @ 1022, 0.68 @ 1140, 0.98 @ 1261, 1 @ 1382 ms) | ≈ 0.45 s, S-curve | GSAP | GSAP `to` 0.5 s power2.inOut, 0.45 s after fonts are ready (0.08 @ 900 ms, 1 @ 1620 ms measured here) |
+| 3 | Hero video | load | Vimeo MP4 autoplays muted, double-exposure footage | — | `&lt;video&gt;` | graded double-exposure still with video-like motion: the composite zooms 1 → 1.06 over 52 s, a dappled-light layer (screen, 30 %) drifts over 38 s, both alternating; film-grain tile jumps position 8× a second (`steps(1)`) |
+| 4 | Wordmark (Lottie SVG) | after the hero fade | thick baseline stroke runs left → right ahead of the letters; letters draw in left → right; stroke retracts into the right end and the superscript &quot;TPG&quot; appears | ≈ 1.2 s (1.5 → 2.7 s after navigation) | Lottie | GSAP timeline: `.wordmark-line` scaleX 0 → 1 from the left (0.75 s power2.inOut), `.wordmark-text` clip-path wipe (0.85 s power2.inOut), line retracts to the right (0.4 s), superscript &quot;MHT&quot; rises in (0.35 s) |
+| 5 | Header | scroll | opacity scrubbed 0 → 1 between 0.755 vh and 1.0 vh (desktop: 0 @ 600 px, 0.317 @ 750, 1 @ 900); phone 0 @ 600, 0.414 @ 750, 1 @ 900 (≈ 0.97–1.36 vh); no pointer events while hidden | scrub, ≈ 0.1 s catch-up | GSAP ScrollTrigger | same (`scrub: 0.1`); `is-visible` toggles pointer-events; `:focus-within` shows it for keyboard users |
+| 6 | Hero wordmark block | scroll 0 → 1 vh | translateY −55.6 % of vh per viewport (−83.3 px @ 150, −500 @ 900), linear, holds after | scrub | GSAP ScrollTrigger | same (measured here −83.34 @ 150, −500.04 @ 900) |
+| 7 | Hero video layer | scroll 0 → 1 vh | translateY −11.1 % of vh (−100 px @ 900) | scrub | GSAP ScrollTrigger | same (−99.99 @ 900) |
+| 8 | Statement words (one `div` per word) | block top reaches ≈ 40 % of the viewport, once | each word yPercent 100 → 0 and opacity 0 → 1 (y 40.77 → 34.3 @ 43 ms, 19.9 @ 85, 6.9 @ 169, 1.8 @ 253, 0 @ 460 ms) | 0.5 s power4.out, ≈ 55 ms stagger | GSAP SplitText | GSAP `to` on `.w` spans, 0.5 s power4.out, stagger 0.06 |
+| 9 | Big photo and second photo (`img` 120 % tall, top −10 %) | scroll, continuous | translateY = 80 px × (frame centre − viewport centre) / vh: 161 px @ scroll 0, 54.5 @ 1200, 1.2 @ 1800, −25.5 @ 2100, −78.8 @ 2700 (big photo); same slope on the phone (80/660) | linear scrub | GSAP ScrollTrigger | same (54.5 / 1.2 / −25.5 / −78.8 measured here); clamped once the frame is off-screen |
+| 10 | Big photo image | load | opacity 0 → 1 (`.loaded`) | .6 s ease-in-out | CSS | same on `.dx-set` |
+| 11 | Nav links, footer link | hover / leave | 1 px underline scaleX 0 → 1 from the left; leave: origin flips right, scaleX → 0; colour unchanged | in ≈ 0.35 s expo.out (0.13 @ 0, 0.92 @ 111 ms, 1 @ 300 ms); out ≈ 0.3 s (0.73 → 0.09 @ 101 ms → 0 @ 300) | GSAP | same (0.95 @ 151 ms, 1 @ 280 ms; out 0.02 @ 133 ms) |
+| 12 | Service names (serif) | hover / leave | underline as 11, opacity .6 | same | GSAP | same |
+| 13 | Hover image | hover over a service row | fixed 279 × 186 px image (opacity .9), left = cursor − 25 % of its width, bottom = cursor − 31 px (`translateY(−100%)`), fades in, removed on leaving the row | opacity .2 s | Vue + CSS | same geometry (left 324 @ cursor 395 on both), follows the cursor within the row, hidden ≤ 1000 px |
+| 14 | Phone popup menu | tap &quot;Menu&quot; | glass panel opacity 0 → 1, backdrop blur 10 px | .5 s ease-in-out | CSS | same |
+| 15 | Smooth scroll | wheel / touch | Lenis inertia | lerp ≈ 0.1 | Lenis | Lenis 1.x on the GSAP ticker, `anchors: true` |
+| 16 | Reduced motion | — | not handled on the reference | — | — | all scrubs and tweens off, final states shown, Lenis not started |
+
+Not replicated and why: the Vimeo footage itself (blocked on this network; the brief asks for a still with motion), the exact Lottie glyph paths (replaced by the wipe + stroke sequence above), and the reference&#x27;s scroll-triggered newsletter pop-up (not part of the design).
+
+## 5. What still differs from the reference, and why
+
+1. Wordmark proportion and case: &quot;Re;mind&quot; has 7 characters against 15 and is set in the brand&#x27;s own case rather than caps, so spanning the same width makes the type larger than the reference&#x27;s (box ≈ 200 px vs 126 px at 1440; ≈ 70 px vs 32 px on iPhone). Keeping the edge-to-edge composition was preferred over keeping the cap height.
+2. Fonts are free substitutes (Archivo 580 ↔ GT America Standard Medium; Newsreader 400 ↔ GT Super Text Book). Archivo sets slightly wider, so line breaks differ a little.
+3. Hero is a graded double-exposure still (therapy room × woodland) with slow zoom, drifting dappled light and grain flicker, not a video; all three double exposures are landscapes/interiors rather than portraits (people-free by house rule).
+4. Six numbered services instead of four and different copy lengths: the page is longer (5696 px vs 5376 px at 1440; 5801 px vs 5265 px on iPhone).
+5. The Lottie wordmark drawing is approximated (clip-path wipe with a baseline stroke); the phone header fade window is fitted from three samples.
+6. The reference&#x27;s scroll-triggered newsletter pop-up is not replicated.
+
+## 6. QA
+
+`qa/` holds the side-by-side sheets (reference left, this variant right): `rN-desktop-hero`, `rN-desktop-scroll900/1800/2700/3600`, `rN-desktop-full`, `rN-iphone-first`, `rN-iphone-full`, `rN-iphone-menu`, `rN-desktop-hover`. Rounds: r1 (layout verified; weight and photo tone off), r2 (Archivo 580, 50 % normal-blend exposures, lighter wash), r3 (second photo lifted, clean stitched full pages), r4 (footer background, interaction checks), r5 (after the GSAP/Lenis rebuild), r6 (wordmark in brand case, rebuilt double exposures). Motion QA (reference top, this variant bottom): `motion-load-desktop.jpg` (0/200/500/1000/2000/3000 ms), `motion-wordmark.jpg` (hero strip every 120 ms), `motion-scroll-desktop.jpg` and `motion-scroll-iphone.jpg` (one frame every 150 px), `motion-load-iphone.jpg`, `motion-hover.jpg` (nav underline, service underline with the hover image, then the cursor moved), plus the raw measurements as `motion-reference-measurements.json` and `motion-variant-measurements.json`. Phone `scrollWidth` = 393 = viewport (no horizontal overflow); no console or page errors in Chromium or WebKit; GSAP 3.13.0 and six ScrollTriggers active.
+</pre></main></html>

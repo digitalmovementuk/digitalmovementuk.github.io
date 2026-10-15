@@ -1,7 +1,8 @@
-/* Re;mind × Twofold variant — motion layer v2.0 (15.10.2026)
+/* Re;mind × Twofold variant "Echo" — motion layer v2.1 (round v1.1, 15.10.2026)
    Rebuilt on the reference's own stack: GSAP 3.13 + ScrollTrigger (cdnjs) and Lenis (jsDelivr).
    Every value below was measured on twofoldny.com with Playwright; see NOTES.md §4 (motion inventory).
-   Falls back to final states without GSAP, and honours prefers-reduced-motion. */
+   v2.1: hero film (landscape / portrait file, fades in once it can play, pauses when the page covers it, poster only under
+   prefers-reduced-motion). Falls back to final states without GSAP. Works standalone and inside the hub iframe (no window.top). */
 (() => {
   const d = document, w = window;
   const reduce = w.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -24,6 +25,38 @@
   const statement = d.getElementById('description');
   const words = Array.from(d.querySelectorAll('#description .w'));
   const paras = Array.from(d.querySelectorAll('.para'));
+  const film = d.querySelector('.hero-film');
+  const sentinel = d.querySelector('.hero-sentinel');
+
+  /* 0. Hero film (reference: Vimeo progressive MP4, autoplay muted, fades in once it can play).
+        Landscape file on desktop, the portrait composition on phones; never started under prefers-reduced-motion (poster stays);
+        paused while the page covers the hero (IntersectionObserver on the hero's slot) and while the tab is hidden. */
+  let filmReady = null;   // promise that resolves when the film can play (or on a timeout), used to start the load sequence
+  if (film && !reduce) {
+    const portrait = w.matchMedia('(max-width: 1000px) and (orientation: portrait)').matches;
+    const src = portrait ? film.getAttribute('data-src-portrait') : film.getAttribute('data-src');
+    if (portrait) film.setAttribute('poster', 'assets/hero-echo-poster-720x1280.webp');
+    filmReady = new Promise((resolve) => {
+      let done = false; const ok = () => { if (!done) { done = true; resolve(); } };
+      film.addEventListener('canplay', ok, { once: true });
+      film.addEventListener('error', ok, { once: true });
+      setTimeout(ok, 1800);   // never hold the wordmark hostage on a slow connection
+    });
+    film.addEventListener('playing', () => film.classList.add('is-playing'));
+    film.src = src; film.load();
+    const tryPlay = () => { const p = film.play(); if (p && p.catch) p.catch(() => {}); };
+    tryPlay();
+    let covered = false;
+    if ('IntersectionObserver' in w && sentinel) {
+      new IntersectionObserver((entries) => {
+        covered = !entries[0].isIntersecting;
+        if (covered) film.pause(); else if (!d.hidden) tryPlay();
+      }, { threshold: 0 }).observe(sentinel);
+    }
+    d.addEventListener('visibilitychange', () => { if (d.hidden) film.pause(); else if (!covered) tryPlay(); });
+  } else if (film) {
+    film.removeAttribute('autoplay');   // reduced motion: poster only
+  }
 
   /* 1. Wordmark: the reference's Lottie SVG is width:100% of the padded hero; scale the type to that inner width. */
   function fitWordmark() {
@@ -124,7 +157,8 @@
     d.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
   }
 
-  /* 7. Load sequence (measured: page-enter 1.5 s CSS; hero opacity 0 → 1 over ≈ 0.5 s once the video can play (≈ 1.2 s after navigation), here once fonts are ready;
+  /* 7. Load sequence (measured: page-enter 1.5 s CSS; hero opacity 0 → 1 over ≈ 0.5 s once the video can play (≈ 1.2 s after navigation);
+        here once fonts are ready AND the film can play (or 1.8 s at the latest);
         Lottie wordmark draws left → right in ≈ 1 s with a baseline stroke running ahead and the superscript last; photos fade in 0.6 s on load). */
   function start() {
     fitWordmark();
@@ -132,7 +166,7 @@
     if (motion) {
       /* Reference frames (120 ms steps): hero grey fades in 1.2–1.4 s; baseline stroke runs left → right from 1.5 s with the letters
          drawing behind it to 2.1 s; the stroke retracts into the right end 2.2–2.5 s and the superscript appears 2.5–2.7 s. */
-      const tl = w.gsap.timeline({ delay: 0.45 });
+      const tl = w.gsap.timeline({ delay: 0.25 });
       tl.to(hero, { opacity: 1, duration: 0.5, ease: 'power2.inOut' }, 0);   /* measured: 0.0031 → 0.98 in ≈ 0.42 s, S-curve */
       if (wmLine) tl.fromTo(wmLine, { scaleX: 0, opacity: 1, transformOrigin: '0% 50%' }, { scaleX: 1, duration: 0.75, ease: 'power2.inOut' }, 0.4);
       if (wmText) tl.fromTo(wmText, { clipPath: 'inset(-5% 100% -10% 0)' }, { clipPath: 'inset(-5% 0% -10% 0)', duration: 0.85, ease: 'power2.inOut' }, 0.6);
@@ -149,6 +183,7 @@
     if (ST) ST.refresh();
     setTimeout(() => { fitWordmark(); if (ST) ST.refresh(); }, 350);
   }
-  (d.fonts && d.fonts.ready ? d.fonts.ready : Promise.resolve()).then(start, start);
+  const fontsReady = d.fonts && d.fonts.ready ? d.fonts.ready : Promise.resolve();
+  Promise.all([fontsReady, filmReady || Promise.resolve()]).then(start, start);
   w.addEventListener('resize', () => { fitWordmark(); if (ST) ST.refresh(); });
 })();

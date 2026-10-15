@@ -15,7 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
 <script src="main.js" defer></script>
-<noscript><style>.content-hero { opacity: 1; } .dx-set { opacity: 1; } header { opacity: 1; pointer-events: auto; }</style></noscript>
+<noscript><style>.content-hero { opacity: 1; } .dx-set { opacity: 1; } header { opacity: 1; pointer-events: auto; } .hero-film { display: none; }</style></noscript>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -28,7 +28,7 @@
   <nav class="menu-main desktop-only" aria-label="Main">
     <a href="#services" class="menu-link"><span class="menu-link-text">Therapies<span class="menu-link-underline"></span></span></a>
     <a href="#about" class="menu-link"><span class="menu-link-text">Our team<span class="menu-link-underline"></span></span></a>
-    <a href="#services" class="menu-link"><span class="menu-link-text">Case study<span class="menu-link-underline"></span></span></a>
+    <a href="#where" class="menu-link"><span class="menu-link-text">Where we are<span class="menu-link-underline"></span></span></a>
   </nav>
   <nav class="menu-contact desktop-only" aria-label="Contact">
     <a href="mailto:enquiries@remindmht.com" class="menu-link"><span class="menu-link-text">Talk to us<span class="menu-link-underline"></span></span></a>
@@ -40,7 +40,7 @@
     <ul>
       <li><a href="#services" class="menu-link">Therapies</a></li>
       <li><a href="#about" class="menu-link">Our team</a></li>
-      <li><a href="#services" class="menu-link">Case study</a></li>
+      <li><a href="#where" class="menu-link">Where we are</a></li>
       <li><a href="mailto:enquiries@remindmht.com" class="menu-link">Talk to us</a></li>
     </ul>
   </div>
@@ -48,12 +48,21 @@
 
 <div class="page-container">
 <div class="page-wrapper">
+  <div class="hero-sentinel" aria-hidden="true"></div>
 
-  <!-- Hero: fixed behind the page. Double exposure of the Re;mind therapy room and the Solent, slowly drifting, in place of the reference's Vimeo video. -->
+  <!-- Hero: fixed behind the page. Stock double-exposure film (two cottonbro studio clips, Pexels licence, composited and graded for
+       Re;mind — see CREDITS.md) in place of the reference's Vimeo film. The poster shows first; the video fades over it once it plays.
+       main.js picks the landscape or portrait file, starts it only without prefers-reduced-motion and pauses it once the page covers it. -->
   <section class="content-hero" aria-label="Re;mind">
     <div class="content-hero_video" aria-hidden="true">
-      <div class="dx dx-base"><img src="assets/dx-hero-room-woodland.webp" alt="" width="1440" height="960" fetchpriority="high"></div>
-      <div class="dx dx-over"><img src="assets/sunlit-canopy-poster-1280.webp" alt="" width="1280" height="853"></div>
+      <picture class="hero-poster">
+        <source media="(max-width: 1000px) and (orientation: portrait)" srcset="assets/hero-echo-poster-720x1280.webp">
+        <img src="assets/hero-echo-poster-1600.webp" alt="" width="1600" height="900" fetchpriority="high" decoding="async">
+      </picture>
+      <video class="hero-film" autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback
+             data-src="assets/hero-echo-1920.mp4" data-src-portrait="assets/hero-echo-720x1280.mp4"
+             poster="assets/hero-echo-poster-1600.webp" width="1920" height="1080" tabindex="-1"></video>
+      <span class="tint"></span>
       <span class="wash"></span>
       <span class="grain"></span>
     </div>
@@ -92,7 +101,7 @@
         <p class="content-01__text2">Our approach is pluralistic. We listen first, then agree an approach, a pace and a frequency that fit your life. There are no scripts, tick-box programmes or fixed timelines. Our counsellors and clinical psychologist draw on counselling, EMDR, hypnotherapy, VR therapy and coaching, and work with stress, anxiety, PTSD, grief, self-doubt, anger and relationships. The aim is to help you make sense of your own story, with someone who knows you, so that change can last.</p>
       </section>
 
-      <section class="content-photo-01" aria-label="How we work">
+      <section class="content-photo-01" id="where" aria-label="How we work and where we are">
         <div class="content-photo-01__line"></div>
         <figure class="content-photo-01__media">
           <div class="para dx-set">
