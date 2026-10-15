@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Re;mind — Therapy shaped around you | Whiteley, Hampshire</title>
+<meta name="description" content="Counselling, EMDR, hypnotherapy, VR therapy and coaching in Whiteley, Hampshire. In person or online, with a brief introductory consultation first.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Reference fonts (Tobias Light, TT Norms Pro) are commercial; substitutes: Newsreader 300 + Figtree 400/500. See NOTES.md -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300&family=Figtree:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ---------- tokens (reference role -> Re;mind) ---------- */
+:root{
+  --ink:#17252A;          /* reference #000 text */
+  --green:#006B54;
+  --mint:#00C096;         /* focus + small accents */
+  --pale:#F2FCF7;         /* reference white text on dark hero */
+  --white:#FFFFFF;        /* reference white solid button */
+  --surface:#E2EFE9;      /* reference sand #E0DACE page surface -> mint paper (pale mint + ink) */
+  --hero-dark:#0E2E27;    /* reference #3E4235 image placeholder -> deep shade of green */
+  --divider:rgba(23,37,42,.5);   /* reference 1px rgba(0,0,0,.5) section divider */
+  --rule:var(--ink);              /* reference 1px #000 accordion divider */
+  --serif:'Newsreader', 'Times New Roman', serif;
+  --sans:'Figtree', 'Helvetica Neue', Arial, sans-serif;
+  --gutter:4vw;           /* reference 57.6px at 1440 */
+  --col-gap:11px;
+  --fs-h1:calc(32.75px + 3.396vw);   /* 81.66px @1440, 46.1px @393 */
+  --fs-h3:calc(22.61px + 1.341vw);   /* 41.92px @1440, 27.88px @393 */
+  --fs-p:calc(17.77px + 0.357vw);    /* 22.91px @1440, 19.17px @393 */
+  --fs-small:calc(16.44px + 0.09vw); /* 17.73px @1440, 16.79px @393 */
+}
+*,*::before,*::after{box-sizing:border-box}
+html{font-size:16px;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.2;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,p,ul{margin:0}
+ul{padding:0;list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--pale);padding:8px 12px;z-index:50}
+.skip:focus{left:8px}
+
+/* ---------- grid (Squarespace fluid engine: 24 cols, 11px gap, 4vw outer) ---------- */
+.grid{display:grid;grid-template-columns:repeat(24,minmax(0,1fr));column-gap:var(--col-gap);padding-inline:var(--gutter);width:100%}
+
+/* ---------- type ---------- */
+.h1{font-family:var(--serif);font-weight:300;font-size:var(--fs-h1);line-height:1.0176;letter-spacing:-.02em;font-variation-settings:'opsz' 72}
+.h3{font-family:var(--serif);font-weight:300;font-size:var(--fs-h3);line-height:1.128;letter-spacing:-.02em;font-variation-settings:'opsz' 72}
+.p{font-size:var(--fs-p);line-height:1.2}
+.small{font-size:var(--fs-small);line-height:1.2}
+
+/* ---------- buttons (reference: 16px, +0.8px tracking, 11.2px 12.8px, square) ---------- */
+.btn{display:inline-block;font-family:var(--sans);font-size:16px;font-weight:400;letter-spacing:.8px;line-height:normal;padding:11.2px 12.8px;text-align:center;text-decoration:none;border-radius:0;white-space:nowrap}
+.btn--solid{background:var(--white);color:var(--ink);border:0;transition:opacity .1s linear}
+.btn--solid:hover{opacity:.8}
+.btn--outline{background:transparent;color:var(--ink);border:1px solid var(--ink);transition:background-color .1s linear,color .1s linear}
+.btn--outline:hover{background:var(--ink);color:var(--pale)}
+.btn--outline-light{background:transparent;color:var(--pale);border:1px solid var(--pale);transition:background-color .1s linear,color .1s linear}
+.btn--outline-light:hover{background:var(--pale);color:var(--ink)}
+
+/* ---------- header (absolute, transparent, 2vw 4vw) ---------- */
+.header{position:absolute;inset:0 0 auto 0;z-index:20;padding:2vw var(--gutter);color:var(--pale)}
+.header__inner{display:flex;align-items:center;justify-content:space-between;min-height:44px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--pale)}
+.logo img{width:44px;height:44px;border-radius:50%}
+.logo span{font-family:var(--sans);font-weight:500;font-size:22px;letter-spacing:.06em;line-height:1}
+.nav{display:flex;align-items:center}
+.nav__list{display:flex;align-items:center;gap:28px;margin-right:23px}
+.nav__list a,.nav__folder-title{font-size:16px;line-height:1.4;padding:1.6px 0;text-decoration:none;color:var(--pale);display:inline-flex;align-items:center}
+/* nav folder (reference: dropdown shown instantly on hover, display none -> block, 1px outline, 8px 16px, right-aligned 16px links, lh 20.8 + 1.6px) */
+.nav__folder{position:relative}
+.nav__folder-title{cursor:pointer}
+.nav__folder-content{display:none;position:absolute;top:100%;right:-16px;padding:8px 16px;border:1px solid var(--pale);background:transparent;text-align:right;white-space:nowrap;z-index:21}
+.nav__folder:hover .nav__folder-content,.nav__folder:focus-within .nav__folder-content,.nav__folder.is-open .nav__folder-content{display:block}
+.nav__folder-content a{display:block;font-size:16px;line-height:20.8px;padding:1.6px 0;color:var(--pale);text-decoration:none}
+.burger{display:none}
+
+/* ---------- hero (100vh, image cover, grainy duotone) ---------- */
+.hero{position:relative;min-height:100vh;min-height:100svh;background:var(--hero-dark);color:var(--pale);display:flex;align-items:center;padding-top:12.8vh;overflow:hidden;isolation:isolate}
+.hero__bg{position:absolute;inset:0;z-index:-1;overflow:hidden;background:var(--hero-dark)}
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:68% 50%;filter:url(#remind-duotone) brightness(1.12) contrast(1.06);transform:scale(1.02)}
+.hero__scrim{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(180deg, rgba(14,46,39,.78) 0%, rgba(14,46,39,.45) 11%, rgba(14,46,39,0) 26%),
+  linear-gradient(90deg, rgba(14,46,39,.62) 0%, rgba(14,46,39,.38) 40%, rgba(14,46,39,.05) 68%, rgba(14,46,39,0) 100%)}
+.hero__leak{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;background:
+  radial-gradient(50% 44% at 0% 48%, rgba(0,192,150,.20), rgba(0,192,150,0) 70%),
+  radial-gradient(40% 30% at 55% 104%, rgba(0,192,150,.16), rgba(0,192,150,0) 70%)}
+.hero__grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.85;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='1'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");background-size:180px 180px}
+.hero__vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%, rgba(14,46,39,0) 55%, rgba(14,46,39,.45) 100%)}
+.hero__text{grid-column:1 / span 14}
+.hero__text .h1{margin-bottom:32px}
+.hero__text .p{margin-top:16px}
+.hero__cta{grid-column:1 / span 12;margin-top:19px}
+
+/* ---------- sections ---------- */
+.section{position:relative;border-top:1px solid var(--divider);background:var(--surface)}
+.section--philosophy{min-height:66vh;min-height:66svh;display:flex;align-items:center;padding:95px 0}
+.philosophy{grid-column:3 / span 20;text-align:center}
+.philosophy .p{margin-bottom:16px}
+.philosophy .h3{margin-top:32px}
+
+.section--services{min-height:66vh;min-height:66svh;padding:158px 0 95px}
+.section--services .grid{grid-template-rows:auto 1fr}
+.services__intro{grid-column:1 / span 10}
+.services__intro .h3{margin-bottom:53px}
+.services__intro{grid-column:1 / span 10;grid-row:1}
+.services__list{grid-column:13 / span 12;grid-row:1 / span 2}
+.services__cta{grid-column:1 / span 10;grid-row:2;align-self:start;margin-top:36px}
+
+/* accordion (reference: 15px 0 click target, 1px #000 divider, 14px plus icon) */
+.acc__item{position:relative}
+.acc__btn{display:flex;align-items:flex-start;justify-content:space-between;width:100%;padding:15px 0;text-align:left;position:relative}
+.acc__title{display:block;padding-right:14px;line-height:49px}
+.acc__icon{position:absolute;right:0;top:50%;width:14px;height:14px;margin-top:-7px}
+.acc__icon i{position:absolute;background:var(--ink);display:block}
+.acc__icon .h{left:0;right:0;top:50%;height:1px;margin-top:-.5px}
+.acc__icon .v{top:0;bottom:0;left:50%;width:1px;margin-left:-.5px;transition:transform .25s}
+.acc__btn[aria-expanded="true"] .acc__icon .v{transform:rotate(90deg)}
+.acc__panel{overflow:hidden;height:0;transition:height .25s cubic-bezier(.66,0,.34,1)}
+.acc__desc{padding:0 0 20px}
+.acc__desc p + p{margin-top:16px}
+.acc__desc a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+.acc__divider{height:1px;background:var(--rule)}
+
+/* ---------- mobile (iPhone: 6vw gutter, single column) ---------- */
+@media (max-width:767px){
+  :root{--gutter:6vw}
+  .header{padding:6vw var(--gutter)}
+  .header__inner{min-height:50px}
+  .logo img{width:50px;height:50px}
+  .logo span{font-size:20px}
+  .nav__list{display:none}
+  .nav .btn{display:none}
+  .burger{display:block;width:50px;height:40px;position:relative;margin-right:-7px}
+  .burger i{position:absolute;left:50%;width:35px;height:2px;margin-left:-17.5px;background:var(--pale);display:block;transition:transform .25s cubic-bezier(.2,.6,.3,1),width .25s cubic-bezier(.2,.6,.3,1);transform-origin:50% 50%}
+  .burger .b1{top:9px}.burger .b2{top:19px}.burger .b3{top:29px}
+  .burger[aria-expanded="true"] .b1{transform:translateY(10px) rotate(45deg)}
+  .burger[aria-expanded="true"] .b2{width:0;margin-left:0}
+  .burger[aria-expanded="true"] .b3{transform:translateY(-10px) rotate(-45deg)}
+  .hero{min-height:0;display:block;padding:198px 0 144px}
+  .hero__bg img{object-position:72% 50%}
+  .hero__scrim{background:linear-gradient(180deg, rgba(14,46,39,.75) 0%, rgba(14,46,39,.4) 40%, rgba(14,46,39,.05) 75%, rgba(14,46,39,0) 100%)}
+  .hero__text,.hero__cta{grid-column:1 / -1}
+  .hero__cta{margin-top:19px}
+  .hero__cta .btn,.services__cta .btn{display:block;width:100%}
+  .section--philosophy{min-height:0;display:block;padding:86px 0 138px}
+  .philosophy{grid-column:1 / -1}
+  .section--services{min-height:0;padding:79px 0 93px}
+  .section--services .grid{grid-template-rows:none}
+  .services__intro,.services__list,.services__cta{grid-column:1 / -1;grid-row:auto}
+  .services__intro .h3{margin-bottom:39px}
+  .services__intro .small{margin-bottom:24px}
+  .services__list{order:2}
+  .services__cta{order:3;margin-top:11px}
+  .acc__title{line-height:32px}
+  .menu{position:fixed;inset:0;z-index:18;background:var(--hero-dark);color:var(--pale);display:flex;flex-direction:column;justify-content:flex-start;padding:100px 6vw 40px;opacity:0;visibility:hidden;transition:visibility .6s cubic-bezier(.4,0,.2,1),opacity .4s cubic-bezier(.4,0,.2,1)}
+  .menu.is-open{opacity:1;visibility:visible}
+  .menu__list{position:relative;width:100%;transform:translateY(20px);transition:transform .6s cubic-bezier(.4,0,.2,1)}
+  .menu.is-open .menu__list{transform:translateY(0)}
+  .menu__main,.menu__sub{display:flex;flex-direction:column;align-items:flex-start;gap:18px;transition:transform .6s cubic-bezier(.4,0,.2,1),visibility .6s}
+  .menu__item a,.menu__item button{font-family:var(--sans);font-weight:400;font-size:33.4px;line-height:1.2;text-decoration:none;color:var(--pale);display:inline-flex;align-items:center;gap:14px;transition:opacity .25s cubic-bezier(.4,0,.2,1)}
+  .menu__item a:hover,.menu__item button:hover{opacity:.6}
+  .menu__chev{width:11px;height:11px;border-right:1.5px solid var(--pale);border-top:1.5px solid var(--pale);transform:rotate(45deg);flex:none}
+  .menu__back .menu__chev{transform:rotate(-135deg)}
+  .menu .btn{font-family:var(--sans);font-size:16px;line-height:normal;letter-spacing:.8px;display:inline-block;gap:0;margin-top:10px}
+  /* folder sub-panel (reference: folder tap slides the sub-list in, transform .6s, "Back" first) */
+  .menu__sub{position:absolute;left:0;right:0;top:0;transform:translateX(100%);visibility:hidden}
+  .menu.is-sub .menu__sub{transform:none;visibility:visible}
+  .menu.is-sub .menu__main{transform:translateX(-100%);visibility:hidden}
+}
+@media (min-width:768px){
+  .menu{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .acc__panel,.acc__icon .v,.btn,.menu,.menu__list,.menu__main,.menu__sub,.menu__item a,.menu__item button,.burger i{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<!-- SVG duotone filter: shadows deep green, mid-tones green, highlights pale mint -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="remind-duotone" color-interpolation-filters="sRGB">
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer>
+      <feFuncR type="table" tableValues="0.03 0.11 0.88"/>
+      <feFuncG type="table" tableValues="0.11 0.34 0.95"/>
+      <feFuncB type="table" tableValues="0.09 0.27 0.90"/>
+    </feComponentTransfer>
+  </filter>
+</svg>
+
+<header class="header">
+  <div class="header__inner">
+    <a class="logo" href="#" aria-label="Re;mind home">
+      <img src="assets/roundel-224.webp" width="44" height="44" alt="Re;mind roundel">
+      <span>Re;mind</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <ul class="nav__list">
+        <li class="nav__folder">
+          <button class="nav__folder-title" type="button" aria-expanded="false" aria-controls="folder-therapies">Therapies</button>
+          <div class="nav__folder-content" id="folder-therapies">
+            <a href="#counselling">Counselling</a>
+            <a href="#emdr">EMDR</a>
+            <a href="#hypnotherapy">Hypnotherapy</a>
+            <a href="#vr-therapy">VR therapy</a>
+            <a href="#coaching">Coaching</a>
+            <a href="#therapist-mentoring">Therapist mentoring</a>
+          </div>
+        </li>
+        <li><a href="#team">Our team</a></li>
+        <li><a href="#questions">FAQ</a></li>
+      </ul>
+      <a class="btn btn--outline-light" href="#contact">Book a consultation</a>
+      <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i class="b1"></i><i class="b2"></i><i class="b3"></i></button>
+    </nav>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-label="Menu" aria-hidden="true">
+  <nav class="menu__list" aria-label="Mobile">
+    <ul class="menu__main">
+      <li class="menu__item"><button type="button" class="menu__folder-btn" aria-expanded="false" aria-controls="menu-sub-therapies">Therapies <span class="menu__chev" aria-hidden="true"></span></button></li>
+      <li class="menu__item"><a href="#team">Our team</a></li>
+      <li class="menu__item"><a href="#questions">FAQ</a></li>
+      <li class="menu__item"><a class="btn btn--outline-light" href="#contact">Book a consultation</a></li>
+    </ul>
+    <ul class="menu__sub" id="menu-sub-therapies">
+      <li class="menu__item"><button type="button" class="menu__back"><span class="menu__chev" aria-hidden="true"></span> Back</button></li>
+      <li class="menu__item"><a href="#counselling">Counselling</a></li>
+      <li class="menu__item"><a href="#emdr">EMDR</a></li>
+      <li class="menu__item"><a href="#hypnotherapy">Hypnotherapy</a></li>
+      <li class="menu__item"><a href="#vr-therapy">VR therapy</a></li>
+      <li class="menu__item"><a href="#coaching">Coaching</a></li>
+      <li class="menu__item"><a href="#therapist-mentoring">Therapist mentoring</a></li>
+    </ul>
+  </nav>
+</div>
+
+<main id="main">
+  <section class="hero" aria-label="Re;mind, therapy shaped around you">
+    <div class="hero__bg" aria-hidden="true">
+      <picture>
+        <source type="image/avif" srcset="assets/sunlit-canopy-poster-640.avif 640w, assets/sunlit-canopy-poster-960.avif 960w, assets/sunlit-canopy-poster-1280.avif 1280w" sizes="100vw">
+        <img src="assets/sunlit-canopy-poster-1280.webp" srcset="assets/sunlit-canopy-poster-640.webp 640w, assets/sunlit-canopy-poster-960.webp 960w, assets/sunlit-canopy-poster-1280.webp 1280w" sizes="100vw" width="1280" height="720" alt="" fetchpriority="high">
+      </picture>
+      <div class="hero__scrim"></div>
+      <div class="hero__leak"></div>
+      <div class="hero__grain"></div>
+      <div class="hero__vignette"></div>
+    </div>
+    <div class="grid">
+      <div class="hero__text">
+        <h1 class="h1">Therapy shaped around you, at a pace that feels right.</h1>
+        <p class="p">Counselling, EMDR, hypnotherapy, VR therapy and coaching in Whiteley, Hampshire, in person or online.</p>
+      </div>
+      <div class="hero__cta">
+        <a class="btn btn--solid" href="#contact">Talk to us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--philosophy" id="approach" aria-labelledby="philosophy-heading">
+    <div class="grid">
+      <div class="philosophy">
+        <p class="p">How we work</p>
+        <h2 class="h3" id="philosophy-heading">We listen first, then agree an approach, a pace and a frequency that fit your life. There are no scripts and no fixed timelines.</h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--services" id="therapies" aria-labelledby="services-heading">
+    <div class="grid">
+      <div class="services__intro">
+        <h2 class="h3" id="services-heading">Our therapies</h2>
+        <p class="small">People come to us with stress, anxiety, low mood, trauma and grief. Six approaches under one roof, and a brief introductory consultation to help you choose.</p>
+      </div>
+      <ul class="services__list" id="services-list">
+        <li class="acc__item" id="counselling">
+          <h3 class="h3"><button class="acc__btn" type="button" id="acc-b1" aria-expanded="false" aria-controls="acc-p1"><span class="acc__title">Counselling</span><span class="acc__icon" aria-hidden="true"><i class="h"></i><i class="v"></i></span></button></h3>
+          <div class="acc__panel" id="acc-p1" role="region" aria-labelledby="acc-b1" hidden><div class="acc__desc small"><p>Talk through what is weighing on you with a pluralistic counsellor who draws on CBT, DBT, transactional analysis and Gestalt. For stress, grief, trauma, anxiety and low mood.</p></div></div>
+          <div class="acc__divider"></div>
+        </li>
+        <li class="acc__item" id="emdr">
+          <h3 class="h3"><button class="acc__btn" type="button" id="acc-b2" aria-expanded="false" aria-controls="acc-p2"><span class="acc__title">EMDR</span><span class="acc__icon" aria-hidden="true"><i class="h"></i><i class="v"></i></span></button></h3>
+          <div class="acc__panel" id="acc-p2" role="region" aria-labelledby="acc-b2" hidden><div class="acc__desc small"><p>Helps the mind file away memories that still feel raw, using guided eye movements or tapping while you recall the event from a safe distance. Often used for trauma.</p></div></div>
+          <div class="acc__divider"></div>
+        </li>
+        <li class="acc__item" id="hypnotherapy">
+          <h3 class="h3"><button class="acc__btn" type="button" id="acc-b3" aria-expanded="false" aria-controls="acc-p3"><span class="acc__title">Hypnotherapy</span><span class="acc__icon" aria-hidden="true"><i class="h"></i><i class="v"></i></span></button></h3>
+          <div class="acc__panel" id="acc-p3" role="region" aria-labelledby="acc-b3" hidden><div class="acc__desc small"><p>Deep relaxation and guided imagery, with you in control throughout. For anxiety, fears, habits such as smoking, pain, IBS and nerves before medical treatment.</p></div></div>
+          <div class="acc__divider"></div>
+        </li>
+        <li class="acc__item" id="vr-therapy">
+          <h3 class="h3"><button class="acc__btn" type="button" id="acc-b4" aria-expanded="false" aria-controls="acc-p4"><span class="acc__title">VR therapy</span><span class="acc__icon" aria-hidden="true"><i class="h"></i><i class="v"></i></span></button></h3>
+          <div class="acc__panel" id="acc-p4" role="region" aria-labelledby="acc-b4" hidden><div class="acc__desc small"><p>Face a feared situation step by step in a headset, with your therapist beside you. For specific fears such as heights, crowds, open spaces or spiders.</p><p><a href="#vr-therapy-hampshire">How VR therapy works</a></p></div></div>
+          <div class="acc__divider"></div>
+        </li>
+        <li class="acc__item" id="coaching">
+          <h3 class="h3"><button class="acc__btn" type="button" id="acc-b5" aria-expanded="false" aria-controls="acc-p5"><span class="acc__title">Coaching</span><span class="acc__icon" aria-hidden="true"><i class="h"></i><i class="v"></i></span></button></h3>
+          <div class="acc__panel" id="acc-p5" role="region" aria-labelledby="acc-b5" hidden><div class="acc__desc small"><p>Forward-looking support for career, life, health, study and relationships. Unlike counselling, coaching starts from where you want to be.</p></div></div>
+          <div class="acc__divider"></div>
+        </li>
+        <li class="acc__item" id="therapist-mentoring">
+          <h3 class="h3"><button class="acc__btn" type="button" id="acc-b6" aria-expanded="false" aria-controls="acc-p6"><span class="acc__title">Therapist mentoring</span><span class="acc__icon" aria-hidden="true"><i class="h"></i><i class="v"></i></span></button></h3>
+          <div class="acc__panel" id="acc-p6" role="region" aria-labelledby="acc-b6" hidden><div class="acc__desc small"><p>One-to-one mentoring, small group sessions and guest speakers for counsellors in training or in practice, face to face in Whiteley.</p></div></div>
+          <div class="acc__divider"></div>
+        </li>
+      </ul>
+      <div class="services__cta">
+        <a class="btn btn--outline" href="#contact">Talk to us</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Accordion: one open at a time, animated height (reference: Squarespace accordion block)
+  var items = document.querySelectorAll('.acc__btn');
+  function close(btn){
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
+    btn.setAttribute('aria-expanded','false');
+    if (reduce){ panel.hidden = true; panel.style.height = ''; return; }
+    panel.style.height = panel.scrollHeight + 'px';
+    requestAnimationFrame(function(){ panel.style.height = '0px'; });
+    panel.addEventListener('transitionend', function h(){ panel.hidden = true; panel.style.height=''; panel.removeEventListener('transitionend', h); });
+  }
+  function open(btn){
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
+    btn.setAttribute('aria-expanded','true');
+    panel.hidden = false;
+    if (reduce){ panel.style.height = 'auto'; return; }
+    panel.style.height = '0px';
+    requestAnimationFrame(function(){ panel.style.height = panel.scrollHeight + 'px'; });
+    panel.addEventListener('transitionend', function h(){ if (btn.getAttribute('aria-expanded')==='true') panel.style.height = 'auto'; panel.removeEventListener('transitionend', h); });
+  }
+  items.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var isOpen = btn.getAttribute('aria-expanded') === 'true';
+      items.forEach(function(o){ if (o !== btn && o.getAttribute('aria-expanded') === 'true') close(o); });
+      isOpen ? close(btn) : open(btn);
+    });
+  });
+  // Desktop nav folder (reference: dropdown appears instantly on hover; here also click and keyboard)
+  var folder = document.querySelector('.nav__folder'), folderBtn = document.querySelector('.nav__folder-title');
+  function setFolder(open){ folder.classList.toggle('is-open', open); folderBtn.setAttribute('aria-expanded', String(open)); }
+  folderBtn.addEventListener('click', function(){ setFolder(!folder.classList.contains('is-open')); });
+  folder.addEventListener('mouseenter', function(){ folderBtn.setAttribute('aria-expanded', 'true'); });
+  folder.addEventListener('mouseleave', function(){ if (!folder.classList.contains('is-open')) folderBtn.setAttribute('aria-expanded', 'false'); });
+  document.addEventListener('click', function(e){ if (!folder.contains(e.target)) setFolder(false); });
+  // Mobile menu (reference: burger -> X .25s, overlay fades .4s, list slides 20px .6s, folder slides a sub-list in)
+  var burger = document.querySelector('.burger'), menu = document.getElementById('menu'), subBtn = menu.querySelector('.menu__folder-btn'), backBtn = menu.querySelector('.menu__back');
+  function setSub(open){ menu.classList.toggle('is-sub', open); subBtn.setAttribute('aria-expanded', String(open)); }
+  function setMenu(openState){ menu.classList.toggle('is-open', openState); menu.setAttribute('aria-hidden', String(!openState)); burger.setAttribute('aria-expanded', String(openState)); burger.setAttribute('aria-label', openState ? 'Close menu' : 'Open menu'); document.body.style.overflow = openState ? 'hidden' : ''; if (!openState) setSub(false); if (openState) menu.querySelector('.menu__main button, .menu__main a').focus({ preventScroll: true }); else burger.focus({ preventScroll: true }); }
+  burger.addEventListener('click', function(){ setMenu(burger.getAttribute('aria-expanded') !== 'true'); });
+  subBtn.addEventListener('click', function(){ setSub(true); setTimeout(function(){ backBtn.focus({ preventScroll: true }); }, reduce ? 0 : 600); });
+  backBtn.addEventListener('click', function(){ setSub(false); subBtn.focus({ preventScroll: true }); });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  document.addEventListener('keydown', function(e){ if (e.key !== 'Escape') return; if (menu.classList.contains('is-open')) setMenu(false); setFolder(false); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+/* Re;mind — style variant 05 "here. psychology" (behere.co) — v1.0, 15 October 2026
+   Mirrors the reference's Carbonate/Bootstrap-4 theme values: 1240 container, 12-col grid (15px gutters),
+   Graphik → Hanken Grotesk, blush #F1DAD0 → mint tint, brown #8D796F → green #006B54.
+   Change log: 1.0 first build. */
+
+:root {
+  --page: #C9F1E4;          /* reference blush #F1DAD0 → mint tint (pale mint 80 % + mint 20 %), same lightness as the blush */
+  --ink: #006B54;           /* reference brown #8D796F → Re;mind green: text, headings, lines, buttons */
+  --white: #FFFFFF;         /* hero headline, current/hover links, button hover */
+  --mint: #00C096;          /* brand mint, focus ring */
+  --deep: #17252A;          /* brand ink, unused on this page (kept for completeness) */
+  --font: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 300;                 /* Graphik Light */
+  letter-spacing: 0.5px;            /* reference: 0.5px everywhere */
+  color: var(--ink);
+  background-color: var(--page);
+  text-align: left;
+}
+
+h1, h2, h3 { margin: 30px 0 15px; font-weight: 700; line-height: 1.2; }   /* Graphik Semibold ≈ Hanken Grotesk Bold in stem weight */
+h2 { font-size: 35px; }
+h3 { font-size: 22.5px; font-weight: 300; line-height: 150%; }
+p  { font-size: 15px; margin: 0 0 16px; }
+ul { margin: 0; padding: 0; list-style: none; }
+figure { margin: 0; }
+img { max-width: 100%; }
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.5s ease-out, background-color 0.5s ease-out, border-color 0.5s ease-out;
+}
+a:hover { color: var(--white); text-decoration: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--mint); outline-offset: 4px; }
+
+.skip-link { position: absolute; left: -999px; top: 8px; background: var(--white); color: var(--ink); padding: 8px 12px; z-index: 2000; }
+.skip-link:focus { left: 16px; }
+
+/* ---------- grid (Bootstrap 4 values the reference uses) ---------- */
+.container { width: 100%; max-width: 100%; padding: 0 15px; margin: 0 auto; overflow: auto; }
+.row { display: flex; flex-wrap: wrap; margin: 0; }
+.column, .col { position: relative; width: 100%; padding: 0 15px; }
+
+@media (min-width: 992px) { .container { max-width: 1240px; } }
+
+/* ---------- header (fixed, transparent, 100px fade behind it) ---------- */
+.site-header {
+  position: fixed; top: 0; left: 0; width: 100%;
+  padding: 0; z-index: 1000; pointer-events: none;
+  background: transparent;
+}
+.site-header::before {
+  content: ''; position: absolute; top: 0; left: 0; height: 100px; width: 100%; z-index: -1; display: none;
+  background-image: linear-gradient(to bottom, var(--page), rgba(201, 241, 228, 0));
+}
+.site-header .container { max-width: 1370px; overflow: visible; }
+.nav-header { padding-top: 30px; position: relative; }
+.nav-header::after { content: ''; display: table; clear: both; }
+
+.nav-list { padding: 0; margin: 0; float: right; }
+.nav-header .nav-list { pointer-events: all; padding-top: 17px; }   /* reference 15px with Graphik; +2px puts Hanken's em box on the same y */
+.nav-header .nav-list-main { float: left; }
+.nav-list li { display: none; list-style: none; }
+.nav-list li a { font-size: 15px; color: var(--ink); padding-left: 30px; }
+.nav-list li a:hover { color: var(--white); }
+.nav-list li.current a { color: var(--white); }
+
+.logo {
+  position: absolute; left: 50%; top: 30px; transform: translate(-50%, 0);
+  display: inline-block; pointer-events: all; white-space: nowrap;
+}
+.logo .wordmark { display: block; margin: 0; font-size: 40px; line-height: 1.2; font-weight: 700; color: var(--ink); }
+.logo .wordmark span {
+  font-weight: 700; opacity: 1; font-size: 40px;
+  animation: wordmarkCollapseMobile 1s 2s forwards;      /* reference: "here." → "hr." after 2 s, over 1 s */
+  transition: opacity 0.5s ease-out;
+}
+/* reference: the wordmark does not change colour on hover (measured), only the cursor */
+
+.navbar-toggler {
+  display: block; height: 20px; width: 40px; margin: 15px 0 0 15px; padding: 0;
+  background: transparent; border: 0; cursor: pointer; pointer-events: all; float: left;
+}
+.navbar-toggler span { display: block; height: 1px; width: 100%; margin: 0; background-color: var(--ink); transition: 0.5s ease-out; }   /* reference: the two lines turn into a cross over 0.5 s ease-out */
+.navbar-toggler span:last-child { margin: 10px 0 0 0; }
+.navbar-toggler.open { margin-left: 13px; }
+.navbar-toggler.open span:first-child { transform: rotate(-45deg) translate(0, 7px); }
+.navbar-toggler.open span:last-child  { transform: rotate(45deg) translate(0, -7px); }
+
+/* mobile overlay menu (reference: #mobile__navigation_container) */
+.mobile-nav { position: relative; display: none; height: calc(100vh - 80px); pointer-events: all; }
+.mobile-nav::after {
+  content: ''; position: absolute; height: calc(100vh + 10px); width: 100vw;
+  background-color: var(--page); top: -120px; left: 0; z-index: -1;
+}
+.mobile-nav.show { display: block; }
+.mobile-nav .mobile-nav-wrapper { overflow: auto; padding-top: 0; padding-bottom: 80px; max-height: calc(100vh - 150px); }
+.mobile-nav .nav-list { width: 100%; padding: 0 15px; margin: 0; float: none; }
+.mobile-nav .nav-list li { display: block; border-bottom: 1px solid var(--ink); }
+.mobile-nav .nav-list li a { display: block; padding: 10px 0; font-size: 24px; }
+.mobile-nav .nav-list li.current a { color: var(--white); }
+.mobile-nav .nav-menu-list { overflow: auto; position: absolute; bottom: 80px; left: 15px; padding: 30px 15px; margin: 0; z-index: 1200; float: none; }
+.mobile-nav .nav-menu-list li { padding-right: 15px; display: inline-block; }
+.mobile-nav .nav-menu-list a { font-size: 15px; padding-left: 0; }
+
+/* ---------- side menu (fixed, vertically centred, right) ---------- */
+.wrapper-menu-side { position: static; display: none; pointer-events: all; }
+.wrapper-menu-side .nav-list-sub {
+  position: fixed; right: 0; left: auto; top: 50%; transform: translate(0, -50%);
+  padding: 0 30px 0 0; margin: 0; z-index: 999; float: none;
+}
+.wrapper-menu-side .nav-list li { display: block; list-style: none; padding: 5px 0; text-align: right; }
+.wrapper-menu-side .nav-list li a { display: block; font-size: 15px; padding: 0; }
+/* legibility over images: the reference keeps its brown over its bright photo (measured, no blend or class switch);
+   Re;mind's garden photo would hide green text, so main.js adds .is-over-image while the fixed menu overlaps an image
+   and the links turn white with the same 0.5 s ease-out link transition, green again over the flat colour */
+.wrapper-menu-side.is-over-image .nav-list li a { color: var(--white); }
+
+/* ---------- content wrapper and sections ---------- */
+.wrapper-content { overflow: hidden; padding: 120px 0 0 0; }
+section { background-color: transparent; padding: 40px 0; }
+
+/* hero */
+.section__banner { position: relative; min-height: 70vh; }
+.section__banner .container, .section__banner .row, .section__banner .column-content { position: static; overflow: visible; }
+.section__banner .content {
+  position: absolute; text-align: center; z-index: 999;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: max-content; max-width: 68%; padding: 0;      /* phones: the line sits inside the portrait like the reference's "slowly / does it" (3 lines: therapy / shaped / around you) */
+}
+.section__banner .content h1 { color: var(--white); font-size: 50px; line-height: 1.2; margin: 30px 0 15px; }
+.section__banner figure { margin: 40px 0 0 0; }
+.section__banner figure img {
+  display: block; width: 100%; height: auto;
+  /* reference: a cut-out PNG on the page colour, faded at the bottom. Here the plain B&W studio shot is treated in CSS:
+     grayscale + levels (brightness lifts the backdrop to white), multiply so white becomes the page colour,
+     then a bottom fade and a soft edge mask so the frame of the photo never shows. */
+  filter: grayscale(1) brightness(1.35);
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, rgba(0, 0, 0, 0) 100%),
+                      radial-gradient(ellipse 80% 85% at 48% 42%, #000 68%, rgba(0, 0, 0, 0) 100%);
+          mask-image: linear-gradient(to bottom, #000 62%, rgba(0, 0, 0, 0) 100%),
+                      radial-gradient(ellipse 80% 85% at 48% 42%, #000 68%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
+}
+
+/* section 1: two columns, image overflows to the right edge */
+.wrapper-column-two-overflow .container { overflow: visible; }
+.wrapper-column-two-overflow .row { min-height: 420px; }
+.wrapper-column-two-overflow.layout-right .column { overflow: visible; }
+.wrapper-column-two-overflow.layout-right .column:last-child { order: 1; }
+.wrapper-column-two-overflow h2 { font-size: 40px; margin: 15px 0 15px; }   /* reference: an empty <h2> precedes it, leaving a 15px collapsed margin on phones */
+.wrapper-column-two-overflow .wrapper-image-overflow {
+  transform: translate(-30px, 0); width: calc(100% + 60px); height: 280px;
+  background-size: cover; background-position: 50% 55%; background-repeat: no-repeat;
+}
+.wrapper-column-two-overflow .column h3 { font-size: 22.5px; font-weight: 300; line-height: 150%; }
+.wrapper-column-two-overflow .column:last-child { padding-top: 0; }
+.wrapper-btns { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--ink); }
+.wrapper-btns::after { content: ''; display: table; clear: both; }
+.wrapper-btns .btn { margin-top: 20px; }
+
+/* section 2: heading column + text column */
+.wrapper-column-two-content .wrapper-btns { overflow: auto; padding-top: 40px; border-top: none; }
+
+/* section 3: three items (reference "telehealth. / talk. / walk.") */
+.wrapper-table { display: block; }
+.wrapper-table .masonry { padding: 0; }                 /* reference .masonry resets the column padding */
+.wrapper-table .item { padding: 0 15px 60px 15px; margin: 0; width: 100%; }
+.wrapper-table .item h2 { margin: 0 0 15px; }
+.wrapper-table .item h3 { margin: 30px 0 15px; }
+
+/* buttons */
+a.btn { text-decoration: none; font-size: 15px; line-height: 1.5; }
+a.btn.btn-primary {
+  float: left; display: inline-block; padding: 10px 20px; border-radius: 40px; margin-right: 10px;
+  background-color: var(--ink); color: var(--page); border: 1px solid var(--ink);
+  font-weight: 400; text-transform: lowercase; text-align: center; white-space: nowrap;
+  transition: 0.3s;
+}
+a.btn.btn-primary:hover, a.btn.btn-primary:focus-visible { color: var(--ink); background-color: var(--white); border: 1px solid var(--white); }
+
+/* ---------- footer ---------- */
+.site-footer { padding: 0 0 50px 0; background-color: transparent; }
+.site-footer .container { padding: 0 15px; max-width: 100%; overflow: visible; }
+.site-footer ul { float: left; padding: 0; margin: 0; }
+.site-footer ul li { display: inline-block; list-style: none; }
+.site-footer ul li a { font-size: 15px; color: var(--ink); padding: 0 10px 0 0; }
+.site-footer ul li a:hover { color: var(--white); }
+.site-footer .footer-mobile { padding: 0 15px 15px 15px; }
+.footer-address { padding: 0 15px 15px 15px; }
+.footer-address a { font-size: 16px; }
+.site-footer .row::after { content: ''; display: table; clear: both; }
+
+/* ---------- ≥ 576 ---------- */
+@media (min-width: 576px) {
+  .section__banner { min-height: calc(100vh - 80px); }
+}
+
+/* ---------- ≥ 768 ---------- */
+@media (min-width: 768px) {
+  .site-header { height: 175px; }
+  .site-header::before { display: block; }
+  .navbar-toggler { display: none; }
+  .nav-list { display: block; }
+  .nav-list li { display: inline-block; }
+  .logo .wordmark { font-size: 50px; }
+  .logo .wordmark span { font-size: 50px; animation-name: wordmarkCollapse; }
+  .wrapper-menu-side { display: block; }
+  .wrapper-menu-side .nav-list-sub { padding-right: 15px; }
+  .wrapper-content { padding: 80px 0 0 0; }
+  section { padding: 80px 0; }
+  .section__banner .content h1 { font-size: 100px; }
+  .section__banner .content { width: 100%; max-width: 980px; padding: 0 15px; }
+  .wrapper-column-two-overflow { padding-top: 0; }
+  .wrapper-column-two-overflow .wrapper-image-overflow {
+    height: 500px;
+    transform: translate(calc(((720px - 100vw) / 2) - 30px), 0);
+    width: calc(((100vw - 720px) + (720px / 12) + 100%) + 30px);
+  }
+  .wrapper-column-two-overflow .column:last-child { padding-top: 60px; }
+  .col-md-6  { flex: 0 0 50%; max-width: 50%; }
+  .col-md-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
+  .offset-md-1 { margin-left: 8.333333%; }
+  .site-footer { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 5; padding-bottom: 54px; }   /* reference 50px; +4px matches Hanken's em box to Graphik's */
+  .site-footer .container { padding: 0; }
+  .site-footer .footer-mobile { display: none; }
+  .footer-address { padding: 0; }
+  .footer-address a { padding-left: 30px; }
+  .site-footer .wrapper-footer-links ul { float: right; }
+  .site-footer ul li a { padding: 0 0 0 30px; }
+}
+
+/* ---------- ≥ 992 ---------- */
+@media (min-width: 992px) {
+  .nav-header .nav-list { padding-top: 17px; padding-right: 15px; }
+  .wrapper-menu-side .nav-list-sub { padding-right: 30px; }
+  .wrapper-menu-side .nav-list li a { font-size: 15px; }
+  section { padding: 120px 0; }
+  .section__banner { padding-top: 0; }
+  .section__banner .content h1 { font-size: 120px; }
+  .wrapper-column-two-overflow { padding-top: 120px; }
+  .wrapper-column-two-overflow .row { min-height: 620px; }
+  .wrapper-column-two-overflow.layout-right .column:first-child { order: 2; }
+  .wrapper-column-two-overflow h2 {
+    position: absolute; z-index: 2; margin: 30px 0 15px calc((960px / 12) * 2); max-width: 305px; font-size: 45px;
+  }
+  .wrapper-column-two-overflow .wrapper-image-overflow {
+    transform: translate(0, 110px); height: 400px;
+    width: calc((((100vw - 960px) / 2) + (960px / 12) + 100%) + 30px);
+  }
+  .wrapper-column-two-overflow .column:last-child { padding-top: 120px; }
+  .col-lg-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+  .col-lg-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
+  .offset-lg-1 { margin-left: 8.333333%; }
+  .wrapper-table .masonry { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 0; }
+  .site-footer .container { max-width: 1370px; padding: 0 15px; }
+}
+
+/* ---------- ≥ 1200 ---------- */
+@media (min-width: 1200px) {
+  .wrapper-menu-side .nav-list li a { font-size: 20px; }
+  .wrapper-column-two-overflow h2 { margin-left: calc((1240px / 12) * 2); }
+  .wrapper-column-two-overflow .wrapper-image-overflow {
+    height: 500px;
+    width: calc((((100vw - 1240px) / 2) + (1240px / 12) + 100%) + 30px);
+  }
+  .col-xl-3 { flex: 0 0 25%; max-width: 25%; }
+  .col-xl-6 { flex: 0 0 50%; max-width: 50%; }
+  .offset-xl-3 { margin-left: 25%; }
+}
+
+/* ---------- ≥ 1370 ---------- */
+@media (min-width: 1370px) {
+  .wrapper-menu-side .nav-list-sub { padding-right: calc(((100vw - 1370px) / 2) + 30px); }
+}
+
+/* ---------- motion ---------- */
+/* page colour cross-fades between brand colours on the reference (wrapper-color); one colour here, rule kept */
+.wrapper-color { transition: background-color 0.5s ease-out; }
+
+/* lazy-loaded images fade in once loaded (reference: WP Smush, opacity 0.4s ease-in) */
+img.lazyload, .wrapper-image-overflow.lazyload { opacity: 0; }
+.no-js img.lazyload, .no-js .wrapper-image-overflow.lazyload { opacity: 1; }
+img.lazyloaded { opacity: 1; transition: opacity 0.4s ease-in; }
+.wrapper-image-overflow.lazyloaded { opacity: 1; transition: opacity 0.4s; }
+
+/* smoothState page transition (reference main.js/style.css): on a page-link click #main gets .is-exiting,
+   sections run fadeOut (1s, 0.5s delay) and the H1 fadeOutDown; the new page is swapped in after 250 ms,
+   before the delay ends, so the exit never becomes visible. Rebuilt 1:1, including that timing. */
+.m-scene .scene_element { animation-delay: 0.5s; animation-duration: 2s; animation-fill-mode: both; }
+.m-scene .scene_element h1 { animation-delay: 1s; animation-duration: 2s; animation-fill-mode: both; }
+.is-exiting .scene_element { animation: fadeOut 1s 0.5s both; }
+.is-exiting .scene_element h1 { animation: fadeOutDown 1s 0.5s both; }
+@keyframes fadeOut { 0% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes fadeOutDown { 0% { opacity: 1; transform: translate3d(0, 0, 0); } 100% { opacity: 0; transform: translate3d(0, 20px, 0); } }
+
+@keyframes wordmarkCollapse {
+  0%   { font-weight: 700; opacity: 1; font-size: 50px; }
+  50%  { font-size: 50px; }
+  100% { font-weight: 700; opacity: 0; font-size: 0; }
+}
+@keyframes wordmarkCollapseMobile {
+  0%   { font-weight: 700; opacity: 1; font-size: 40px; }
+  50%  { font-size: 40px; }
+  100% { font-weight: 700; opacity: 0; font-size: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo .wordmark span { animation: none; }
+  a, a.btn.btn-primary, .navbar-toggler span, .wrapper-color, img.lazyloaded, .wrapper-image-overflow.lazyloaded { transition: none; }
+  img.lazyload, .wrapper-image-overflow.lazyload { opacity: 1; }
+  .is-exiting .scene_element, .is-exiting .scene_element h1 { animation: none; }
+}
