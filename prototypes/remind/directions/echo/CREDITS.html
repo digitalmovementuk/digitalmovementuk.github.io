@@ -1,0 +1,37 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Echo CREDITS v1.1</title><style>body{margin:0;background:#f2fcf7;color:#17252a;font:16px/1.65 system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:40px 24px}h1{color:#006b54}pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#006b54}</style><main><h1>Echo — CREDITS v1.1</h1><pre># Echo — CREDITS v1.1, 15 October 2026
+
+## Change log
+
+- v1.1 — Reconciled shipped media with current implementation and recorded provenance limits.
+
+### Current hero film
+
+The build comment in `styles.css` identifies cottonbro studio / Pexels source videos [7761104](https://www.pexels.com/video/7761104/) and [7761097](https://www.pexels.com/video/7761097/). Attribution was recovered from that existing code comment; the provider pages were not re-fetched in this finish pass. Licence recorded by the build: Pexels licence. Confirm against the original sourcing record before public release.
+
+The two source clips were composited and graded into one double-exposure film: `hero-echo-1920.mp4` (2,924,837 bytes) and the alternative portrait encode `hero-echo-720x1280.mp4` (1,376,962 bytes). Posters: `hero-echo-poster-1600.webp`, `hero-echo-poster-720x1280.webp`. Both encodes: 12 seconds, H.264, no audio. The people are stock models, not identified as Re;mind staff or clients. The old `dx-hero-room-woodland.webp` hero is no longer shipped.
+
+## Inherited source credits
+
+# Image credits — variant 04 Twofold (v1.1, 15 October 2026)
+
+Change log
+- 1.1 (15.10.2026) — Double exposures rebuilt as three graded composites (`dx-hero-room-woodland.webp`, `dx-meadow-echo.webp`, `dx-skyline-woodland.webp`) made with sharp from the sources below; unused full-size sources removed from `assets/`.
+- 1.0 (15.10.2026) — First version. All images come from Re;mind&#x27;s own image set (`remind-site-v2/public/images/v2/` and `/legacy/`); nothing was downloaded for this variant. No people appear in any image.
+
+| File in `assets/` | Shows | Origin | Photographer / credit | Licence | Treatment in this variant |
+|---|---|---|---|---|---|
+| dx-hero-room-woodland.webp (composite, 1440×960) | The Re;mind therapy room with woodland trunks ghosted across it and a touch of dappled light | therapy-room (Dave H / Pexels) × forest-path poster (Matthias Groeneveld / Pexels) × sunlit-canopy poster (Alex Moliski / Pexels) | as per the sources | Pexels licence | sharp: woodland multiplied at 50 %, canopy screened at 30 %, saturation .82, normalised, soft-light green at 14 % |
+| dx-meadow-echo.webp (composite, 1600×1067) | Hampshire meadow and tree, the tree echoed as a second exposure over the sky | landscape (client-owned) × its own mirror | Client asset | Client asset | sharp: mirrored copy multiplied at 50 %, normalised, soft-light green at 14 % |
+| dx-skyline-woodland.webp (composite, 1440×1200) | Hazy light over Portsmouth from Portsdown Hill with woodland trunks ghosted across the sky | heights-milestone (T / Unsplash) × forest-path poster (Matthias Groeneveld / Pexels) | as per the sources | Unsplash + Pexels licences | sharp: woodland multiplied at 42 %, brightness 1.08, normalised, soft-light green at 14 % |
+| therapy-room-960.webp (and the 1440 source of the hero composite) | Two armchairs facing open glass doors onto a garden (the practice room motif) | `public/images/v2/therapy-room-*` — [Pexels 27770697](https://www.pexels.com/photo/two-chairs-sitting-in-front-of-a-large-sliding-door-27770697/) | Dave H / Pexels | Pexels licence | Hero composite base; services hover/row image 01 |
+| hampshire-landscape-1024.webp | Sailing boats at anchor on the Solent | `public/images/v2/hampshire-landscape-*` — [Pexels 5378284](https://www.pexels.com/photo/white-sailboats-on-sea-5378284/) | James Heming / Pexels | Pexels licence | Services image 02 |
+| landscape-1600 (source of the big-photo composite, not shipped separately) | Hampshire meadow, broad tree and wooded hills | `public/images/legacy/landscape-*` — the client&#x27;s own landscape retained from the live site (remindmht.com, `lanscape-image-scaled.jpg`), per Variant D `docs/assets.md` | Client-owned image | Client asset | Big photo composite, both exposures |
+| heights-local (no longer used) | Cliff-top path above the beach near Barton on Sea | `public/images/v2/heights-local-*` — [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Coastline_at_Beckton_Bunny_near_Barton_on_Sea_-_geograph.org.uk_-_7373781.jpg) | Colin Park / Geograph | CC BY-SA 2.0 (attribution and share-alike required) | — removed in v1.1 |
+| sunlit-canopy-poster-1280.webp, sunlit-canopy-poster-960.webp | Dappled sunlight through a forest canopy | `public/images/legacy/sunlit-canopy-poster-*` — still frame of the Pexels clip [Serene forest path in dappled sunlight](https://www.pexels.com/video/serene-forest-path-in-dappled-sunlight-28903952/) | Alex Moliski / Pexels | Pexels licence | Hero: dappled-light layer (screen, 30 %, slow drift) and part of the hero composite; services image 03 |
+| forest-path-poster-960.webp (1280 source used in two composites) | Sunlight through forest trees at dawn | `public/images/legacy/forest-path-poster-*` — still frame of the Pexels clip [Tranquil sunlight through forest trees at dawn](https://www.pexels.com/video/tranquil-sunlight-through-forest-trees-at-dawn-31807935/) | Matthias Groeneveld / Pexels | Pexels licence | Woodland trunks in the hero and second-photo composites; services image 06 |
+| heights-hero-1024.webp | Spinnaker Tower on the Portsmouth skyline | `public/images/v2/heights-hero-*` — [Unsplash D-TTl8nIMo8](https://unsplash.com/photos/a-tall-white-tower-sitting-in-the-middle-of-a-body-of-water-D-TTl8nIMo8) | Jonathan Hunt / Unsplash | Unsplash licence | Services image 04 |
+| heights-milestone-960.webp (1440 source of the second-photo composite) | Portsmouth and the Solent from Portsdown Hill | `public/images/v2/heights-milestone-*` — [Unsplash 02t2-l4AsUw](https://unsplash.com/photos/city-skyline-across-a-bay-with-distant-hills-02t2-l4AsUw) | T (@tanyabarrow) / Unsplash | Unsplash licence | Second-photo composite base; services image 05 |
+| favicon.svg | Re;mind symbol | `public/favicon.svg` | Client-owned identity | Client asset | none |
+
+All shipped images are Pexels/Unsplash licence or client-owned; the CC BY-SA `heights-local` image is no longer used.
+</pre></main></html>
