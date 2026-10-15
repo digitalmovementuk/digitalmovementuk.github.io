@@ -1,9 +1,14 @@
 <!doctype html>
 <!--
   Re;mind — your website, explained
-  Version 1.2 (15 October 2026)
+  Version 1.3 (15 October 2026)
 
   Changelog
+  1.3 (15.10.2026) — "Explain" switch in the tab bar (hidden on the SEO growth tab). It turns the pages' own
+      explanation layer ("How this page brings in clients", assets/explain/) on and off inside the current
+      page iframe by postMessage, follows the reader from tab to tab, and mirrors the layer's state when it is
+      closed from inside the page. Inside this shell the page's floating pill steps aside (the switch does its
+      job) and the layer's panel / bottom sheet follow the visible region like the menu and the dialog.
   1.2 (15.10.2026) — The explainer moves out to readme/index.html (its own page, version 1.0) and the fourth
       tab embeds it in a self-sizing iframe like the other three, so the explainer has one source. The
       one-line strip above each page iframe is gone: tabs 1–3 show the pages exactly as a visitor would see
@@ -59,8 +64,8 @@
 
 /* ===== tokens.css (the ones the shell uses) ===== */
 :root {
-  --forest: #006b54; --forest-deep: #00553f; --mint: #00c096;
-  --ivory: #fbfdf9; --ink: #17252a; --ink-2: #22352f; --line-soft: #d8e8e0;
+  --forest: #006b54; --forest-deep: #00553f; --forest-soft: #e4f3ec; --mint: #00c096;
+  --ivory: #fbfdf9; --ink: #17252a; --ink-2: #22352f; --faint: #7a918a; --line-soft: #d8e8e0;
   --font: "Inter", "Inter Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
   --text-body: 1.1875rem; --text-small: 1.0625rem; --lh-body: 1.6;
   --container: 1200px; --gutter: 48px;
@@ -105,6 +110,16 @@ button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation
 .ov-tab-short { display: none; }
 .ov-spacer { flex: none; width: 44px; }
 
+/* the Explain switch: turns the pages' explanation layer on inside the current tab */
+.ov-explain { flex: none; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 6px 0 12px; border-radius: var(--radius-control); font-size: var(--text-small); font-weight: 500; color: var(--ink); white-space: nowrap; }
+.ov-explain:hover { color: var(--forest); }
+.ov-explain[hidden] { display: none; }
+.ov-switch { position: relative; flex: none; width: 38px; height: 22px; border-radius: 11px; background: var(--faint); transition: background var(--dur); }
+.ov-switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); transition: transform var(--dur) var(--ease); }
+.ov-explain[aria-pressed="true"] { color: var(--forest); }
+.ov-explain[aria-pressed="true"] .ov-switch { background: var(--forest); }
+.ov-explain[aria-pressed="true"] .ov-switch::after { transform: translateX(16px); }
+
 /* ===== the tabs: each one is the page itself, sized to its content ===== */
 .ov-frame { display: block; background: var(--ivory); }
 .ov-frame iframe { display: block; width: 100%; border: 0; min-height: 320px; height: calc(100dvh - var(--bar-h)); background: var(--ivory); }
@@ -125,6 +140,8 @@ button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation
   .ov-tab { flex: 1 1 0; min-width: 0; padding: 0 6px; font-size: 0.9375rem; }
   .ov-tab::after { left: 6px; right: 6px; }
   .ov-spacer { display: none; }
+  .ov-explain { padding: 0 4px; gap: 0; }
+  .ov-explain-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
 @media (max-width: 480px) {
   .ov-tab-long { display: none; }
@@ -157,7 +174,7 @@ button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation
       <button class="ov-tab" role="tab" type="button" id="tab-service" data-tab="service" aria-controls="panel-service" aria-selected="false" tabindex="-1"><span class="ov-tab-long">Service page</span><span class="ov-tab-short">Service</span></button>
       <button class="ov-tab" role="tab" type="button" id="tab-growth" data-tab="growth" aria-controls="panel-growth" aria-selected="true" tabindex="0"><span class="ov-tab-long">SEO growth</span><span class="ov-tab-short">SEO growth</span></button>
     </div>
-    <span class="ov-spacer" aria-hidden="true"></span>
+    <button class="ov-explain" type="button" aria-pressed="false" aria-label="Explain how this page brings in clients" data-explain-switch hidden><span class="ov-explain-label">Explain</span><span class="ov-switch" aria-hidden="true"></span></button>
   </div>
 </header>
 
@@ -197,6 +214,21 @@ button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation
   var current = null;
   var frames = new Map();
 
+  /* ---- the Explain switch: drives the page's own explanation layer inside the current iframe ---- */
+  var explainSwitch = document.querySelector('[data-explain-switch]');
+  var explainOn = false;
+  function setSwitch(on) { explainOn = on; explainSwitch.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+  function postExplain(f) {
+    if (!f || !frames.get(f)) return;
+    try { f.contentWindow.postMessage({ type: 'remind-explain', on: explainOn }, location.origin); } catch (e) { /* not reachable */ }
+  }
+  explainSwitch.addEventListener('click', function () { setSwitch(!explainOn); postExplain(frameOf(panelFor(current))); });
+  window.addEventListener('message', function (ev) {
+    if (ev.origin !== location.origin || !ev.data || ev.data.type !== 'remind-explain-state') return;
+    var f = frameOf(panelFor(current));
+    if (f && ev.source === f.contentWindow) setSwitch(Boolean(ev.data.on));
+  });
+
   /* Jumps are instant on purpose: no scripted motion, and a jump that lands exactly beats one that drifts. */
   function behaviour() { return 'instant'; }
   function panelFor(id) { return panels.filter(function (p) { return p.dataset.panel === id; })[0]; }
@@ -218,6 +250,8 @@ button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation
     });
     var changed = current !== id;
     current = id;
+    explainSwitch.hidden = id === 'growth';
+    if (changed && id !== 'growth') postExplain(frameOf(panelFor(id)));
     return changed;
   }
   function mount(panel) {
@@ -308,13 +342,20 @@ button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation
     var st = doc.getElementById('ov-embed');
     if (!st) { st = doc.createElement('style'); st.id = 'ov-embed'; (doc.head || doc.documentElement).appendChild(st); }
     var vh = Math.max(320, window.innerHeight);
+    var sheet = Math.min(Math.round((vh - BAR) * 0.62), 600);
     st.textContent =
       'body{min-height:0!important}' +
       '@media (min-width:760px){.hero{min-height:calc((' + vh + 'px - var(--header-h)) * .66)!important}}' +
       '.mobile-menu{position:absolute!important;inset:auto 0 auto 0!important;top:var(--ov-top,0px)!important;height:var(--ov-vh,' + vh + 'px)!important}' +
       '.privacy{position:absolute!important;inset:auto 0 auto 0!important;top:calc(var(--ov-top,0px) + 24px)!important;margin:0 auto!important;max-height:calc(var(--ov-vh,' + vh + 'px) - 48px)!important}' +
       /* the explainer's own brand bar steps aside inside this shell: the tab bar does its job here */
-      '.rm-bar{display:none!important}';
+      '.rm-bar{display:none!important}' +
+      /* the explanation layer: the tab bar's switch drives it, so the page's own pill steps aside; its panel
+         (desktop) and bottom sheet (phones) follow the visible region like the menu and the dialog */
+      '.xp-pill{display:none!important}' +
+      '@media (min-width:1024px){.xp-panel{position:absolute!important;top:var(--ov-top,0px)!important;bottom:auto!important;height:var(--ov-vh,' + vh + 'px)!important}}' +
+      '@media (max-width:1023px){.xp-panel{position:absolute!important;bottom:auto!important;top:calc(var(--ov-top,0px) + var(--ov-vh,' + vh + 'px) - ' + sheet + 'px)!important;height:' + sheet + 'px!important;max-height:none!important}' +
+      '.xp-panel.is-folded{top:calc(var(--ov-top,0px) + var(--ov-vh,' + vh + 'px) - 72px)!important;height:72px!important}}';
   }
   function innerTarget(doc, id) {
     if (!id) return null;
@@ -392,6 +433,7 @@ button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation
     }
     doc.addEventListener('click', function (ev) { onInnerClick(ev, f, doc); }, true);
     syncVars(f);
+    if (explainOn && f === frameOf(panelFor(current))) postExplain(f);
     var hash = '';
     try { hash = decodeURIComponent(doc.location.hash.slice(1)); } catch (e) { hash = doc.location.hash.slice(1); }
     if (hash) { var el = innerTarget(doc, hash); if (el) requestAnimationFrame(function () { scrollToInner(f, el, false); }); }
