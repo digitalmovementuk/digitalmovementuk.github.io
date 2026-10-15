@@ -5,7 +5,7 @@
 
   Change log
   - 1.1 (15.10.2026) — First hub release. One page with a slim sticky tab bar that switches
-    between the six homepage directions (Grove, Atrium, Hearth, Echo, Pause, Clarity). Each direction
+    between the seven homepage directions (Grove, Atrium, Hearth, Echo, Pause, Clarity, Meadow). Each direction
     loads lazily into its own iframe and stays alive once loaded; deep links #grove … #pause;
     browser back/forward; keyboard tab navigation (arrow keys, Home, End).
 -->
@@ -191,6 +191,7 @@
     <button class="tab" role="tab" id="tab-echo"   aria-controls="panel-echo"   aria-selected="false" tabindex="-1" data-key="echo"><span class="tab__label">Design Echo</span></button>
     <button class="tab" role="tab" id="tab-pause"  aria-controls="panel-pause"  aria-selected="false" tabindex="-1" data-key="pause"><span class="tab__label">Design Pause</span></button>
     <button class="tab" role="tab" id="tab-clarity"  aria-controls="panel-clarity"  aria-selected="false" tabindex="-1" data-key="clarity"><span class="tab__label">Design Clarity</span></button>
+    <button class="tab" role="tab" id="tab-meadow"  aria-controls="panel-meadow"  aria-selected="false" tabindex="-1" data-key="meadow"><span class="tab__label">Design Meadow</span></button>
   </div>
   <a class="open" id="open-full" href="grove/index.html" target="_blank" rel="noopener" aria-label="Open Design Grove full screen (new tab)" title="Open full screen">
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
@@ -208,14 +209,15 @@
   <div class="panel" role="tabpanel" id="panel-echo"   aria-labelledby="tab-echo"   data-key="echo"   hidden></div>
   <div class="panel" role="tabpanel" id="panel-pause"  aria-labelledby="tab-pause"  data-key="pause"  hidden></div>
   <div class="panel" role="tabpanel" id="panel-clarity"  aria-labelledby="tab-clarity"  data-key="clarity"  hidden></div>
+  <div class="panel" role="tabpanel" id="panel-meadow"  aria-labelledby="tab-meadow"  data-key="meadow"  hidden></div>
   <p class="sr-only" id="status" aria-live="polite"></p>
 </main>
 
 <script>
 (function () {
   'use strict';
-  var KEYS = ['grove', 'atrium', 'hearth', 'echo', 'pause', 'clarity'];
-  var NAMES = { grove: 'Design Grove', atrium: 'Design Atrium', hearth: 'Design Hearth', echo: 'Design Echo', pause: 'Design Pause', clarity: 'Design Clarity' };
+  var KEYS = ['grove', 'atrium', 'hearth', 'echo', 'pause', 'clarity', 'meadow'];
+  var NAMES = { grove: 'Design Grove', atrium: 'Design Atrium', hearth: 'Design Hearth', echo: 'Design Echo', pause: 'Design Pause', clarity: 'Design Clarity', meadow: 'Design Meadow' };
   var DEFAULT = 'grove';
 
   var tablist = document.querySelector('.tabs');
