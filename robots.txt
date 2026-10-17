@@ -3,57 +3,76 @@ Disallow: /
 
 # Link-preview crawlers may read the share page for the SOP process map, so a
 # shared link renders a card. They may also read the Direct Couriers proposal
-# and the Husband Retail website review copy.
+# and the Husband Retail website review copy, and the Kißelbach Bestattungen
+# website preview.
 # Everything else on this host stays closed, and
 # the pages themselves carry noindex.
 User-agent: facebookexternalhit
 Allow: /internal/seo-web-project/
 Allow: /success/directcourier/
 Allow: /husband-retail/website/
+Allow: /success/Ki%C3%9Felbach-Bestattungen/
+Allow: /success/Kißelbach-Bestattungen/
 Disallow: /
 
 User-agent: facebookcatalog
 Allow: /internal/seo-web-project/
 Allow: /success/directcourier/
 Allow: /husband-retail/website/
+Allow: /success/Ki%C3%9Felbach-Bestattungen/
+Allow: /success/Kißelbach-Bestattungen/
 Disallow: /
 
 User-agent: WhatsApp
 Allow: /internal/seo-web-project/
 Allow: /success/directcourier/
 Allow: /husband-retail/website/
+Allow: /success/Ki%C3%9Felbach-Bestattungen/
+Allow: /success/Kißelbach-Bestattungen/
 Disallow: /
 
 User-agent: Twitterbot
 Allow: /internal/seo-web-project/
 Allow: /success/directcourier/
 Allow: /husband-retail/website/
+Allow: /success/Ki%C3%9Felbach-Bestattungen/
+Allow: /success/Kißelbach-Bestattungen/
 Disallow: /
 
 User-agent: LinkedInBot
 Allow: /internal/seo-web-project/
 Allow: /success/directcourier/
 Allow: /husband-retail/website/
+Allow: /success/Ki%C3%9Felbach-Bestattungen/
+Allow: /success/Kißelbach-Bestattungen/
 Disallow: /
 
 User-agent: Slackbot-LinkExpanding
 Allow: /internal/seo-web-project/
 Allow: /success/directcourier/
 Allow: /husband-retail/website/
+Allow: /success/Ki%C3%9Felbach-Bestattungen/
+Allow: /success/Kißelbach-Bestattungen/
 Disallow: /
 
 User-agent: TelegramBot
 Allow: /internal/seo-web-project/
 Allow: /success/directcourier/
 Allow: /husband-retail/website/
+Allow: /success/Ki%C3%9Felbach-Bestattungen/
+Allow: /success/Kißelbach-Bestattungen/
 Disallow: /
 
 User-agent: Discordbot
 Allow: /success/directcourier/
 Allow: /husband-retail/website/
+Allow: /success/Ki%C3%9Felbach-Bestattungen/
+Allow: /success/Kißelbach-Bestattungen/
 Disallow: /
 
 User-agent: SkypeUriPreview
 Allow: /success/directcourier/
 Allow: /husband-retail/website/
+Allow: /success/Ki%C3%9Felbach-Bestattungen/
+Allow: /success/Kißelbach-Bestattungen/
 Disallow: /
