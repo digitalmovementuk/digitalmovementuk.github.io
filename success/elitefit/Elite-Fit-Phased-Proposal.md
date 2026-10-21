@@ -7,8 +7,9 @@ Every plan includes a 12–15-page website with design, original copy and an edi
 ## Plan at a glance
 
 - **Website:** 12–15 core pages in every plan.
-- **Phase 1, months 1–6:** €3,490 per month, included in every plan.
-- **Phase 2, months 7–12:** Max €3,490/month · Growth €1,990/month · Foundation €1,490/month.
+- **Phase 1, months 1–6:** €3,490 per month. Phase 1 includes website design and development for 12–15 pages, testing, two months of hypercare and technical integration advisory, plus the first 10 SEO pages after website approval.
+- **Phase 2, months 7–12:** Max €2,966.50/month · Growth €1,990/month · Foundation €1,490/month.
+- **Max discount:** 15% off the months 7–12 package fee: €3,490 → €2,966.50 per month. Total saving: €3,141; full 12-month total: €38,739. Optional extra pages remain €490 each.
 - **SEO pages:** 22 with B1 Foundation, 40 with B2 Growth, 70 with B3 Max.
 - **Every Phase 2 package:** monthly tracking, one prioritised optimisation cycle and a report.
 - **Package status:** none has been selected. Max is the starting preview in the interactive calculator; the dated delivery plan uses Growth as a labelled example.
@@ -40,10 +41,11 @@ The planned page counts describe the amount of work. They do not promise ranking
 
 €3,490 per month for six months. Total: €20,940.
 
-- Design, write and build 12–15 editable WordPress pages.
-- Test the website, fix issues, get Elite Fit’s approval and support launch.
-- After approval, research and publish the first ten SEO pages.
-- Provide integration advice, an editing guide, handover and two months of website support.
+- Website design and development for 12–15 pages, including original copy and an editable WordPress build.
+- Testing, fixes, approval and launch.
+- Two months of hypercare, an editing guide and handover.
+- Technical integration advisory throughout months 1–6.
+- The first 10 SEO pages after website approval.
 
 ### Phase 2: choose one package
 
@@ -51,13 +53,13 @@ The planned page counts describe the amount of work. They do not promise ranking
 |---|---:|---:|---:|---:|---:|
 | B1 Foundation | 2 | 12 | 22 | €1,490 | €29,880 |
 | B2 Growth | 5 | 30 | 40 | €1,990 | €32,880 |
-| B3 Max | 10 | 60 | 70 | €3,490 | €41,880 |
+| B3 Max | 10 | 60 | 70 | €2,966.50 | €38,739 |
 
 Each package also includes monthly tracking of search and page results, one priority improvement, and a monthly report with next steps. Optional extra SEO pages cost €490 each.
 
 ## 03 — Dated delivery plan
 
-**Assumption for this example: Package B2 Growth. Elite Fit has not chosen a package.** Every plan includes a 12–15-page website with design, original copy and an editable WordPress build. Phase 1 also covers testing, launch support, handover, integration advice and the first ten SEO pages after approval. It costs €3,490 per month for six months. Growth adds 30 pages (5 per month), for 40 planned SEO pages in total, at €1,990 per month for six months. Each package includes tracking, one monthly priority improvement and a report.
+**Assumption for this example: Package B2 Growth. Elite Fit has not chosen a package.** Phase 1 includes website design and development for 12–15 pages, testing, two months of hypercare and technical integration advisory, plus the first 10 SEO pages after website approval. It costs €3,490 per month for six months. Growth adds 30 pages (5 per month), for 40 planned SEO pages in total, at €1,990 per month for six months. Each package includes tracking, one monthly priority improvement and a report.
 
 SEO research and page production begin after Elite Fit approves the website. Approval is planned for February, with the first pages due to start in March. If approval is delayed, the later dates will need to move.
 
@@ -82,7 +84,7 @@ The planned core website launch is 28 February 2027. The first ten SEO pages are
 
 ## 04 — Phase 1, month by month
 
-Phase 1 covers the website, testing, approval, launch support, handover, integration advice and the first ten SEO pages. The website is designed, written and built first. February is for testing and fixes. SEO starts after approval.
+Phase 1 includes website design and development for 12–15 pages, testing, two months of hypercare and technical integration advisory, plus the first 10 SEO pages after website approval.
 
 ### November 2026 — Plan the website
 
@@ -126,7 +128,7 @@ Phase 1 covers the website, testing, approval, launch support, handover, integra
 
 **The monthly work below is included in all three packages.** We research, write, build and publish the agreed page batch, track results, make one priority improvement and provide a monthly report. Your package sets the number of new pages.
 
-Foundation includes 2 new SEO pages per month at €1,490; Growth includes 5 at €1,990; Max includes 10 at €3,490.
+Foundation includes 2 new SEO pages per month at €1,490; Growth includes 5 at €1,990; Max includes 10 at €2,966.50, with 15% off the usual €3,490 monthly fee in months 7–12.
 
 | Month | Foundation pages | Growth pages | Max pages | Shared planned improvement |
 |---|---:|---:|---:|---|
@@ -206,11 +208,34 @@ Optional extra pages cost **€490 each**. Each includes research, an outline, o
 
 The interactive extra-page calculator opens with Max as a preview. It updates the page count and price when a package or extra-page allowance changes; Elite Fit has not selected a package.
 
+### Retainer structure
+
+| Month | Phase | Foundation | Growth | Max, including 15% off Phase 2 |
+|---|---|---:|---:|---:|
+| November 2026 | 1 | €3,490 | €3,490 | €3,490 |
+| December 2026 | 1 | €3,490 | €3,490 | €3,490 |
+| January 2027 | 1 | €3,490 | €3,490 | €3,490 |
+| February 2027 | 1 | €3,490 | €3,490 | €3,490 |
+| March 2027 | 1 | €3,490 | €3,490 | €3,490 |
+| April 2027 | 1 | €3,490 | €3,490 | €3,490 |
+| May 2027 | 2 | €1,490 | €1,990 | €2,966.50 |
+| June 2027 | 2 | €1,490 | €1,990 | €2,966.50 |
+| July 2027 | 2 | €1,490 | €1,990 | €2,966.50 |
+| August 2027 | 2 | €1,490 | €1,990 | €2,966.50 |
+| September 2027 | 2 | €1,490 | €1,990 | €2,966.50 |
+| October 2027 | 2 | €1,490 | €1,990 | €2,966.50 |
+
+Phase 1 includes website design and development for 12–15 pages, testing, two months of hypercare and technical integration advisory, plus the first 10 SEO pages after website approval.
+Recurring extras add €490 per page to each Phase 2 month. One-off extras are delivered and charged in one agreed month.
+
 ## 10 — Responsibilities
 
-- **Mohammed — Core website:** Website design and WordPress build, plus project management.
-- **Ryan — SEO:** Search research, page writing and ongoing improvements after website approval.
-- **Raoul — Project oversight:** Scope, coordination and final review.
+- **Betty — Dedicated project manager:** Day-to-day coordination, delivery dates, feedback and approvals.
+- **Raoul — Creative director and project lead:** Creative direction, project decisions and final quality review.
+- **Ryan — SEO and copywriter:** Website and SEO-page copy, search research and ongoing improvements.
+- **Mohammed — Website designer and developer:** Website design and the editable WordPress build.
+
+[Meet your project team](https://digitalmovementuk.github.io/success/elitefit/team/).
 - **Elite Fit:** Provide the brand guide, approved images and video, accurate club details, system access and vendor contacts. Nominate one reviewer and consolidate feedback.
 
 ### System connections
