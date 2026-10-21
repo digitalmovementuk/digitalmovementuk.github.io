@@ -1,30 +1,30 @@
 <!doctype html>
 <!--
 Elite Fit Bali presentation shell — v1.0 — 2026-10-03
-Changelog: Four persistent document tabs; lazy, retained frames; local asset bundle;
+Changelog: Two persistent document tabs; lazy, retained frames; local asset bundle;
 keyboard navigation; deep links; playback management; responsive fullscreen shell.
-Design contract: Raoul and Richard review four existing pages together. Keep the
+Design contract: Raoul and Richard review two existing pages together. Keep the
 current page dominant, permit instant comparison, and preserve each page's position.
 -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Explore two Elite Fit Bali website directions, SEO opportunities and the Digital Movement proposal.">
+  <meta name="description" content="Explore two Elite Fit Bali website directions.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Elite Fit Bali — Website &amp; growth">
-  <meta property="og:description" content="Two website directions, SEO opportunities and the Digital Movement proposal.">
+  <meta property="og:description" content="Two Elite Fit Bali website directions.">
   <meta property="og:url" content="https://digitalmovementuk.github.io/success/elitefit/">
   <meta property="og:image" content="https://digitalmovementuk.github.io/success/elitefit/og-image.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Elite Fit Bali website preview with the Website A, Website B, SEO opportunities and Proposal tabs.">
+  <meta property="og:image:alt" content="Elite Fit Bali website preview with the Website A and Website B tabs.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Elite Fit Bali — Website &amp; growth">
-  <meta name="twitter:description" content="Two website directions, SEO opportunities and the Digital Movement proposal.">
+  <meta name="twitter:description" content="Two Elite Fit Bali website directions.">
   <meta name="twitter:image" content="https://digitalmovementuk.github.io/success/elitefit/og-image.png">
-  <meta name="twitter:image:alt" content="Elite Fit Bali website preview and proposal tabs.">
+  <meta name="twitter:image:alt" content="Elite Fit Bali website preview with the Website A and Website B tabs.">
   <meta name="theme-color" content="#f9f8fa">
   <meta name="robots" content="noindex,nofollow">
   <title>Elite Fit Bali — Website &amp; growth</title>
@@ -83,16 +83,12 @@ current page dominant, permit instant comparison, and preserve each page's posit
     <nav class="tabs" role="tablist" aria-label="Presentation sections">
       <button class="tab" role="tab" type="button" id="tab-website-a" aria-controls="panel-website-a" aria-selected="true" tabindex="0" data-panel="website-a"><span class="tab-number" aria-hidden="true">01</span><span>Website A</span></button>
       <button class="tab" role="tab" type="button" id="tab-website-b" aria-controls="panel-website-b" aria-selected="false" tabindex="-1" data-panel="website-b"><span class="tab-number" aria-hidden="true">02</span><span>Website B</span></button>
-      <button class="tab" role="tab" type="button" id="tab-seo" aria-controls="panel-seo" aria-selected="false" tabindex="-1" data-panel="seo"><span class="tab-number" aria-hidden="true">03</span><span>SEO opportunities</span></button>
-      <button class="tab" role="tab" type="button" id="tab-proposal" aria-controls="panel-proposal" aria-selected="false" tabindex="-1" data-panel="proposal"><span class="tab-number" aria-hidden="true">04</span><span>Proposal</span></button>
     </nav>
     <div class="utilities"><button class="icon-button" id="fullscreen" type="button" aria-label="Enter fullscreen" aria-pressed="false" title="Enter fullscreen" hidden><svg class="enter-fullscreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg><svg class="exit-fullscreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 8h5V3m13 5h-5V3M8 21v-5H3m13 5v-5h5"/></svg></button></div>
   </header>
   <main class="stage" id="stage" aria-label="Presentation">
     <section class="panel" id="panel-website-a" role="tabpanel" aria-labelledby="tab-website-a"></section>
     <section class="panel" id="panel-website-b" role="tabpanel" aria-labelledby="tab-website-b" hidden></section>
-    <section class="panel" id="panel-seo" role="tabpanel" aria-labelledby="tab-seo" hidden></section>
-    <section class="panel" id="panel-proposal" role="tabpanel" aria-labelledby="tab-proposal" hidden></section>
   </main>
   <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
   <noscript><style>.stage{display:none}</style><p style="margin:80px 24px">Please enable JavaScript to open the presentation.</p></noscript>
@@ -297,7 +293,7 @@ window.addEventListener('pagehide', () => {
 
     (() => {
       'use strict';
-      const ids = ['website-a', 'website-b', 'seo', 'proposal'];
+      const ids = ['website-a', 'website-b'];
       const tabs = [...document.querySelectorAll('[role="tab"]')];
       const panels = new Map(ids.map(id => [id, document.getElementById('panel-' + id)]));
       const frames = new Map();
