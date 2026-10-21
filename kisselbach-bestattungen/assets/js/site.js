@@ -1,4 +1,4 @@
-/* Kißelbach Bestattungen · Prototyp v1.0
+/* Kißelbach Bestattungen · Prototyp v1.2
    Progressive enhancement only: the page is complete without this file.
    Motion follows native scrolling (no scroll-jacking), runs once per element,
    and switches off for prefers-reduced-motion or the visitor's own toggle. */
@@ -29,35 +29,53 @@
     if (el) track(el.dataset.track, { location: el.dataset.loc || '' });
   });
 
-  /* ---------- split headings into masked words (visual only) ---------- */
+  /* ---------- split headings into masked words (visual copy only) ----------
+     Screen readers get one sr-only copy of the full heading; the animated copy is
+     aria-hidden. Inline markup such as the italic <em> accent is kept intact. */
   $$('[data-split]').forEach((h) => {
-    const text = h.textContent.trim();
-    const words = text.split(/\s+/);
-    h.textContent = '';
-    const sr = d.createElement('span');
-    sr.className = 'sr-only';
-    sr.textContent = text;
+    const full = h.textContent.replace(/\s+/g, ' ').trim();
     const vis = d.createElement('span');
     vis.setAttribute('aria-hidden', 'true');
-    words.forEach((w, i) => {
-      const outer = d.createElement('span');
-      outer.className = 'w';
-      const inner = d.createElement('span');
-      inner.className = 'wi';
-      inner.style.setProperty('--i', i);
-      inner.textContent = w;
-      outer.appendChild(inner);
-      vis.appendChild(outer);
-      if (i < words.length - 1) vis.appendChild(d.createTextNode(' '));
-    });
-    h.append(sr, vis);
+    let i = 0;
+    const words = (text, parent) => {
+      text.split(/(\s+)/).forEach((part) => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { parent.appendChild(d.createTextNode(' ')); return; }
+        const outer = d.createElement('span');
+        outer.className = 'w';
+        const inner = d.createElement('span');
+        inner.className = 'wi';
+        inner.style.setProperty('--i', i++);
+        inner.textContent = part;
+        outer.appendChild(inner);
+        parent.appendChild(outer);
+      });
+    };
+    const walk = (node, parent) => {
+      node.childNodes.forEach((n) => {
+        if (n.nodeType === Node.TEXT_NODE) words(n.textContent, parent);
+        else if (n.nodeType === Node.ELEMENT_NODE) {
+          const copy = n.cloneNode(false);
+          copy.removeAttribute('id');
+          parent.appendChild(copy);
+          walk(n, copy);
+        }
+      });
+    };
+    walk(h, vis);
+    const isBlank = (n) => n && n.nodeType === Node.TEXT_NODE && !n.textContent.trim();
+    while (isBlank(vis.firstChild)) vis.firstChild.remove();
+    while (isBlank(vis.lastChild)) vis.lastChild.remove();
+    const sr = d.createElement('span');
+    sr.className = 'sr-only';
+    sr.textContent = full;
+    h.replaceChildren(sr, vis);
   });
 
   /* ---------- reveal once on entering the viewport ---------- */
-  const revealEls = $$('.reveal, .reveal-media, [data-split]');
-  // stagger siblings in the same group
-  $$('.voices-list, .services, .costs-detail').forEach((group) => {
-    $$('.reveal', group).forEach((el, i) => el.style.setProperty('--d', `${i * 90}ms`));
+  const revealEls = $$('.reveal, .reveal-media, .reveal-ring, [data-split]');
+  $$('.voices-grid, .service-cards').forEach((group) => {
+    $$('.reveal, .reveal-media', group).forEach((el, i) => el.style.setProperty('--d', `${i * 110}ms`));
   });
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
@@ -70,12 +88,30 @@
     revealEls.forEach((el) => el.classList.add('is-in'));
   }
 
+  /* ---------- night section: the visitor's own local time ---------- */
+  const nowWrap = $('[data-now]');
+  if (nowWrap) {
+    const t = $('[data-now-time]', nowWrap);
+    const fallback = $('[data-now-fallback]');
+    const setNow = () => {
+      const n = new Date();
+      const hm = `${String(n.getHours()).padStart(2, '0')}:${String(n.getMinutes()).padStart(2, '0')}`;
+      t.textContent = hm;
+      t.dateTime = hm;
+    };
+    setNow();
+    nowWrap.hidden = false;
+    if (fallback) fallback.hidden = true;
+    setInterval(setNow, 20000);
+  }
+
   /* ---------- one scroll loop for all scroll-linked effects ---------- */
   const header = $('[data-header]');
   const hero = $('[data-hero]');
   const steps = $('[data-steps]');
   const stepItems = steps ? $$('.step', steps) : [];
   const film = $('[data-film]');
+  const filmLines = film ? $$('.film-line', film) : [];
   const parallax = $$('[data-parallax]');
   let ticking = false;
   let vh = innerHeight;
@@ -110,7 +146,7 @@
       });
     }
 
-    // film: the frame opens from an inset card to full bleed while it enters
+    // film: the frame opens from an inset card to full bleed; the quote follows line by line (once)
     if (film) {
       const r = film.getBoundingClientRect();
       const enter = clamp((vh - r.top) / (vh * 0.85));
@@ -118,6 +154,7 @@
       film.style.setProperty('--film-inset', `${inset.toFixed(1)}px`);
       film.style.setProperty('--film-radius', `${((1 - enter) * 32).toFixed(1)}px`);
       film.style.setProperty('--film-p', enter.toFixed(4));
+      filmLines.forEach((ln, i) => { if (enter > 0.42 + i * 0.16) ln.classList.add('is-in'); });
     }
 
     // image parallax (images only, never text)
@@ -136,6 +173,7 @@
   function applyStill() {
     if (steps) { steps.style.setProperty('--p', 1); steps.style.setProperty('--spark-o', 0); stepItems.forEach((li) => li.classList.add('is-lit')); }
     if (film) { film.style.setProperty('--film-inset', '0px'); film.style.setProperty('--film-radius', '0px'); film.style.setProperty('--film-p', 1); }
+    filmLines.forEach((ln) => ln.classList.add('is-in'));
     parallax.forEach((el) => el.style.setProperty('--py', '0px'));
     if (hero) hero.style.setProperty('--hero-p', 0);
     revealEls.forEach((el) => el.classList.add('is-in'));
@@ -168,16 +206,23 @@
     navTargets.forEach((t) => spy.observe(t));
   }
 
-  /* ---------- burial-form chapters: still image changes with the text ---------- */
+  /* ---------- burial-form chapters: still image, caption and ground tone follow the text ---------- */
   const chapters = $('[data-chapters]');
+  const toneSection = $('[data-tones]');
   if (chapters && 'IntersectionObserver' in window) {
     const frames = $$('[data-frame]', chapters);
     const ticks = $$('[data-tick]', chapters);
     const items = $$('[data-chapter]', chapters);
+    const capNum = $('[data-caption-num]', chapters);
+    const capText = $('[data-caption-text]', chapters);
     const activate = (n) => {
       frames.forEach((f) => f.classList.toggle('is-active', f.dataset.frame === n));
       ticks.forEach((t) => t.classList.toggle('is-active', t.dataset.tick === n));
       items.forEach((c) => c.classList.toggle('is-active', c.dataset.chapter === n));
+      const item = items.find((c) => c.dataset.chapter === n);
+      if (!item) return;
+      if (toneSection) toneSection.dataset.tone = item.dataset.tone;
+      if (capNum && capText) { capNum.textContent = String(Number(n) + 1).padStart(2, '0'); capText.textContent = item.dataset.caption; }
     };
     const cio = new IntersectionObserver((entries) => {
       entries.forEach((en) => { if (en.isIntersecting) activate(en.target.dataset.chapter); });
@@ -192,6 +237,10 @@
   const motes = createMotes($('[data-motes]'));
   let filmInView = false;
   let userPaused = store.get('kb-film', sessionStorage) === 'paused';
+  const setToggle = (paused) => {
+    toggle.setAttribute('aria-pressed', String(paused));
+    $('.film-toggle-label', toggle).textContent = paused ? 'Video abspielen' : 'Video anhalten';
+  };
   function syncFilm() {
     if (!video) return;
     const shouldPlay = filmInView && !userPaused && !motionOff();
@@ -204,9 +253,7 @@
       video.pause();
       motes.stop();
     }
-    const paused = userPaused || motionOff();
-    toggle.setAttribute('aria-pressed', String(paused));
-    $('.film-toggle-label', toggle).textContent = paused ? 'Bewegtbild abspielen' : 'Bewegtbild anhalten';
+    setToggle(userPaused || motionOff());
   }
   if (video && film) {
     new IntersectionObserver(([en]) => { filmInView = en.isIntersecting; syncFilm(); }, { threshold: 0.2 }).observe(film);
@@ -216,8 +263,7 @@
         // voluntary playback is allowed even when motion is reduced (DEV-2)
         userPaused = false; store.set('kb-film', 'playing', sessionStorage);
         video.preload = 'auto'; video.play().catch(() => {});
-        toggle.setAttribute('aria-pressed', 'false');
-        $('.film-toggle-label', toggle).textContent = 'Bewegtbild anhalten';
+        setToggle(false);
         return;
       }
       userPaused = !paused;
@@ -267,6 +313,7 @@
 
   /* ---------- floating call dock (UX-12, DEV-15) ---------- */
   const dock = $('[data-dock]');
+  const wa = $('[data-whatsapp]');
   if (dock && 'IntersectionObserver' in window) {
     const state = { hero: true, contact: false, footer: false, formFocus: false, dismissed: store.get('kb-dock', sessionStorage) === 'closed' };
     const render = () => {
@@ -274,6 +321,8 @@
       dock.classList.toggle('is-visible', show);
       dock.setAttribute('aria-hidden', String(!show));
       dock.inert = !show;
+      root.classList.toggle('dock-on', show);
+      if (wa) wa.classList.toggle('is-hidden', state.formFocus);   // never under a hand that is typing
     };
     const watch = (el, key) => el && new IntersectionObserver(([en]) => { state[key] = en.isIntersecting; render(); }, { threshold: 0 }).observe(el);
     watch(hero, 'hero');
@@ -312,20 +361,17 @@
     });
   }
 
-  /* ---------- topic hand-over: "Rückruf für die Vorsorge" ---------- */
-  const chip = $('[data-topic-chip]');
-  const topicInput = $('[data-topic-input]');
+  /* ---------- topic hand-over: "Rückruf für die Vorsorge" pre-selects the topic ---------- */
   $$('[data-topic]').forEach((a) => a.addEventListener('click', () => {
-    if (!chip || !topicInput) return;
-    topicInput.value = a.dataset.topic;
-    $('[data-topic-label]', chip).textContent = 'Vorsorgegespräch';
-    chip.hidden = false;
+    const radio = d.getElementById(`contact-anliegen-${a.dataset.topic.toLowerCase()}`);
+    if (radio) radio.checked = true;
     setTimeout(() => $('#contact-name')?.focus({ preventScroll: true }), motionOff() ? 0 : 700);
   }));
-  $('[data-topic-clear]')?.addEventListener('click', () => { topicInput.value = 'Trauerfall'; chip.hidden = true; });
 
   /* ---------- callback forms ---------- */
   const PHONE = ($('.header-call-number')?.textContent || '').trim();
+  const telHref = () => esc(PHONE.replace(/[^\d+]/g, '').replace(/^0/, '+49'));
+  const FAILED = 'Ihre Rückrufbitte konnte leider nicht gesendet werden.';
   const messages = {
     name: 'Bitte geben Sie Ihren Namen an.',
     telefon: 'Bitte geben Sie eine Telefonnummer an, unter der ich Sie erreiche.',
@@ -349,13 +395,18 @@
     ['name', 'telefon', 'einwilligung'].forEach((k) => setError(form, k, errors[k]));
     return errors;
   }
-  const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  function esc(s) { return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
   $$('[data-callback-form]').forEach((form) => {
     const status = $('.form-status', form);
     let started = false;
     form.addEventListener('focusin', () => { if (!started) { started = true; track('callback_start', { location: form.dataset.loc }); } });
-    form.addEventListener('input', (e) => { if (e.target.getAttribute('aria-invalid') === 'true') validate(form); });
+    const recheck = (e) => {
+      if (e.target.getAttribute('aria-invalid') !== 'true' && !form.querySelector('[aria-invalid="true"]')) return;
+      if (!Object.keys(validate(form)).length) status.textContent = ''; // everything corrected: the notice goes too
+    };
+    form.addEventListener('input', recheck);
+    form.addEventListener('change', recheck);
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -367,8 +418,7 @@
       }
       if (d.documentElement.dataset.preview === 'static') {
         // static preview (GitHub Pages): no server receives the request, so never show a success state
-        const tel = esc(PHONE.replace(/[^\d+]/g, '').replace(/^0/, '+49'));
-        status.innerHTML = `<span class="notice notice-ok">Dies ist eine Vorschau der neuen Website. Rückrufbitten werden hier noch nicht übermittelt. Bitte rufen Sie mich direkt an, rund um die Uhr: <a href="tel:${tel}" data-track="tel_click" data-loc="preview">${esc(PHONE)}</a></span>`;
+        status.innerHTML = `<span class="notice notice-ok">Dies ist eine Vorschau der neuen Website. Rückrufbitten werden hier noch nicht übermittelt. Bitte rufen Sie mich direkt an, rund um die Uhr: <a href="tel:${telHref()}" data-track="tel_click" data-loc="preview">${esc(PHONE)}</a></span>`;
         return;
       }
       form.classList.add('is-loading');
@@ -397,24 +447,23 @@
       $('.btn-submit-label', form).textContent = 'Rückruf anfordern';
 
       if (ok) {
-        track('callback_success', { location: form.dataset.loc });
-        const name = esc(data.name.trim());
-        const when = data.zeit ? `, ${esc(data.zeit.toLowerCase())}` : ' so bald wie möglich';
+        track('callback_success', { location: form.dataset.loc, topic: data.anliegen || '' });
+        const when = data.zeit ? ` ${esc(data.zeit.toLowerCase())}` : ' so bald wie möglich';
         const card = form.closest('.callback-card');
         const box = d.createElement('div');
         box.className = 'callback-success';
         box.tabIndex = -1;
         box.innerHTML = `<div class="success-mark"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></div>
-          <h3>Danke, ${name}.</h3>
-          <p>Ihre Rückrufbitte ist angekommen. Ich rufe Sie unter <strong>${esc(data.telefon.trim())}</strong>${when} zurück.</p>
-          <p>Ist es dringend? Dann rufen Sie mich direkt an: <a href="tel:${esc(PHONE.replace(/[^\d+]/g, '').replace(/^0/, '+49'))}" data-track="tel_click" data-loc="success">${esc(PHONE)}</a></p>`;
+          <h3>Vielen Dank.</h3>
+          <p>Ihre Rückrufbitte ist angekommen. Ich rufe Sie${when} unter <strong>${esc(data.telefon.trim())}</strong> zurück.</p>
+          <p>Ist es dringend? Dann rufen Sie mich direkt an: <a href="tel:${telHref()}" data-track="tel_click" data-loc="success">${esc(PHONE)}</a></p>`;
         $$(':scope > :not(.callback-success)', card).forEach((el) => { el.hidden = true; });
         card.appendChild(box);
         box.focus({ preventScroll: true });
         return;
       }
       if (fieldErrors) Object.entries(fieldErrors).forEach(([k, v]) => setError(form, k, v));
-      status.innerHTML = `<span class="notice notice-error">${esc(message || 'Das hat leider nicht geklappt.')} Sie erreichen mich jederzeit telefonisch: <a href="tel:${esc(PHONE.replace(/[^\d+]/g, '').replace(/^0/, '+49'))}">${esc(PHONE)}</a></span>`;
+      status.innerHTML = `<span class="notice notice-error">${esc(message || FAILED)} Sie erreichen mich jederzeit telefonisch: <a href="tel:${telHref()}">${esc(PHONE)}</a></span>`;
       (form.querySelector('[aria-invalid="true"]') || status).focus?.();
     });
   });
