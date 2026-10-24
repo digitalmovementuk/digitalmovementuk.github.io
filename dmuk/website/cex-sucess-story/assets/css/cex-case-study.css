@@ -1203,12 +1203,6 @@ html.js .dm-case .dm-chart:not(.is-in) .dm-chart__cell--p2 { transform: scale(.3
 .dm-case .dm-chart .dm-chart__legend-p2::before { background: rgba(251, 121, 0, .38); }
 @media (prefers-reduced-motion: reduce) { html.js .dm-case .dm-chart:not(.is-in) .dm-chart__cell--p2 { transform: none; opacity: 1; transition: none; } }
 
-/* Keep the 62-page total prominent while preserving the page-one comparison. */
-.dm-case .dm-focus-total .dm-focus-total__progress { font-size: .68em; }
-.dm-case .dm-focus-total .dm-focus-total__progress .dm-tile__after,
-.dm-case .dm-chart .dm-focus-total .dm-focus-total__progress .dm-figure__after { color: var(--on-dark); }
-.dm-case .dm-focus-total .dm-focus-total__number { font: inherit; color: var(--orange); }
-
 /* Show the requested launch-period detail of the original Search Console image. */
 .dm-case .dm-launch__chart-crop { position: relative; width: 100%; aspect-ratio: 510 / 445; overflow: hidden; background: #fff; }
 .dm-case .dm-launch__evidence .dm-launch__chart-crop img { position: absolute; left: -213.72549%; top: -48.31461%; width: 313.72549%; max-width: none; height: auto; aspect-ratio: 1600 / 660; object-fit: contain; }
