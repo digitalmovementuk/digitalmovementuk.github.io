@@ -1,0 +1,720 @@
+/* CEx case study — chart kit. Version v1.0 — 2026-10-24.
+   Headline figures with supporting before/after bars, weekly columns, a
+   cumulative line, term rows, cell grids and unit rows for the case study page.
+   Every rule is scoped under .dm-case; chart classes are prefixed dm-chart.
+   The text block uses the page's dm-figure element names (__value, __arrow,
+   __after, __of, __label, __detail, __source) with the dm-figure sizes.
+
+   Self-contained: the kit works linked alone next to cex-case-study.css. It
+   reads optional page hooks (--chart-text, --chart-text-mute, --chart-after,
+   --chart-before, --chart-line, --chart-surface, --chart-card, --chart-card-edge,
+   --chart-tag) with the brand values from DESIGN-TOKENS.md v1.0 as fallbacks.
+   dm-chart--light and dm-chart--dark set the values outright for cream and ink.
+
+   Readable without JavaScript: bars, columns, cells and the line render at
+   full data size by default. The grow-in (≤ 0.6 s) applies only under html.js
+   until dm-case-charts.js sets .is-in on first view, and is switched off for
+   prefers-reduced-motion and print. */
+
+/* ---------- Tokens: light (cream) is the default ---------- */
+.dm-case .dm-chart {
+  --dmc-text: var(--chart-text, #0B1F3A);
+  --dmc-mute: var(--chart-text-mute, #596E88);
+  --dmc-after: var(--chart-after, #FB7900);              /* orange marks and the "after" value */
+  --dmc-before: var(--chart-before, rgba(11, 31, 58, .18)); /* muted mark */
+  --dmc-line: var(--chart-line, rgba(11, 31, 58, .16));
+  --dmc-surface: var(--chart-surface, #FFF7EF);
+  --dmc-card: var(--chart-card, #FFFFFF);
+  --dmc-card-edge: var(--chart-card-edge, #EBDFD1);
+  --dmc-tag: var(--chart-tag, rgba(11, 31, 58, .07));     /* chip background */
+  --dmc-grad: linear-gradient(90deg, #F5C542 0%, #FB7900 46%, #F13C64 100%);
+  --dmc-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --dmc-body: "Inter Tight", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --dmc-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --dmc-ease: cubic-bezier(.2, .7, .2, 1);
+  --dmc-bar: 22px;        /* horizontal bar thickness, kept under 24px */
+  --dmc-room: 56px;       /* track end kept free for the value at the bar tip */
+  --dmc-label: 4rem;      /* width of the Before/After column */
+  --dmc-gap: 3px;         /* surface gap between adjacent units */
+  --dmc-colgap: 8px;      /* gap between weekly columns */
+  --dmc-colw: 24px;       /* column thickness cap */
+  --dmc-colh: 180px;      /* height of the weekly column area */
+  --dmc-colsmax: none;    /* optional width cap for few columns */
+  --dmc-ploth: 200px;     /* height of the line plot */
+  --dmc-stagger: 30ms;    /* delay between lit cells in the grow-in */
+  --dmc-max: 1;           /* set per chart: the value that fills the track */
+  --fig: clamp(3.25rem, 7vw, 6rem);   /* headline size, lg tier: 96px desktop */
+}
+
+.dm-case .dm-chart--light {
+  --dmc-text: #0B1F3A;
+  --dmc-mute: #596E88;
+  --dmc-after: #FB7900;
+  --dmc-before: rgba(11, 31, 58, .18);
+  --dmc-line: rgba(11, 31, 58, .16);
+  --dmc-surface: #FFF7EF;
+  --dmc-card: #FFFFFF;
+  --dmc-card-edge: #EBDFD1;
+  --dmc-tag: rgba(11, 31, 58, .07);
+}
+
+/* Dark (ink) variant for the alternating sections */
+.dm-case .dm-chart--dark {
+  --dmc-text: #EAF1FA;
+  --dmc-mute: #94AAC7;
+  --dmc-after: #FB7900;
+  --dmc-before: rgba(234, 241, 250, .18);
+  --dmc-line: rgba(234, 241, 250, .16);
+  --dmc-surface: #050B15;
+  --dmc-card: rgba(255, 255, 255, .045);
+  --dmc-card-edge: rgba(255, 255, 255, .10);
+  --dmc-tag: rgba(234, 241, 250, .1);
+}
+
+/* Headline size tiers, identical to dm-figure--xl/--lg/--md/--sm */
+.dm-case .dm-chart--xl { --fig: clamp(3.5rem, 8vw, 7rem); }      /* 56 → 112px */
+.dm-case .dm-chart--lg { --fig: clamp(3.25rem, 7vw, 6rem); }     /* 52 → 96px */
+.dm-case .dm-chart--md { --fig: clamp(3rem, 5.5vw, 4.5rem); }    /* 48 → 72px */
+.dm-case .dm-chart--sm { --fig: clamp(2.75rem, 4.5vw, 3.5rem); } /* 44 → 56px */
+@media (max-width: 759px) {
+  .dm-case .dm-chart,
+  .dm-case .dm-chart--xl,
+  .dm-case .dm-chart--lg { --fig: clamp(3.25rem, 16vw, 4rem); }
+  .dm-case .dm-chart--md { --fig: clamp(3rem, 14vw, 3.75rem); }
+  .dm-case .dm-chart--sm { --fig: 3rem; }
+}
+
+/* ---------- Figure shell ---------- */
+.dm-case .dm-chart {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  container-type: inline-size;
+  font-family: var(--dmc-body);
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--dmc-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.dm-case .dm-chart *,
+.dm-case .dm-chart *::before,
+.dm-case .dm-chart *::after { box-sizing: border-box; }
+
+.dm-case .dm-chart p,
+.dm-case .dm-chart dl,
+.dm-case .dm-chart dt,
+.dm-case .dm-chart dd,
+.dm-case .dm-chart ol,
+.dm-case .dm-chart li,
+.dm-case .dm-chart figcaption,
+.dm-case .dm-chart table { margin: 0; padding: 0; }
+
+/* Visually hidden data table / words for screen readers */
+.dm-case .dm-sr {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Optional panel: white card on cream, translucent card on ink */
+.dm-case .dm-chart--card {
+  background: var(--dmc-card);
+  border: 1px solid var(--dmc-card-edge);
+  border-radius: 16px;
+  padding: clamp(22px, 2.4vw, 32px);
+}
+
+/* Optional brand marker: the 3px gradient rail, use at most once per section */
+.dm-case .dm-chart--marked { padding-top: 18px; }
+.dm-case .dm-chart--marked::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--dmc-grad);
+}
+.dm-case .dm-chart--card.dm-chart--marked { padding-top: clamp(22px, 2.4vw, 32px); }
+.dm-case .dm-chart--card.dm-chart--marked::before { left: clamp(22px, 2.4vw, 32px); border-radius: 0 0 2px 2px; }
+
+/* ---------- Text block: same rules as the page's dm-figure ---------- */
+.dm-case .dm-chart .dm-figure__value {
+  font-family: var(--dmc-display);
+  font-weight: 800;
+  font-size: var(--fig);
+  line-height: .95;
+  letter-spacing: -.045em;
+  font-variant-numeric: tabular-nums;
+  color: var(--dmc-text);
+  white-space: nowrap;
+}
+.dm-case .dm-chart .dm-figure__arrow,
+.dm-case .dm-chart .dm-figure__after { color: var(--dmc-after); }
+.dm-case .dm-chart .dm-figure__arrow { margin: 0 .06em; }
+.dm-case .dm-chart .dm-figure__of { font-size: .5em; letter-spacing: -.01em; color: var(--dmc-mute); margin: 0 .08em; }
+
+.dm-case .dm-chart .dm-figure__label {
+  margin-top: 12px;
+  font-family: var(--dmc-display);
+  font-weight: 800;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  color: var(--dmc-text);
+  max-width: 24ch;
+}
+.dm-case .dm-chart .dm-figure__label:first-child { margin-top: 0; }
+
+.dm-case .dm-chart .dm-figure__detail {
+  margin-top: 6px;
+  font-size: .95rem;
+  line-height: 1.45;
+  color: var(--dmc-mute);
+  max-width: 44ch;
+}
+
+.dm-case .dm-chart .dm-figure__source {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--dmc-mono);
+  font-weight: 500;
+  font-size: .8rem;
+  letter-spacing: .03em;
+  line-height: 1.6;
+  color: var(--dmc-mute);
+}
+
+.dm-case .dm-chart__viz { margin: 22px 0 8px; }
+
+/* ---------- Rows: horizontal before/after bars ---------- */
+.dm-case .dm-chart__rows {
+  display: grid;
+  gap: 12px;
+}
+
+.dm-case .dm-chart__row {
+  display: grid;
+  grid-template-columns: var(--dmc-label) minmax(0, 1fr);
+  align-items: center;
+  column-gap: 12px;
+}
+
+.dm-case .dm-chart__label {
+  font-weight: 500;
+  font-size: .85rem;
+  line-height: 1.3;
+  color: var(--dmc-mute);
+}
+
+.dm-case .dm-chart__track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Bar length is true to the data: value / max of the track, minus the label room */
+.dm-case .dm-chart__bar {
+  flex: 0 0 auto;
+  display: block;
+  width: calc(var(--dm-v, 0) / var(--dmc-max) * (100% - var(--dmc-room)));
+  height: var(--dmc-bar);
+  border-radius: 0 4px 4px 0;
+  background: var(--dmc-before);
+}
+
+.dm-case .dm-chart__row--after .dm-chart__bar { background: var(--dmc-after); }
+
+.dm-case .dm-chart__value {
+  flex: 0 0 auto;
+  font-weight: 600;
+  font-size: .9rem;
+  line-height: 1;
+  color: var(--dmc-mute);
+  white-space: nowrap;
+}
+
+.dm-case .dm-chart__row--after .dm-chart__value {
+  font-family: var(--dmc-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -.02em;
+  color: var(--dmc-text);
+}
+
+/* Axis for fixed scales (speed score 0–100): a hairline with its two ends */
+.dm-case .dm-chart__axis {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px var(--dmc-room) 0 calc(var(--dmc-label) + 12px);
+  padding-top: 5px;
+  border-top: 1px solid var(--dmc-line);
+  font-family: var(--dmc-mono);
+  font-weight: 500;
+  font-size: .7rem;
+  line-height: 1.4;
+  color: var(--dmc-mute);
+}
+
+/* ---------- Units: relative 1× → 4× ---------- */
+.dm-case .dm-chart__units {
+  flex: 0 0 auto;
+  display: flex;
+  gap: var(--dmc-gap);
+  width: calc(
+    (100% - var(--dmc-room) - (var(--dmc-max) - 1) * var(--dmc-gap)) * var(--dm-n, 1) / var(--dmc-max)
+    + (var(--dm-n, 1) - 1) * var(--dmc-gap)
+  );
+  min-width: 0;
+}
+
+.dm-case .dm-chart__unit {
+  flex: 1 1 0;
+  display: block;
+  height: var(--dmc-bar);
+  background: var(--dmc-before);
+}
+
+.dm-case .dm-chart__unit:last-child { border-radius: 0 4px 4px 0; }
+.dm-case .dm-chart__row--after .dm-chart__unit { background: var(--dmc-after); }
+
+/* ---------- Terms: one row per search term, bar by monthly searches, difficulty chip ---------- */
+.dm-case .dm-chart--terms { --dmc-bar: 14px; --dmc-room: 96px; }
+
+.dm-case .dm-chart__terms {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+
+.dm-case .dm-chart__term {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "name tag" "track track";
+  align-items: center;
+  column-gap: 12px;
+  row-gap: 6px;
+}
+
+.dm-case .dm-chart__term-name {
+  grid-area: name;
+  font-weight: 600;
+  font-size: .9rem;
+  line-height: 1.3;
+  color: var(--dmc-text);
+}
+
+.dm-case .dm-chart__term .dm-chart__track { grid-area: track; }
+.dm-case .dm-chart__term .dm-chart__bar { background: var(--dmc-after); }
+.dm-case .dm-chart__term .dm-chart__value {
+  font-family: var(--dmc-display);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: -.02em;
+  color: var(--dmc-text);
+}
+.dm-case .dm-chart__unit-text {
+  font-family: var(--dmc-body);
+  font-weight: 500;
+  font-size: .78rem;
+  letter-spacing: 0;
+  color: var(--dmc-mute);
+}
+
+.dm-case .dm-chart__tag {
+  grid-area: tag;
+  justify-self: end;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: var(--dmc-tag);
+  font-weight: 600;
+  font-size: .72rem;
+  line-height: 1;
+  letter-spacing: .01em;
+  color: var(--dmc-mute);
+  white-space: nowrap;
+}
+
+@container (min-width: 600px) {
+  .dm-case .dm-chart__terms { gap: 10px; }
+  .dm-case .dm-chart__term {
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) auto;
+    grid-template-areas: "name track tag";
+    column-gap: 16px;
+  }
+}
+
+/* ---------- Cells: 62-page grid, 24-page strip, 65-page grid ---------- */
+.dm-case .dm-chart__cells {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.dm-case .dm-chart--strip .dm-chart__cells {
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+  gap: 3px;
+  max-width: 560px;
+}
+
+.dm-case .dm-chart--strip { --dmc-stagger: 16ms; }
+
+.dm-case .dm-chart--grid13 .dm-chart__cells {
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  max-width: 400px;
+}
+
+.dm-case .dm-chart--grid13 { --dmc-stagger: 5ms; }
+
+.dm-case .dm-chart__cell {
+  display: block;
+  min-height: 10px;
+  aspect-ratio: 1 / 1;
+  border-radius: 3px;
+  background: var(--dmc-before);
+}
+
+.dm-case .dm-chart__cell--lit { background: var(--dmc-after); }
+
+@container (min-width: 520px) {
+  .dm-case .dm-chart--grid .dm-chart__cells { grid-template-columns: repeat(31, minmax(0, 1fr)); }
+}
+
+/* ---------- Columns: weekly impressions with the launch marker ---------- */
+.dm-case .dm-chart__cols {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--dm-n, 3), minmax(0, 1fr));
+  gap: var(--dmc-colgap);
+  align-items: end;
+  height: var(--dmc-colh);
+  max-width: var(--dmc-colsmax);
+  padding-top: 44px;                    /* room for a two-line note above the tallest column */
+  border-bottom: 1px solid var(--dmc-line);
+}
+
+.dm-case .dm-chart__col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  min-width: 0;
+}
+
+.dm-case .dm-chart__col::after {
+  content: "";
+  display: block;
+  width: min(100%, var(--dmc-colw));
+  height: calc(var(--dm-v, 0) / var(--dmc-max) * 100%);
+  border-radius: 4px 4px 0 0;
+  background: var(--dmc-before);
+}
+
+.dm-case .dm-chart__col--after::after { background: var(--dmc-after); }
+
+/* Note above a column: the multiple (dm-chart__delta) over the value (dm-chart__value) */
+.dm-case .dm-chart__col-note {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--dm-v, 0) / var(--dmc-max) * 100% + 6px);
+  transform: translateX(calc(-50% + 2px));
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  white-space: nowrap;
+  line-height: 1;
+}
+.dm-case .dm-chart__col-note .dm-chart__value {
+  font-family: var(--dmc-body);
+  font-weight: 600;
+  font-size: .72rem;
+  letter-spacing: 0;
+  color: var(--dmc-mute);
+}
+.dm-case .dm-chart__col-note .dm-chart__delta {
+  font-family: var(--dmc-display);
+  font-weight: 800;
+  font-size: .95rem;
+  letter-spacing: -.02em;
+  color: var(--dmc-text);
+}
+
+/* Markers: a hairline at a date, label to its left */
+.dm-case .dm-chart__marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  left: calc(
+    var(--dm-k, 1) * (100% - (var(--dm-n, 3) - 1) * var(--dmc-colgap)) / var(--dm-n, 3)
+    + (var(--dm-k, 1) - .5) * var(--dmc-colgap)
+  );
+}
+.dm-case .dm-chart__marker::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: var(--dmc-text);
+  opacity: .45;
+}
+.dm-case .dm-chart__marker-label {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  white-space: nowrap;
+  font-family: var(--dmc-mono);
+  font-weight: 500;
+  font-size: .7rem;
+  line-height: 1.2;
+  color: var(--dmc-text);
+}
+/* A second marker close to the first: its label sits on a second row */
+.dm-case .dm-chart__marker--low .dm-chart__marker-label { top: 1.6em; }
+
+.dm-case .dm-chart__xaxis {
+  display: grid;
+  grid-template-columns: repeat(var(--dm-n, 3), minmax(0, 1fr));
+  gap: var(--dmc-colgap);
+  max-width: var(--dmc-colsmax);
+  margin-top: 6px;
+  font-family: var(--dmc-mono);
+  font-weight: 500;
+  font-size: .7rem;
+  line-height: 1.4;
+  color: var(--dmc-mute);
+}
+.dm-case .dm-chart__xaxis span { white-space: nowrap; text-align: center; }
+.dm-case .dm-chart__xaxis span:first-child { text-align: left; }
+.dm-case .dm-chart__xaxis span:last-child { text-align: right; }
+.dm-case .dm-chart__xaxis--under span,
+.dm-case .dm-chart__xaxis--under span:first-child,
+.dm-case .dm-chart__xaxis--under span:last-child { text-align: center; }
+.dm-case .dm-chart__xaxis--line { display: flex; justify-content: space-between; max-width: none; }
+
+/* Mini: sparkline columns under the multiple, for a hero-adjacent infobox */
+.dm-case .dm-chart--mini { --dmc-colh: 56px; --dmc-colgap: 6px; --dmc-colw: 32px; --dmc-colsmax: 220px; --fig: clamp(2.5rem, 4.5vw, 3.5rem); }
+.dm-case .dm-chart--mini .dm-figure__label { margin-top: 8px; font-size: 1rem; }
+.dm-case .dm-chart--mini .dm-chart__viz { margin: 14px 0 6px; }
+.dm-case .dm-chart--mini .dm-chart__cols { padding-top: 0; }
+.dm-case .dm-chart--mini .dm-chart__col::after { border-radius: 3px 3px 0 0; }
+.dm-case .dm-chart--mini .dm-chart__col-note,
+.dm-case .dm-chart--mini .dm-chart__marker-label,
+.dm-case .dm-chart--mini .dm-chart__xaxis,
+.dm-case .dm-chart--mini .dm-figure__detail { display: none; }
+.dm-case .dm-chart--mini .dm-figure__source { margin-top: 8px; font-size: .72rem; }
+@media (max-width: 759px) { .dm-case .dm-chart--mini { --fig: 3rem; } }
+
+/* ---------- Line: cumulative impressions (inline SVG, HTML labels) ---------- */
+.dm-case .dm-chart__plot {
+  position: relative;
+  height: var(--dmc-ploth);
+  border-bottom: 1px solid var(--dmc-line);
+}
+
+.dm-case .dm-chart__svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.dm-case .dm-chart__area { fill: var(--dmc-after); fill-opacity: .1; }
+
+.dm-case .dm-chart__line {
+  fill: none;
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.dm-case .dm-chart__line--pre { stroke: var(--dmc-mute); }
+.dm-case .dm-chart__line--post { stroke: var(--dmc-after); }
+
+.dm-case .dm-chart__plot .dm-chart__marker { left: var(--dm-x, 60%); }
+
+.dm-case .dm-chart__dot {
+  position: absolute;
+  right: 0;
+  top: var(--dm-y, 16%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--dmc-after);
+  box-shadow: 0 0 0 2px var(--dmc-surface);
+  transform: translate(50%, -50%);
+}
+.dm-case .dm-chart--card .dm-chart__dot { box-shadow: 0 0 0 2px var(--dmc-card); }
+
+/* A point part-way along the line, with its value above it */
+.dm-case .dm-chart__dot--mid {
+  right: auto;
+  left: var(--dm-x, 54%);
+  width: 8px;
+  height: 8px;
+  background: var(--dmc-mute);
+  transform: translate(-50%, -50%);
+}
+.dm-case .dm-chart__mid {
+  position: absolute;
+  left: var(--dm-x, 54%);
+  top: var(--dm-y, 78.8%);
+  transform: translate(-50%, calc(-100% - 9px));
+  font-weight: 600;
+  font-size: .72rem;
+  line-height: 1;
+  color: var(--dmc-mute);
+}
+
+.dm-case .dm-chart__end {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-family: var(--dmc-display);
+  font-weight: 800;
+  font-size: .95rem;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: var(--dmc-text);
+}
+
+/* ---------- Grow-in (JS adds .is-in on first view; ≤ 0.6 s in total) ---------- */
+html.js .dm-case .dm-chart .dm-chart__bar,
+html.js .dm-case .dm-chart .dm-chart__unit {
+  transform-origin: 0 50%;
+  transition: transform .5s var(--dmc-ease);
+}
+html.js .dm-case .dm-chart .dm-chart__row--after .dm-chart__bar { transition-delay: .08s; }
+html.js .dm-case .dm-chart .dm-chart__term .dm-chart__bar { transition-delay: calc(var(--i, 0) * 15ms); }
+html.js .dm-case .dm-chart .dm-chart__unit { transition-delay: calc(var(--i, 0) * 70ms); }
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__bar,
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__unit { transform: scaleX(0); }
+
+html.js .dm-case .dm-chart .dm-chart__value,
+html.js .dm-case .dm-chart .dm-chart__tag,
+html.js .dm-case .dm-chart .dm-chart__col-note,
+html.js .dm-case .dm-chart .dm-chart__marker,
+html.js .dm-case .dm-chart .dm-chart__end,
+html.js .dm-case .dm-chart .dm-chart__mid,
+html.js .dm-case .dm-chart .dm-chart__dot { transition: opacity .25s ease .3s; }
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__value,
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__tag,
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__col-note,
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__marker,
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__end,
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__mid,
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__dot { opacity: 0; }
+
+html.js .dm-case .dm-chart .dm-chart__cell--lit {
+  transition: transform .22s var(--dmc-ease), opacity .22s ease;
+  transition-delay: calc(var(--i, 0) * var(--dmc-stagger));
+}
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__cell--lit { transform: scale(.3); opacity: 0; }
+
+html.js .dm-case .dm-chart .dm-chart__col::after {
+  transform-origin: 50% 100%;
+  transition: transform .4s var(--dmc-ease);
+  transition-delay: calc(var(--i, 0) * 20ms);
+}
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__col::after { transform: scaleY(0); }
+
+html.js .dm-case .dm-chart .dm-chart__line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset .35s ease;
+}
+html.js .dm-case .dm-chart .dm-chart__line--post { transition-delay: .25s; }
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__line { stroke-dashoffset: 1; }
+html.js .dm-case .dm-chart .dm-chart__area { transition: opacity .3s ease .3s; }
+html.js .dm-case .dm-chart:not(.is-in) .dm-chart__area { opacity: 0; }
+
+html.js .dm-case .dm-chart .dm-figure__value { transition: transform .45s var(--dmc-ease), opacity .45s ease; }
+html.js .dm-case .dm-chart:not(.is-in) .dm-figure__value { transform: translateY(.12em); opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .dm-case .dm-chart .dm-chart__bar,
+  html.js .dm-case .dm-chart .dm-chart__unit,
+  html.js .dm-case .dm-chart .dm-chart__value,
+  html.js .dm-case .dm-chart .dm-chart__tag,
+  html.js .dm-case .dm-chart .dm-chart__col-note,
+  html.js .dm-case .dm-chart .dm-chart__marker,
+  html.js .dm-case .dm-chart .dm-chart__end,
+  html.js .dm-case .dm-chart .dm-chart__mid,
+  html.js .dm-case .dm-chart .dm-chart__dot,
+  html.js .dm-case .dm-chart .dm-chart__cell--lit,
+  html.js .dm-case .dm-chart .dm-chart__col::after,
+  html.js .dm-case .dm-chart .dm-chart__line,
+  html.js .dm-case .dm-chart .dm-chart__area,
+  html.js .dm-case .dm-chart .dm-figure__value { transition: none; }
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__bar,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__unit,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__cell--lit,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__col::after,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-figure__value { transform: none; opacity: 1; }
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__value,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__tag,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__col-note,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__marker,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__end,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__mid,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__dot,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__area { opacity: 1; }
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__line { stroke-dashoffset: 0; }
+}
+
+@media print {
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__bar,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__unit,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__cell--lit,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__col::after,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-figure__value { transform: none; opacity: 1; }
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__value,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__tag,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__col-note,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__marker,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__end,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__mid,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__dot,
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__area { opacity: 1; }
+  html.js .dm-case .dm-chart:not(.is-in) .dm-chart__line { stroke-dashoffset: 0; }
+}
+
+/* Windows high contrast: keep the marks visible as outlines and solid fills */
+@media (forced-colors: active) {
+  .dm-case .dm-chart__bar,
+  .dm-case .dm-chart__unit,
+  .dm-case .dm-chart__cell,
+  .dm-case .dm-chart__tag,
+  .dm-case .dm-chart__col::after { border: 1px solid CanvasText; }
+  .dm-case .dm-chart__row--after .dm-chart__bar,
+  .dm-case .dm-chart__term .dm-chart__bar,
+  .dm-case .dm-chart__row--after .dm-chart__unit,
+  .dm-case .dm-chart__cell--lit,
+  .dm-case .dm-chart__col--after::after,
+  .dm-case .dm-chart__dot { forced-color-adjust: none; background: CanvasText; }
+  .dm-case .dm-chart__line { stroke: CanvasText; }
+}
+
+/* ---------- Narrow columns ---------- */
+@media (max-width: 480px) {
+  .dm-case .dm-chart { --dmc-colgap: 6px; --dmc-colh: 150px; --dmc-ploth: 160px; }
+  .dm-case .dm-chart--mini { --dmc-colgap: 6px; --dmc-colh: 56px; }
+  .dm-case .dm-chart__viz { margin-top: 18px; }
+}
