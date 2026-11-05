@@ -857,6 +857,7 @@ html:not(.js) .film-toggle { display: none; }
 .chapter.is-active .chapter-num { color: var(--candle-deep); }
 .chapter h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.875rem, 1.3rem + 1.3vw, 2.6rem); line-height: 1.12; color: var(--forest-900); margin-bottom: 14px; }
 .chapter p { color: var(--ink-2); max-width: 30em; margin: 0; font-size: 1.1875rem; }
+.chapter .chapter-more { margin-top: 12px; font-size: 1.0625rem; }   /* link to the /feuerbestattung/ page (05.11.2026) */
 
 .table-wrap { margin-top: clamp(56px, 6vw, 88px); padding: clamp(24px, 3vw, 40px); border-radius: var(--radius); background: rgba(252, 250, 245, .7); box-shadow: var(--ring-hair); }
 .compare { width: 100%; border-collapse: collapse; font-size: 1.0625rem; }
