@@ -1,4 +1,8 @@
-/* Kißelbach Bestattungen · Prototyp v1.2
+/* Kißelbach Bestattungen · Prototyp v1.3 (v1.3: three pages; the call dock and the nav indicator work on every page)
+   Changelog
+   v1.3     04.11.2026  three pages; call dock and nav indicator on every page
+   v1.3.1   04.11.2026  shared fixes: header fit safety net (.hdr-compact / .hdr-small / .hdr-squeeze / .hdr-icon when the header row overflows at
+                        larger text), --dock-h (measured dock height, so WhatsApp stacks above the dock at any text size)
    Progressive enhancement only: the page is complete without this file.
    Motion follows native scrolling (no scroll-jacking), runs once per element,
    and switches off for prefers-reduced-motion or the visitor's own toggle. */
@@ -179,10 +183,13 @@
     revealEls.forEach((el) => el.classList.add('is-in'));
   }
 
-  /* ---------- scrollspy: nav indicator ---------- */
+  /* ---------- nav indicator: scrollspy on the home page, the page's own entry on /leistungen/ and /fallbeispiele/ ---------- */
   const navLinks = $$('.nav-desktop a');
   const indicator = $('.nav-indicator');
-  const navTargets = navLinks.map((a) => d.getElementById(a.hash.slice(1))).filter(Boolean);
+  const pageLink = navLinks.find((a) => a.getAttribute('aria-current') === 'page');          // sub-pages: the entry of this page
+  const spyLinks = navLinks.filter((a) => a !== pageLink && a.hash && a.pathname === location.pathname && d.getElementById(a.hash.slice(1)));   // only links to anchors on THIS page (v1.3 fix D1-02: a link to /#kosten from another page is never marked)
+  const navTargets = spyLinks.map((a) => d.getElementById(a.hash.slice(1)));
+  let currentLink = null;
   function moveIndicator(link) {
     if (!indicator) return;
     if (!link) { indicator.style.setProperty('--ni-o', 0); return; }
@@ -192,18 +199,25 @@
     indicator.style.setProperty('--ni-w', `${box.width}px`);
     indicator.style.setProperty('--ni-o', 1);
   }
+  const placeIndicator = () => moveIndicator(currentLink || pageLink || null);
   if ('IntersectionObserver' in window && navTargets.length) {
     const visible = new Map();
     const spy = new IntersectionObserver((entries) => {
       entries.forEach((en) => visible.set(en.target.id, en.isIntersecting));
       const current = navTargets.find((t) => visible.get(t.id));
-      navLinks.forEach((a) => {
+      spyLinks.forEach((a) => {
         const on = current && a.hash === `#${current.id}`;
         if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
       });
-      moveIndicator(current ? navLinks.find((a) => a.hash === `#${current.id}`) : null);
+      currentLink = current ? spyLinks.find((a) => a.hash === `#${current.id}`) : null;
+      placeIndicator();
     }, { rootMargin: '-45% 0px -50% 0px' });
     navTargets.forEach((t) => spy.observe(t));
+  }
+  if (pageLink) {
+    placeIndicator();
+    addEventListener('resize', placeIndicator, { passive: true });
+    if (d.fonts && d.fonts.ready) d.fonts.ready.then(placeIndicator);
   }
 
   /* ---------- burial-form chapters: still image, caption and ground tone follow the text ---------- */
@@ -315,7 +329,7 @@
   const dock = $('[data-dock]');
   const wa = $('[data-whatsapp]');
   if (dock && 'IntersectionObserver' in window) {
-    const state = { hero: true, contact: false, footer: false, formFocus: false, dismissed: store.get('kb-dock', sessionStorage) === 'closed' };
+    const state = { hero: !!hero, contact: false, footer: false, formFocus: false, dismissed: store.get('kb-dock', sessionStorage) === 'closed' };
     const render = () => {
       const show = !state.hero && !state.contact && !state.footer && !state.formFocus && !state.dismissed;
       dock.classList.toggle('is-visible', show);
@@ -325,6 +339,8 @@
       if (wa) wa.classList.toggle('is-hidden', state.formFocus);   // never under a hand that is typing
     };
     const watch = (el, key) => el && new IntersectionObserver(([en]) => { state[key] = en.isIntersecting; render(); }, { threshold: 0 }).observe(el);
+    // v1.3.1 (RQ-05): the dock grows with the text size; the WhatsApp button stacks above its measured height, not above 66 px
+    if ('ResizeObserver' in window) new ResizeObserver(() => root.style.setProperty('--dock-h', `${dock.offsetHeight}px`)).observe(dock);
     watch(hero, 'hero');
     watch($('[data-contact]'), 'contact');
     watch($('[data-footer]'), 'footer');
@@ -335,6 +351,44 @@
       const main = $('#inhalt'); if (main) main.focus?.({ preventScroll: true });
     });
     render();
+  }
+
+  /* ---------- header fit (v1.3.1, RQ-02): the em media queries in site.css follow the browser's text size; this covers the
+     rest (e.g. Firefox "Zoom text only", which they cannot see): if the header row still overflows, use the menu button,
+     and if it still overflows, the phone header. Normal text never overflows, so nothing happens there. ---------- */
+  const headerRow = $('.header-inner');
+  if (headerRow) {
+    // too wide = the row scrolls sideways, or its last item comes within 8 px of the screen edge (the row may use its side gutter at 1100 px, but never the edge)
+    const rightEdge = () => Math.max(0, ...Array.from(headerRow.children, (c) => { const r = c.getBoundingClientRect(); return r.width ? r.right : 0; }));
+    // with reduced motion every transition lasts .001 ms, but until the next frame the old values are still reported: finish them before measuring
+    const settle = () => { if (d.getAnimations) d.getAnimations().forEach((a) => { if ('transitionProperty' in a) a.finish(); }); };
+    const over = () => { settle(); return headerRow.scrollWidth > headerRow.clientWidth + 1 || rightEdge() > root.clientWidth - 8; };
+    let fitFrame = 0;
+    const fitHeader = () => {
+      fitFrame = 0;
+      root.classList.remove('hdr-compact', 'hdr-small', 'hdr-squeeze', 'hdr-icon');
+      if (over()) {
+        root.classList.add('hdr-compact');
+        if (over()) root.classList.add('hdr-small');
+      }
+      // still too wide (phone header at larger text): the logo may shrink, aspect ratio kept ...
+      if (over()) root.classList.add('hdr-small', 'hdr-squeeze');
+      // ... and when it would shrink to a sliver, the call button keeps only its phone icon (its name stays for screen readers)
+      const logo = $('.brand img');
+      settle();
+      const sliver = logo && logo.getBoundingClientRect().width > 0 && logo.getBoundingClientRect().width < 96;
+      if (sliver || over()) root.classList.add('hdr-small', 'hdr-squeeze', 'hdr-icon');
+    };
+    const requestFit = () => { if (!fitFrame) fitFrame = requestAnimationFrame(fitHeader); };
+    fitHeader();
+    addEventListener('resize', requestFit, { passive: true });
+    if (d.fonts && d.fonts.ready) d.fonts.ready.then(requestFit);
+    addEventListener('load', requestFit);
+    // text-only zoom fires no resize event: watch the header's own parts (their size changes with the text)
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(requestFit);
+      [$('.nav-desktop'), $('.header-call'), $('.nav-mobile summary')].forEach((el) => el && ro.observe(el));
+    }
   }
 
   /* ---------- mobile menu: close after choosing ---------- */

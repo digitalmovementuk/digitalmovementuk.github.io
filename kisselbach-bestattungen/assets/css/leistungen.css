@@ -1,0 +1,251 @@
+/* ==========================================================================
+   Kißelbach Bestattungen · Seitenmodul „leistungen“ · Fassung v1.2 · 04.11.2026 · Builder D1, Claude (Opus 5.5)
+   Change log: v1.0 (04.11.2026) full page module, replaces the v1.3 stub. v1.1 (04.11.2026) fix round: visible path
+   label and a shorter phone hero (D1-01), 16 px floor for small text (D1-06), left-aligned leads on phones (D1-07),
+   measures ≤ ≈ 70 characters (D1-08), compact call dock in the bottom-right corner on desktops (D1-09, this page only),
+   compact cost sheet (D1-03), case links to /fallbeispiele/. v1.2 (04.11.2026): R-2, every text block ≤ ≈ 70 characters per
+   line at 1440 and 1366 (measured per rendered line), see the measure block below.
+   Loaded after site.css on /leistungen/ only. Reuses the v1.2 tokens and components; new classes carry "lst-".
+   Structure: hero → paths → 01 stages (signature) → 02 burial types → 03 costs → 04 Vorsorge → 05 FAQ
+   → motion → short desktop → tablet → mobile (last).
+   Motion: nothing here is tied to the scroll position; reveals ≤ 0.6 s; complete still state without JS, with
+   prefers-reduced-motion and with the footer switch „Bewegungen reduzieren“.
+   ========================================================================== */
+
+/* ---------- hero: the v1.2 hero frame, her warm-light portrait, five paths in the band slot ---------- */
+.lst-hero .hero-glow { transform: none; }                       /* v1.2 moves it with the scroll position; here it stays */
+.lst-hero .portrait-ring { transform: rotate(-90deg); }         /* same reason: no scroll-linked rotation on this page */
+.lst-hero .portrait-arch img { object-position: 50% 14%; }      /* the about photo: face in the upper third of the arch */
+
+/* the five paths: same place, rule and rhythm as the trust band on the home page */
+.lst-paths { grid-area: trust; position: relative; padding-top: 12px; border-top: 1px solid rgba(28, 52, 35, .14); }
+.lst-paths-title { margin: 0 0 2px; font-family: var(--sans); font-size: 1rem; font-weight: 600; line-height: 1.3; letter-spacing: .12em; text-transform: uppercase; color: var(--tag); }   /* visible prompt (D1-01), eyebrow voice */
+.lst-paths-list { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+.lst-paths-list li { position: relative; }
+.lst-paths-list li + li::before { content: ""; position: absolute; left: 0; top: 50%; width: 4px; height: 4px; margin-top: -2px; border-radius: 50%; background: var(--line-strong); }
+.lst-path {
+  display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 6px 14px 6px 18px; border-radius: 14px;
+  color: var(--ink); text-decoration: none; transition: background-color var(--t-fast) ease;
+}
+.lst-paths-list li:first-child .lst-path { padding-left: 0; }
+.lst-path:hover { background: rgba(252, 250, 245, .7); color: var(--forest-900); }
+.lst-path-icon { width: 30px; height: 30px; color: var(--forest-700); stroke-width: 1.25; }
+.lst-path-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.lst-path-label { font-weight: 600; font-size: 1rem; color: var(--forest-900); }
+.lst-path-arrow { display: inline-block; width: .95em; height: .95em; margin-left: 6px; vertical-align: -.12em; color: var(--forest-700); transition: transform var(--t-fast) ease; }
+.lst-path-sub { font-size: 1rem; color: var(--ink-2); }
+.lst-path:hover .lst-path-label { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; }
+.lst-path:hover .lst-path-arrow { transform: translateX(3px); }
+
+/* ---------- 01 · stages in the night forest (signature: the candle line runs from stage to stage) ---------- */
+/* overflow: clip instead of v1.2's hidden: it still clips the forest image, but it is no scroll container, so the sticky
+   notes (documents here, the Vorsorge copy and the FAQ head below) really stay in view while the long column passes */
+.lst-steps-section, .lst-plan, .lst-faq { overflow: hidden; overflow: clip; }
+.lst-first {
+  display: block; max-width: 38em; margin: clamp(26px, 3vw, 36px) 0 0; padding: 14px 0 14px 22px;
+  border-left: 2px solid var(--candle-light); color: var(--night-muted); font-size: 1.0625rem; line-height: 1.55;
+}
+.lst-first-label { display: inline-block; margin-right: 8px; font-weight: 600; font-size: 1rem; letter-spacing: .14em; text-transform: uppercase; color: var(--candle-light); }
+.lst-steps .step-body > p { margin: 0 0 14px; }
+.lst-steps .step h3 { margin: 4px 0 10px; }
+.lst-ticks { list-style: none; display: grid; gap: 10px; margin: 0; max-width: 34em; }
+.lst-ticks li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; align-items: start; color: var(--night-text); }
+.lst-tick { width: 22px; height: 22px; margin-top: 3px; fill: none; stroke: var(--candle-light); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.lst-tick path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+/* still state (no JS, reduced motion, "Bewegungen reduzieren"): every stage lit, the line drawn */
+.lst-steps:not(.lst-armed) .step::before, html[data-motion="off"] .lst-steps .step::before {
+  background: var(--candle-light); border-color: var(--candle-light); box-shadow: 0 0 0 5px rgba(233, 180, 96, .16), 0 0 20px 3px rgba(233, 180, 96, .55);
+}
+.lst-steps:not(.lst-armed) .step-node, html[data-motion="off"] .lst-steps .step-node {
+  -webkit-text-stroke-color: var(--candle-light); color: rgba(233, 196, 138, .12); text-shadow: 0 0 30px rgba(233, 180, 96, .35);
+}
+.lst-steps .steps-fill { transform: scaleY(var(--lst-p, 1)); }
+
+/* docs note: the v1.2 paper note, slightly narrower list rhythm */
+.lst-steps-section .docs-note .check-list { gap: 10px; }
+
+/* ---------- 02 · burial types: six calm cards ---------- */
+.lst-types { background: var(--paper); }
+.lst-types-head { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); column-gap: clamp(40px, 6vw, 96px); align-items: end; }
+.lst-types-head .eyebrow { grid-column: 1 / -1; justify-self: start; }
+.lst-types-head h2 { margin-bottom: 0; max-width: 16ch; }
+.lst-types-head .section-lead { margin: 0; }
+.lst-type-grid { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(40px, 4vw, 56px) clamp(22px, 2.6vw, 40px); }
+.lst-type { display: flex; flex-direction: column; }
+.lst-type-media { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-2); background: var(--leaf-wash); }
+.lst-type-media img { width: 100%; height: 100%; object-fit: cover; }
+.lst-type-media .service-card-num { top: 14px; left: 14px; width: 44px; height: 44px; }
+.lst-type-body { display: flex; flex-direction: column; flex: 1; padding: 22px 2px 0; }
+.lst-type h3 { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.22; color: var(--forest-900); margin-bottom: 8px; }
+.lst-type-num { display: none; }
+.lst-type-body > p { color: var(--ink-2); margin: 0 0 16px; }
+.lst-type-body > .lst-type-facts {
+  margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--line);
+  font-size: 1.0625rem; font-weight: 600; line-height: 1.4; color: var(--forest-700);
+}
+.lst-types-more { margin: clamp(40px, 4.4vw, 60px) 0 0; padding-top: 24px; border-top: 1px solid var(--line); font-size: 1.1875rem; color: var(--ink-2); }
+.lst-types-more a { font-weight: 600; white-space: nowrap; }
+.lst-type-dot { display: inline-block; width: 4px; height: 4px; margin: 0 10px; border-radius: 50%; background: var(--candle); vertical-align: middle; }
+
+/* ---------- 03 · costs: the v1.2 sheet carries the three steps ---------- */
+.lst-name { white-space: nowrap; -webkit-hyphens: manual; hyphens: manual; }   /* the partner's name never breaks („ADELTA.FI-NANZ“) */
+.lst-costs .cost-sheet h3 { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 3px double rgba(28, 52, 35, .35); }   /* the v1.2 double rule, now under the title */
+.lst-costs .lst-cost-rows li:first-child { border-top: 0; }
+
+/* ---------- 04 · Vorsorge: five ruled rows instead of the home page's cards ---------- */
+.lst-topics { grid-template-columns: minmax(0, 1fr); max-width: none; margin: 0; }
+.lst-topics .service-row { padding: 22px 4px 20px; }
+.lst-topics .service-row p { max-width: 28em; }
+.lst-plan .plan-note { margin-top: 18px; }
+.lst-plan .small-note { font-size: 1rem; }
+/* R-2 measure: Source Sans 3 sets ≈ 2.3 characters per em, so 28–30em keeps every line at about 65–70 characters */
+.lst-hero .hero-lead { max-width: 29em; }
+.lst-first { max-width: 30em; }
+.lst-steps .step-body > p { max-width: 30em; }
+.lst-plan .plan-note { max-width: 28em; }   /* 16 px text */
+
+/* ---------- 05 · FAQ: the head carries one real Google voice ---------- */
+.lst-voice { margin: clamp(28px, 3vw, 40px) 0 10px; padding-top: clamp(24px, 2.6vw, 32px); border-top: 1px solid var(--line); }
+.lst-voice blockquote p { font-size: clamp(1.25rem, 1.1rem + .4vw, 1.5rem); line-height: 1.4; color: var(--forest-900); }
+.lst-voice-source { margin: 6px 0 0; font-size: 1rem; color: var(--ink-2); }
+.lst-cases-link { margin: 14px 0 0; font-size: 1.0625rem; }
+.lst-faq .faq-body p { max-width: 28em; }
+.lst-steps-section .section-lead { max-width: 27em; }
+
+/* links to the matching case on /fallbeispiele/ (quiet v1.2 link-more voice) */
+.lst-case { margin: 12px 0 0; }
+.lst-steps .lst-case { margin-top: 10px; }
+.lst-steps .lst-case-link { color: var(--candle-light); }
+.lst-steps .lst-case-link:hover { color: #FFFDF7; }
+.lst-type-body > .lst-case { margin-top: 6px; min-height: 44px; }   /* cards without a case keep an empty row, so all fact lines align */
+.lst-plan .lst-case { margin-top: 6px; }
+.lst-voice-source a { color: var(--ink-2); }
+.lst-voice-source a:hover { color: var(--forest-900); }
+
+/* ==========================================================================
+   Motion (this page): hero entrance and heading reveals within 0.6 s, key text at full contrast in ≈ 300 ms;
+   the stage line is time-based (leistungen.js arms it only when motion is allowed).
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not([data-motion="off"]) .lst-hero .portrait-backdrop { animation-duration: .6s; }
+  html.js:not([data-motion="off"]) .lst-hero .portrait-arch { animation-duration: .6s; animation-delay: 0s; }
+  html.js:not([data-motion="off"]) .lst-hero .portrait-ring circle { animation-duration: 1.2s; animation-delay: .15s; }
+  html.js:not([data-motion="off"]) .lst-hero .portrait-flame { animation-duration: .5s; animation-delay: .9s; }
+  html.js:not([data-motion="off"]) .lst-hero .portrait-caption { animation-duration: .5s; animation-delay: .2s; }
+  html.js:not([data-motion="off"]) .lst-hero .hero-kicker { animation-duration: .45s; animation-delay: 0s; }
+  html.js:not([data-motion="off"]) .lst-hero .hero-promise { animation-duration: .5s; animation-delay: .04s; }
+  html.js:not([data-motion="off"]) .lst-hero .hero-lead { animation-duration: .5s; animation-delay: .1s; }
+  html.js:not([data-motion="off"]) .lst-hero .hero-actions, html.js:not([data-motion="off"]) .lst-hero .hero-meta { animation-duration: .5s; animation-delay: .12s; }
+  html.js:not([data-motion="off"]) .lst-hero .hero-callback .callback-card { animation-duration: .55s; animation-delay: .08s; }
+  html.js:not([data-motion="off"]) .lst-paths { animation: rise .5s var(--ease) .16s both; }
+
+  /* headings: the v1.2 word rise, quicker (≈ 0.5 s for the whole line) */
+  html.js:not([data-motion="off"]) [data-split] .wi { transition-duration: .48s; transition-delay: calc(var(--i, 0) * 26ms); }
+  html.js:not([data-motion="off"]) .lst-type-media.reveal-media img { transition-duration: .6s; }
+
+  /* signature: armed by leistungen.js. The line grows to the stage that has just come into view, the numeral warms,
+     the ticks draw themselves. Text never fades: only line, numeral, dot and ticks move. */
+  html.js:not([data-motion="off"]) .lst-armed .steps-fill { transform: scaleY(var(--lst-p, 0)); transition: transform .55s var(--ease); }
+  html.js:not([data-motion="off"]) .lst-armed .step-node { transition: -webkit-text-stroke-color .45s var(--ease), color .45s var(--ease), text-shadow .45s var(--ease); }
+  html.js:not([data-motion="off"]) .lst-armed .step::before { transition: background-color .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease); }
+  html.js:not([data-motion="off"]) .lst-armed .lst-step:not(.is-lit) .lst-tick path { stroke-dashoffset: 1; }
+  html.js:not([data-motion="off"]) .lst-armed .lst-tick path { transition: stroke-dashoffset .34s var(--ease) .12s; }
+  html.js:not([data-motion="off"]) .lst-armed .lst-ticks li:nth-child(2) .lst-tick path { transition-delay: .18s; }
+  html.js:not([data-motion="off"]) .lst-armed .lst-ticks li:nth-child(3) .lst-tick path { transition-delay: .24s; }
+}
+
+/* desktops: the call dock (D1-09) shrinks to its content and moves to the bottom-right corner, left of the WhatsApp
+   button, so it no longer slides over the middle of the reading column. Show/hide behaviour stays shared (site.js). */
+@media (min-width: 1100px) {
+  .dock { left: auto; right: calc(18px + 60px + 28px + env(safe-area-inset-right)); width: auto; transform: translate3d(0, calc(100% + 40px), 0); }
+  .dock.is-visible { transform: translate3d(0, 0, 0); }
+  .dock-call { flex: none; padding-right: 20px; }
+}
+
+/* short desktops (1366×768): the five paths sit a little tighter so the hero stays within two thirds; the documents note
+   is set tighter and sticks closer under the header, so it stays whole and clear of the call dock while the stages pass */
+@media (min-width: 1100px) and (max-height: 820px) {
+  .lst-paths { padding-top: 6px; }
+  .lst-path { min-height: 48px; padding-block: 2px; }
+  .lst-path-icon { width: 26px; height: 26px; }
+  .lst-steps-section .docs-note { top: calc(var(--header-h) + 14px); padding: 26px 28px 22px; }
+  .lst-steps-section .docs-note h3 { margin-bottom: 12px; font-size: 1.5rem; }
+  .lst-steps-section .docs-note .check-list { gap: 6px; margin-bottom: 14px; }
+  .lst-steps-section .docs-note .docs-foot { margin-bottom: 14px; }
+}
+/* very short desktops: a sticky block taller than the view would hide its own call button, so it scrolls normally */
+@media (min-width: 1100px) and (max-height: 719px) {
+  .lst-steps-section .docs-note, .lst-plan .plan-copy, .lst-faq .faq-head { position: relative; top: auto; }
+}
+
+/* ==========================================================================
+   Tablet 760–1099
+   ========================================================================== */
+@media (max-width: 1099px) {
+  .lst-paths-list { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 4px; }
+  .lst-paths-list li + li::before { display: none; }
+  .lst-paths-list li:first-child .lst-path { padding-left: 14px; }
+  .lst-types-head { grid-template-columns: minmax(0, 1fr); }
+  .lst-types-head .section-lead { margin-top: 16px; }
+  .lst-type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ==========================================================================
+   Mobile ≤ 759 — last on purpose. One column, read top to bottom.
+   ========================================================================== */
+@media (max-width: 759px) {
+  /* hero (D1-01): the paths and their prompt move into the first screen; the second lead sentence, "Jetzt erreichbar" and
+     the Google line give way (the sentences return in stages 1, 3 and 4, the Google voice in section 05) */
+  .lst-hero .lst-lead-more, .lst-hero .live, .lst-hero .hero-meta { display: none; }
+  .lst-hero .hero-lead { margin-bottom: 4px; }
+  .lst-paths-title { text-align: left; margin-bottom: 0; }
+
+  /* leads left-aligned under the centred eyebrow and heading (D1-07): one reading edge per block */
+  .lst-steps-section .steps-main > .section-lead, .lst-types-head .section-lead, .lst-costs .costs-intro > .section-lead,
+  .lst-costs .costs-dignity, .lst-plan .plan-copy > .section-lead, .lst-plan .plan-copy .small-note { text-align: left; margin-inline: 0; }
+  .lst-costs .costs-dignity { justify-content: flex-start; }
+  .lst-plan .lst-case { text-align: left; }
+
+  /* paths: a ruled list, full-width rows */
+  .lst-paths { margin-top: 10px; padding-top: 6px; }
+  .lst-paths-list { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
+  .lst-paths-list li { border-bottom: 1px solid var(--line); }
+  .lst-paths-list li:last-child { border-bottom: 0; }
+  .lst-path, .lst-paths-list li:first-child .lst-path { min-height: 60px; padding: 8px 4px; text-align: left; }
+  .lst-path-label { font-size: 1.0625rem; }
+  .lst-path-sub { font-size: 1rem; }
+
+  /* stages: the line and its dots keep a slim left rail; the numeral moves in front of the stage title, so a line of
+     text keeps about 34 characters on a 390 px screen (v1.2 phones: 96 px rail, about 26 characters) */
+  .lst-first { padding: 12px 0 12px 16px; font-size: 1.0625rem; }
+  .lst-steps { padding-left: 40px; }
+  .lst-steps .steps-track { left: 10px; }
+  .lst-steps .step::before { left: calc(-40px + 3px); top: 10px; }
+  .lst-steps .step-node { left: 0; top: -3px; width: 30px; font-size: 2.25rem; text-align: left; }
+  .lst-steps .step h3 { padding-left: 36px; }
+  .lst-steps .step { min-height: 0; padding-bottom: 40px; }
+  .lst-steps .step:last-child { padding-bottom: 0; }
+  .lst-ticks li { grid-template-columns: 20px minmax(0, 1fr); gap: 10px; }
+  .lst-tick { width: 20px; height: 20px; }
+
+  /* burial types: no photos on phones (six photos would add ≈ 1,400 px); the number moves into the heading */
+  .lst-types-head { text-align: center; }
+  .lst-types-head .eyebrow { justify-self: center; display: flex; justify-content: center; }
+  .lst-types-head h2 { margin-inline: auto; }
+  .lst-type-grid { grid-template-columns: minmax(0, 1fr); gap: 0; border-top: 1px solid var(--line-strong); }
+  .lst-type { padding: 22px 0 20px; border-bottom: 1px solid var(--line); }
+  .lst-type-media { display: none; }
+  .lst-type-body { padding: 0; }
+  .lst-type h3 { display: flex; align-items: baseline; gap: 12px; font-size: 1.4375rem; }
+  .lst-type-num { display: inline; font-style: italic; font-size: 1.125rem; color: var(--candle-deep); flex: none; }
+  .lst-type-body > p { margin-bottom: 12px; }
+  .lst-type-body > .lst-type-facts { padding-top: 0; border-top: 0; }
+  .lst-types-more { margin-top: 26px; padding-top: 0; border-top: 0; font-size: 1.125rem; }
+  .lst-case-none { display: none; }
+
+  /* Vorsorge and FAQ */
+  .lst-topics .service-row { padding: 20px 2px 18px; }
+  .lst-plan .plan-note { text-align: left; }
+  .lst-voice { text-align: left; }
+}

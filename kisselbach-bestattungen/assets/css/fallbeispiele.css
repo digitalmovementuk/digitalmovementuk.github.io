@@ -1,0 +1,425 @@
+/* ==========================================================================
+   Kißelbach Bestattungen · Seitenmodul „fallbeispiele“ · v1.3.5 of the page (05.11.2026: case 01 as a chronicle in five phases,
+   cases 02–05 as short timelines; copy COPY.md v1.2 of _briefs/2026-11-05-fallbeispiele-chronik/)
+   v1.3.6 (05.11.2026): the placeholder underline is invisible (Raoul's decision, the markup keeps every data-placeholder and the
+   notice stays as it is); on phones the sticky phase bar is one line (see „phase bar on phones“ below the phone block).
+   Earlier: v1.1 (04.11.2026, fix round: UX verdict FB-01–FB-12, Lektorat, cross-page items from the /leistungen/ verdict)
+   Owner: examples builder (Claude Opus 5.5). Loaded after site.css on /fallbeispiele/ only.
+   Concept: _briefs/2026-11-04-leistungen-fallbeispiele/KONZEPT-D2.md.
+   Reuses the v1.2 tokens and blocks (.hero-kicker/.hero-promise/.hero-lead, hero-actions + callback-hero partials,
+   .voices, .btn-call, .btn-secondary, .voices-title, eyebrow numeral, chapter arch, ledger lines, .reveal-media).
+   Signature moment: „der Weg“ (.fb-path) draws itself once and lights its five flames; everything else stays still.
+   v1.3.5 adds, from the same vocabulary: the phase plan of case 01 (a small „Weg“: flame nodes on a drawn line), phase heads
+   that stay in view while their steps are read (flame node + five dots: where you are), steps on the beats line (time, title,
+   text), the paper note „Was die Familie selbst erledigt hat“ (the /leistungen/ Merkzettel look) and the candle-lit outcome.
+   Structure: notice → placeholders → hero → band → path → cases → chronicle and timelines → doorways → voices → motion
+   → short desktop → tablet → mobile (last). Phones: one column, nothing side by side.
+   ========================================================================== */
+
+/* ---------- preview notice: the one slim line for every placeholder on the page ---------- */
+.fb-notice { background: var(--paper-warm); border-bottom: 1px solid rgba(110, 71, 16, .16); }
+.fb-notice-text { margin: 0; padding: 9px 0; text-align: center; font-size: 1rem; line-height: 1.45; color: var(--ink-2); text-wrap: balance; }
+.fb-notice-text strong { font-weight: 600; color: var(--candle-deep); }
+
+/* the word „Platzhalter“ inside the notice keeps its dotted candle underline (the notice is unchanged) */
+.fb-notice-key {
+  text-decoration-line: underline; text-decoration-style: dotted; text-decoration-color: var(--candle);
+  text-decoration-thickness: 2px; text-underline-offset: .18em; text-decoration-skip-ink: none;
+}
+/* placeholder values (.ph and [data-placeholder]): no visible mark since v1.3.6 (Raoul, 05.11.2026: the page is a demo and reads like a
+   real case). The attributes stay in the markup so the swap list (PLATZHALTER.md) and the gates still find every value. */
+.ph, [data-placeholder] { text-decoration: none; }
+
+/* ---------- hero: the v1.2 hero frame, exactly as on /leistungen/ (portrait arch left, copy, callback card right, band row below) ---------- */
+.fb-hero .hero-glow { transform: none; }                  /* as /leistungen/: no scroll-linked drift */
+.fb-hero .portrait-ring { transform: rotate(-90deg); }    /* as /leistungen/: no scroll-linked rotation */
+.fb-hero .hero-lead { max-width: 33em; }
+/* the anonymisation line sits where the home hero keeps its meta lines */
+.fb-anon { margin: 2px 0 0; padding-top: 12px; max-width: 33em; border-top: 1px solid rgba(28, 52, 35, .12); font-size: 1rem; line-height: 1.45; color: var(--ink-2); text-wrap: pretty; }
+
+/* ---------- figures band in the hero's band row (the home's trust row; same rule, 12 px top padding and 56 px rows as /leistungen/; static) ---------- */
+.fb-band { grid-area: trust; position: relative; padding-top: 12px; border-top: 1px solid rgba(28, 52, 35, .14); }
+.fb-band-list { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 0; }
+.fb-band-item { display: flex; align-items: center; gap: 14px; min-height: 56px; padding-inline: 26px; }
+.fb-band-item:first-child { padding-left: 0; }
+.fb-band-item + .fb-band-item { border-left: 1px solid rgba(28, 52, 35, .12); }
+.fb-band-link { display: flex; align-items: center; gap: 14px; min-height: 48px; color: inherit; text-decoration: none; }
+.fb-band-value { flex: none; font-family: var(--serif); font-size: clamp(1.875rem, 1.3rem + 1vw, 2.375rem); line-height: 1; color: var(--forest-900); font-variant-numeric: lining-nums tabular-nums; }
+.fb-band-label { display: flex; flex-direction: column; gap: 3px; font-size: 1rem; line-height: 1.32; color: var(--ink-2); }
+.fb-band-label .stars { height: 14px; }
+.fb-band-label .star { width: 14px; height: 14px; }
+.fb-band-google { text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: var(--line-strong); text-underline-offset: .2em; }
+.fb-band-link:hover .fb-band-google { color: var(--forest-900); text-decoration-color: var(--forest-700); }
+
+/* ---------- the five situations: „der Weg“ (signature) ---------- */
+.fb-path-band { background: var(--paper); padding-block: clamp(26px, 2.6vw, 38px) clamp(26px, 2.8vw, 40px); border-bottom: 1px solid rgba(28, 52, 35, .08); }
+.fb-path-title { margin-bottom: clamp(10px, 1.2vw, 16px); }
+.fb-cases-intro { max-width: 40em; margin: 0 auto clamp(20px, 2.2vw, 30px); text-align: center; font-size: 1.125rem; line-height: 1.55; color: var(--ink-2); text-wrap: balance; }
+.fb-path { position: relative; max-width: 1180px; margin-inline: auto; }
+.fb-path-line { position: absolute; left: 0; top: 4px; width: 100%; height: 40px; overflow: visible; pointer-events: none; }
+.fb-path-line path { fill: none; stroke: url(#fb-path-grad); stroke-width: 1.6; stroke-linecap: round; }
+.fb-path-list { position: relative; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.fb-station { display: flex; justify-content: center; }
+.fb-station-link {
+  display: flex; flex-direction: column; align-items: center; gap: 10px; min-height: 48px; padding: 0 8px 4px;
+  text-align: center; text-decoration: none; color: var(--forest-900); border-radius: 14px;
+}
+/* the node: lit by default (still state, no script); the motion block below starts it unlit */
+.fb-node {
+  position: relative; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
+  background: var(--forest-900); color: var(--candle-light); border: 1.5px solid var(--forest-900);
+  box-shadow: 0 0 0 5px rgba(233, 180, 96, .16), 0 0 20px 2px rgba(233, 180, 96, .38);
+  transition: transform var(--t-fast) ease;
+}
+.fb-node .icon { width: 20px; height: 20px; }
+.fb-node use { fill: currentColor; }
+.fb-station-text { display: flex; flex-direction: column; gap: 2px; }
+.fb-station-name { font-family: var(--serif); font-size: 1.25rem; line-height: 1.22; color: var(--forest-900); text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: transparent; text-underline-offset: .2em; transition: text-decoration-color var(--t-fast) ease; }
+.fb-station-type { font-size: 1rem; line-height: 1.3; color: var(--ink-2); }
+.fb-station-link:hover .fb-node, .fb-station-link:focus-visible .fb-node { transform: scale(1.07); }
+.fb-station-link:hover .fb-station-name, .fb-station-link:focus-visible .fb-station-name { text-decoration-color: var(--forest-700); }
+
+/* ---------- cases: arch photo and „Auf einen Blick“ on the left, the three beats on the right ---------- */
+.fb-cases { background: var(--ivory); }
+.fb-case-list { max-width: calc(1180px + 2 * var(--gutter)); padding-block: clamp(8px, 1.6vw, 24px) clamp(72px, 8vw, 120px); }
+.fb-case {
+  position: relative; isolation: isolate; display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  grid-template-areas: "media head" "media beats" "facts beats" "facts next";
+  grid-template-rows: auto auto 1fr auto;
+  column-gap: clamp(40px, 6vw, 96px);
+  padding-block: clamp(56px, 6vw, 88px);
+  border-top: 1px solid var(--line);
+}
+.fb-case:first-child, .fb-door + .fb-case { border-top: 0; }
+.fb-case { scroll-margin-top: -40px; }   /* a jump from the path lands with the type line just under the header, not 100 px below it */
+/* „you are here“ after a jump from the path: the numeral takes the candle tone; with motion a warm wash fades once */
+.fb-case::before { content: ""; position: absolute; z-index: -1; inset: 18px -28px; border-radius: var(--radius); background: rgba(233, 180, 96, .13); opacity: 0; pointer-events: none; }
+.fb-case:target .eyebrow-num { color: var(--candle-ink); text-shadow: 0 0 18px rgba(233, 180, 96, .55); }
+
+.fb-case-head { grid-area: head; }
+.fb-case-head .eyebrow { margin-bottom: 14px; }   /* the shared v1.2 section index (numeral + rule + label), as on /leistungen/ */
+.fb-case-head .eyebrow-num { transition: color .4s ease, text-shadow .4s ease; }
+.fb-case-head h3 {
+  font-family: var(--serif); font-weight: 400; font-size: clamp(1.75rem, 1.2rem + 1.35vw, 2.5rem); line-height: 1.16; letter-spacing: -.01em;
+  color: var(--forest-900); margin-bottom: clamp(22px, 2.4vw, 32px); max-width: 18em; text-wrap: balance;
+}
+
+.fb-case-media {
+  grid-area: media; align-self: start; margin: 0; width: 100%; max-width: 340px; aspect-ratio: 4 / 5; overflow: hidden;
+  border-radius: 999px 999px var(--radius) var(--radius); background: var(--leaf-wash);
+  box-shadow: 0 0 0 8px rgba(252, 250, 245, .7), var(--shadow-2);
+}
+.fb-case-media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* the three beats on one quiet line; the last node carries the candle: how it went for the family */
+.fb-beats { grid-area: beats; list-style: none; }
+.fb-beat { position: relative; padding: 0 0 clamp(20px, 2vw, 26px) 34px; }
+.fb-beat:last-child { padding-bottom: 0; }
+.fb-beat::before { content: ""; position: absolute; left: 0; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--leaf); background: var(--ivory); }
+.fb-beat::after { content: ""; position: absolute; left: 5.5px; top: 22px; bottom: 4px; width: 1px; background: var(--line-strong); }
+.fb-beat:last-child::after { display: none; }
+.fb-beat-outcome::before { background: var(--candle); border-color: var(--candle); box-shadow: 0 0 0 4px rgba(233, 180, 96, .2), 0 0 12px 1px rgba(233, 180, 96, .5); }
+.fb-beat-label { margin: 0 0 4px; font-family: var(--sans); font-size: 1rem; font-weight: 600; line-height: 1.35; color: var(--tag); }   /* 16 px floor: sentence case, no spaced capitals; an h4 since v1.3.5 */
+.fb-beat-outcome .fb-beat-label { color: var(--candle-deep); }
+.fb-beat-text { margin: 0; max-width: 31em; font-size: 1.1875rem; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+
+/* „Auf einen Blick“: two or three figures on ledger lines, never prices, never counted up */
+.fb-facts { grid-area: facts; align-self: start; width: 100%; max-width: 340px; margin-top: 30px; }
+.fb-facts-title { margin: 0 0 6px; font-family: var(--serif); font-style: italic; font-size: 1.125rem; color: var(--candle-deep); }
+.fb-facts-list { margin: 0; border-top: 1px solid rgba(28, 52, 35, .16); }
+.fb-fact { display: flex; flex-direction: column-reverse; padding: 12px 0 13px; border-bottom: 1px solid rgba(28, 52, 35, .16); }
+.fb-fact dd { margin: 0 0 2px; font-family: var(--serif); font-size: 1.75rem; line-height: 1.15; color: var(--forest-900); font-variant-numeric: lining-nums tabular-nums; }
+.fb-fact dt { min-width: 0; font-size: 1rem; line-height: 1.4; color: var(--ink-2); overflow-wrap: break-word; }
+.fb-case-more { margin: 10px 0 0; }   /* the matching section on /leistungen/ */
+
+/* the quiet callback offer right where a visitor recognises their own situation (FB-01; cases without a doorway after them) */
+.fb-case-next { grid-area: next; display: flex; flex-wrap: wrap; align-items: center; column-gap: 10px; margin: 18px 0 0 34px; color: var(--ink-2); }
+
+/* ---------- v1.3.5: steps on the beats line (cases 02–05 short, case 01 inside its phases) ---------- */
+/* the situation beat keeps its node; „Was ich wann erledigt habe“ carries the line on; every step is a node; in the short
+   timelines the last node carries the candle, as the outcome beat did before */
+.fb-steps-label { position: relative; margin: 0; padding: 0 0 12px 34px; }
+.fb-steps-label::after { content: ""; position: absolute; left: 5.5px; top: -4px; bottom: 0; width: 1px; background: var(--line-strong); }
+.fb-steps { list-style: none; }
+.fb-step { position: relative; padding: 0 0 clamp(20px, 2vw, 26px) 34px; }
+.fb-step:last-child { padding-bottom: 0; }
+.fb-step::before { content: ""; position: absolute; left: 0; top: 5px; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--leaf); background: var(--ivory); }
+.fb-step::after { content: ""; position: absolute; left: 5.5px; top: 23px; bottom: 4px; width: 1px; background: var(--line-strong); }
+.fb-step:last-child::after { display: none; }
+.fb-steps-short .fb-step:last-child::before { background: var(--candle); border-color: var(--candle); box-shadow: 0 0 0 4px rgba(233, 180, 96, .2), 0 0 12px 1px rgba(233, 180, 96, .5); }
+/* time label: the warm tone (when), the beat labels keep the tagline green (what kind of block); figures never change width */
+.fb-step-when { margin: 0 0 3px; font-size: 1rem; font-weight: 600; line-height: 1.35; color: var(--candle-deep); font-variant-numeric: lining-nums tabular-nums; }
+.fb-step-title { margin: 0 0 8px; font-family: var(--serif); font-weight: 400; font-size: clamp(1.375rem, 1.22rem + .4vw, 1.5rem); line-height: 1.25; color: var(--forest-900); text-wrap: balance; }
+.fb-step-text { margin: 0; max-width: 31em; font-size: 1.1875rem; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+
+/* ---------- v1.3.5: case 01, the chronicle ---------- */
+/* desktop: photo and figures left, head, situation and the phase plan right; the phases run full width below on the same
+   two columns (phase head left, its steps right); the note and the outcome close the right column */
+.fb-case-chronik {
+  grid-template-areas: "media head" "media beats" "media plan" "facts plan" "chron chron" ". self" ". outcome" ". next";
+  grid-template-rows: auto auto auto 1fr auto auto auto auto;
+}
+.fb-case-chronik .fb-facts { margin-top: 30px; }
+
+/* the phase plan: a small „Weg“ of five flame nodes on a drawn line, plain anchor links (48 px rows) */
+.fb-plan-wrap { grid-area: plan; align-self: start; margin-top: 30px; }
+.fb-plan-title { margin-bottom: 10px; }
+.fb-plan-list { position: relative; list-style: none; display: grid; gap: 2px; max-width: 30em; }
+.fb-plan-list::before { content: ""; position: absolute; left: 19px; top: 24px; bottom: 24px; width: 2px; margin-left: -1px; border-radius: 2px; background: linear-gradient(180deg, var(--candle-light), var(--leaf) 45%, var(--forest-700)); transform-origin: 50% 0; }
+.fb-plan-link { position: relative; display: flex; align-items: center; gap: 16px; min-height: 48px; padding: 4px 0; color: var(--forest-900); text-decoration: none; border-radius: 12px; }
+.fb-plan-node, .fb-phase-node {
+  flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%;
+  background: var(--forest-900); color: var(--candle-light); border: 1.5px solid var(--forest-900);
+  box-shadow: 0 0 0 4px rgba(233, 180, 96, .14), 0 0 14px 1px rgba(233, 180, 96, .32);
+}
+.fb-plan-node { transition: transform var(--t-fast) ease; }
+.fb-plan-node .icon, .fb-phase-node .icon { width: 16px; height: 16px; }
+.fb-plan-node use, .fb-phase-node use { fill: currentColor; }
+.fb-plan-name { font-size: 1.0625rem; line-height: 1.35; text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: transparent; text-underline-offset: .24em; transition: text-decoration-color var(--t-fast) ease; }
+.fb-plan-link:hover .fb-plan-node, .fb-plan-link:focus-visible .fb-plan-node { transform: scale(1.07); }
+.fb-plan-link:hover .fb-plan-name, .fb-plan-link:focus-visible .fb-plan-name { text-decoration-color: var(--forest-700); }
+
+/* the five phases: a hairline between them; the phase head stays in view (sticky, never scroll-linked) while its steps are read */
+.fb-phases { grid-area: chron; list-style: none; margin-top: clamp(48px, 5vw, 72px); }
+.fb-phase { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); column-gap: clamp(40px, 6vw, 96px); padding-block: clamp(36px, 3.6vw, 52px); border-top: 1px solid var(--line); }
+.fb-phase:last-child { padding-bottom: 0; }
+.fb-phase-head {
+  position: sticky; top: calc(var(--header-h) + 28px); align-self: start;
+  display: grid; grid-template-columns: 38px minmax(0, 1fr); grid-template-areas: "node title" ". dots"; column-gap: 16px; row-gap: 10px; align-items: center;
+}
+.fb-phase-node { grid-area: node; }
+.fb-phase-title { grid-area: title; margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 1.25rem + .6vw, 1.875rem); line-height: 1.2; color: var(--forest-900); text-wrap: balance; }
+/* where you are: five dots, the phases before filled, this one in candle light */
+.fb-phase-dots { grid-area: dots; display: flex; align-items: center; gap: 6px; }
+.fb-phase-dots i { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--line-strong); }
+.fb-phase-1 .fb-phase-dots i:nth-child(-n+1), .fb-phase-2 .fb-phase-dots i:nth-child(-n+2), .fb-phase-3 .fb-phase-dots i:nth-child(-n+3),
+.fb-phase-4 .fb-phase-dots i:nth-child(-n+4), .fb-phase-5 .fb-phase-dots i:nth-child(-n+5), .fb-phase-6 .fb-phase-dots i:nth-child(-n+6) { background: var(--forest-700); border-color: var(--forest-700); }
+.fb-phase-1 .fb-phase-dots i:nth-child(1), .fb-phase-2 .fb-phase-dots i:nth-child(2), .fb-phase-3 .fb-phase-dots i:nth-child(3),
+.fb-phase-4 .fb-phase-dots i:nth-child(4), .fb-phase-5 .fb-phase-dots i:nth-child(5), .fb-phase-6 .fb-phase-dots i:nth-child(6) { background: var(--candle); border-color: var(--candle); box-shadow: 0 0 0 3px rgba(233, 180, 96, .22); }
+.fb-steps-long .fb-step { padding-bottom: clamp(26px, 2.6vw, 34px); }
+.fb-steps-long .fb-step:last-child { padding-bottom: 0; }
+
+/* „Was die Familie selbst erledigt hat“: a paper note lying on the page (the Merkzettel of /leistungen/), leaf ticks */
+.fb-self {
+  grid-area: self; position: relative; max-width: 40em; margin-top: clamp(48px, 5vw, 64px);
+  padding: clamp(32px, 3vw, 40px) clamp(24px, 3vw, 40px) clamp(26px, 2.6vw, 34px); border-radius: 6px;
+  background-color: var(--paper-warm);
+  background-image: radial-gradient(ellipse 70% 65% at 30% 0%, rgba(233, 180, 96, .2), transparent 70%), var(--fibre);
+  box-shadow: 0 0 0 1px rgba(110, 71, 16, .12), 0 1px 2px rgba(28, 52, 35, .07), 0 18px 34px -16px rgba(28, 52, 35, .34), 0 46px 70px -46px rgba(28, 52, 35, .4);
+}
+.fb-self::before { content: ""; position: absolute; top: -12px; left: 40px; width: 104px; height: 26px; background: rgba(236, 224, 196, .9); rotate: -2deg; box-shadow: 0 1px 2px rgba(28, 52, 35, .16); }
+.fb-self-title { margin: 0 0 16px; font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 1.3rem + .5vw, 1.75rem); line-height: 1.22; color: var(--forest-900); }
+.fb-self-list { gap: 10px; }
+.fb-self-list li { font-size: 1.1875rem; line-height: 1.5; color: var(--ink); }
+
+/* the outcome: the candle node at the end, as the outcome beat of v1.1 */
+.fb-outcome { grid-area: outcome; position: relative; margin-top: clamp(40px, 4vw, 56px); padding-left: 34px; }
+.fb-outcome::before { content: ""; position: absolute; left: 0; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--candle); border: 1.5px solid var(--candle); box-shadow: 0 0 0 4px rgba(233, 180, 96, .2), 0 0 12px 1px rgba(233, 180, 96, .5); }
+.fb-outcome .fb-beat-label { color: var(--candle-deep); }
+.fb-case-chronik .fb-case-next { margin-top: 24px; }
+
+/* very short or text-enlarged views (height under 30 em: phones in landscape, 200 % default text): phase heads scroll normally */
+@media (max-height: 29.99em) {
+  .fb-phase-head { position: static; }
+}
+
+/* ---------- doorways: a calm landing after the third and after the last case ---------- */
+.fb-door {
+  position: relative; isolation: isolate; overflow: hidden; text-align: center;
+  max-width: 980px; margin: clamp(8px, 1vw, 16px) auto clamp(40px, 5vw, 64px);
+  padding: clamp(40px, 4.6vw, 64px) clamp(24px, 4vw, 64px);
+  border-radius: var(--radius);
+  background-color: var(--paper-warm);
+  background-image: radial-gradient(ellipse 60% 75% at 50% 0%, rgba(233, 180, 96, .22), transparent 70%), radial-gradient(ellipse 70% 60% at 50% 100%, rgba(103, 169, 123, .08), transparent 60%), var(--fibre);
+  box-shadow: var(--ring-hair), var(--shadow-1);
+}
+.fb-door:last-child { margin-bottom: 0; }
+.fb-door-mark { width: 46px; height: 46px; margin: 0 auto 16px; fill: none; stroke: var(--candle); stroke-width: 1.1; filter: drop-shadow(0 0 10px rgba(233, 180, 96, .45)); }
+.fb-door-title { font-family: var(--serif); font-weight: 400; font-size: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); line-height: 1.18; color: var(--forest-900); margin-bottom: 12px; text-wrap: balance; }
+.fb-door-text { max-width: 32em; margin: 0 auto 26px; font-size: clamp(1.125rem, 1.08rem + .2vw, 1.25rem); color: var(--ink-2); text-wrap: pretty; }
+.fb-door-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 16px; }
+.fb-door .btn-call { color: #FFFDF7; }
+.fb-door .btn-call-number { font-size: 1rem; }   /* 16 px floor */
+/* RQ-01: the number never splits, the note wraps below it at larger text sizes (no clipping inside the pill) */
+.fb-door .btn-call { max-width: 100%; }
+.fb-door .btn-call-text { min-width: 0; }
+.fb-tel { white-space: nowrap; }
+.fb-door-callback { min-height: 64px; padding-inline: 30px; font-size: 1.0625rem; }
+
+/* ---------- voices: the home block, on sage so it parts from the paper contact section below ---------- */
+.fb-voices { background: var(--sage-50); padding-block: clamp(56px, 6vw, 88px) clamp(56px, 6vw, 80px); }
+.fb-voices .voices-source, .fb-voices .voice figcaption { font-size: 1rem; }   /* 16 px floor, as the /leistungen/ source line */
+
+/* ==========================================================================
+   Motion (only with JS, without reduced motion and without „Bewegungen reduzieren“)
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  /* hero: the /leistungen/ timings; text lines keep the fast-start fb-rise (full opacity within about 0.3 s) */
+  html.js:not([data-motion="off"]) .fb-hero .portrait-backdrop { animation-duration: .6s; }
+  html.js:not([data-motion="off"]) .fb-hero .portrait-arch { animation-duration: .6s; animation-delay: 0s; }
+  html.js:not([data-motion="off"]) .fb-hero .portrait-ring circle { animation-duration: 1.2s; animation-delay: .15s; }
+  html.js:not([data-motion="off"]) .fb-hero .portrait-flame { animation-duration: .5s; animation-delay: .9s; }
+  html.js:not([data-motion="off"]) .fb-hero .portrait-caption { animation-duration: .5s; animation-delay: .2s; }
+  html.js:not([data-motion="off"]) .fb-hero .hero-kicker,
+  html.js:not([data-motion="off"]) .fb-hero .hero-promise,
+  html.js:not([data-motion="off"]) .fb-hero .hero-lead,
+  html.js:not([data-motion="off"]) .fb-hero .hero-actions,
+  html.js:not([data-motion="off"]) .fb-hero .fb-anon,
+  html.js:not([data-motion="off"]) .fb-hero .fb-band { animation: fb-rise .5s var(--ease) both; }
+  html.js:not([data-motion="off"]) .fb-hero .hero-promise { animation-delay: .04s; }
+  html.js:not([data-motion="off"]) .fb-hero .hero-lead { animation-delay: .1s; }
+  html.js:not([data-motion="off"]) .fb-hero .hero-actions, html.js:not([data-motion="off"]) .fb-hero .fb-anon { animation-delay: .12s; }
+  html.js:not([data-motion="off"]) .fb-hero .fb-band { animation-delay: .16s; }
+  html.js:not([data-motion="off"]) .fb-hero .hero-callback .callback-card { animation: fb-rise .55s var(--ease) .08s both; }
+
+  /* der Weg: the line draws itself once, the five flames light one after another; the labels never fade */
+  html.js:not([data-motion="off"]) .fb-path .fb-path-line path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .6s var(--ease) .05s; }
+  html.js:not([data-motion="off"]) .fb-path.is-in .fb-path-line path { stroke-dashoffset: 0; }
+  html.js:not([data-motion="off"]) .fb-path .fb-node { transition: background-color .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease), box-shadow .35s var(--ease), transform var(--t-fast) ease; }
+  html.js:not([data-motion="off"]) .fb-path:not(.is-in) .fb-node { background: var(--leaf-wash); border-color: var(--leaf); color: var(--forest-700); box-shadow: none; }
+  html.js:not([data-motion="off"]) .fb-path.is-in .fb-station:nth-child(1) .fb-node { transition-delay: .05s, .05s, .05s, .05s, 0s; }
+  html.js:not([data-motion="off"]) .fb-path.is-in .fb-station:nth-child(2) .fb-node { transition-delay: .12s, .12s, .12s, .12s, 0s; }
+  html.js:not([data-motion="off"]) .fb-path.is-in .fb-station:nth-child(3) .fb-node { transition-delay: .19s, .19s, .19s, .19s, 0s; }
+  html.js:not([data-motion="off"]) .fb-path.is-in .fb-station:nth-child(4) .fb-node { transition-delay: .26s, .26s, .26s, .26s, 0s; }
+  html.js:not([data-motion="off"]) .fb-path.is-in .fb-station:nth-child(5) .fb-node { transition-delay: .33s, .33s, .33s, .33s, 0s; }
+
+  /* v1.3.5: the phase plan of case 01 draws its line once, like der Weg on phones (0.6 s) */
+  html.js:not([data-motion="off"]) .fb-plan .fb-plan-list::before { transform: scaleY(0); transition: transform .6s var(--ease) .05s; }
+  html.js:not([data-motion="off"]) .fb-plan.is-in .fb-plan-list::before { transform: none; }
+
+  /* case photos open from an inset within 0.6 s (v1.2 takes 1.3 s) */
+  html.js:not([data-motion="off"]) .fb-case-media.reveal-media img { transition-duration: .6s, .6s; }
+
+  /* after a jump: a warm wash that fades once */
+  html.js:not([data-motion="off"]) .fb-case:target::before { animation: fb-here 1.8s var(--ease-soft) both; }
+}
+@keyframes fb-rise { 0% { opacity: 0; transform: translate3d(0, 12px, 0); } 40% { opacity: 1; } 100% { opacity: 1; transform: none; } }
+@keyframes fb-here { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+/* short desktops (1366×768 and the like): the band follows the trust row of the shared hero */
+@media (min-width: 1100px) and (max-height: 820px) {
+  .fb-band { padding-top: 6px; }
+  .fb-band-item { min-height: 48px; }
+}
+
+/* ==========================================================================
+   Tablet 760–1099
+   ========================================================================== */
+@media (max-width: 1099px) {
+  .fb-band-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 0; }
+  .fb-band-item { padding-inline: 18px; }
+  .fb-band-item:first-child { padding-left: 0; }
+  .fb-station-name { font-size: 1.125rem; }
+  .fb-case { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 40px; }
+  .fb-phase { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 40px; }
+}
+
+/* ==========================================================================
+   Mobile ≤ 759 — last on purpose. One column, read top to bottom.
+   ========================================================================== */
+@media (max-width: 759px) {
+  .fb-notice-text { padding: 8px 0; font-size: 1rem; line-height: 1.4; }
+
+  .fb-hero .hero-promise { text-wrap: balance; }
+  .fb-hero .live { display: none; }   /* as /leistungen/: „Jetzt erreichbar“ repeats „rund um die Uhr“; the first screen stays clear */   /* „Familien, die ich / begleiten durfte“, no lone last word */
+  .fb-anon { order: 3; width: 100%; margin: 0 0 6px; padding-top: 0; border-top: 0; text-align: left; }
+  .fb-band { margin-top: 8px; padding-top: 16px; text-align: left; }
+  .fb-band-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .fb-band-item, .fb-band-item:first-child, .fb-band-item + .fb-band-item { padding: 10px 0; border-left: 0; border-bottom: 1px solid rgba(28, 52, 35, .1); }   /* FB-08: no stray hairline on tiles 2 and 3 */
+  .fb-band-item:last-child { border-bottom: 0; }
+  .fb-band-value { width: 64px; font-size: 2rem; }
+  .fb-band-label { font-size: 1rem; }
+
+  /* der Weg on phones: a vertical list of five stations, the line runs down the nodes */
+  .fb-path-band { padding-block: 34px 30px; }
+  .fb-path-line { display: none; }
+  .fb-path-list { grid-template-columns: minmax(0, 1fr); gap: 4px; max-width: 420px; margin-inline: auto; }
+  .fb-path-list::before { content: ""; position: absolute; left: 22px; top: 30px; bottom: 30px; width: 2px; margin-left: -1px; border-radius: 2px; background: linear-gradient(180deg, var(--candle-light), var(--leaf) 45%, var(--forest-700)); transform-origin: 50% 0; }
+  .fb-station { justify-content: flex-start; }
+  .fb-station-link { flex-direction: row; gap: 16px; width: 100%; min-height: 64px; padding: 6px 0; text-align: left; }
+  .fb-node { width: 44px; height: 44px; flex: none; }
+  .fb-station-name { font-size: 1.25rem; }
+
+  .fb-case-list { padding-block: 8px 72px; }
+  .fb-case { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "media" "beats" "next" "facts"; grid-template-rows: auto; padding-block: 36px; }   /* FB-13: callback offer before the figures and the /leistungen/ link */
+  .fb-case-head .eyebrow { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-bottom: 10px; font-size: 1rem; letter-spacing: 0; text-transform: none; }   /* FB-10: no spaced capitals over two lines on phones */
+  .fb-case-head .eyebrow-num::after { display: none; }   /* numeral and type share one row */
+  .fb-case-next { margin: 18px 0 0; }
+  .fb-case::before { inset: 12px -12px; }
+  .fb-case { scroll-margin-top: 0; }
+  .fb-case-head h3 { font-size: clamp(1.625rem, 7vw, 2rem); margin-bottom: 14px; }
+  .fb-case-media { max-width: none; aspect-ratio: 2 / 1; margin-bottom: 20px; border-radius: var(--radius); box-shadow: var(--shadow-2); }
+  .fb-beat { padding-left: 26px; padding-bottom: 18px; }
+  .fb-beat::before { width: 11px; height: 11px; }
+  .fb-beat::after { left: 5px; }
+  .fb-beat-text { font-size: 1.125rem; }
+  .fb-facts { max-width: none; margin-top: 22px; }
+  /* FB-04: one row per figure, value left and label right (the value column stays under 120 px, the label is the one wide column) */
+  /* round 8: a wrapping row instead of a grid; at normal size value and label share the row as before, at larger text the label drops below the value (no sideways overflow) */
+  .fb-fact { display: flex; flex-flow: row wrap; column-gap: 12px; row-gap: 2px; align-items: baseline; padding: 10px 0; }
+  .fb-fact dd { order: -1; flex: 0 0 auto; min-width: 7.25rem; margin: 0; font-size: 1.3125rem; white-space: nowrap; }
+  .fb-fact dt { flex: 1 1 12rem; }
+  .fb-fact:last-child { border-bottom: 0; }   /* FB-09 */
+
+  /* v1.3.5: steps and the chronicle on phones */
+  .fb-cases-intro { font-size: 1.0625rem; text-align: left; margin-bottom: 18px; max-width: 420px; }
+  .fb-steps-label { padding-left: 26px; }
+  .fb-steps-label::after { left: 5px; }
+  .fb-step { padding-left: 26px; padding-bottom: 20px; }
+  .fb-step::before { width: 11px; height: 11px; }
+  .fb-step::after { left: 5px; top: 22px; }
+  .fb-step-title { font-size: 1.3125rem; margin-bottom: 6px; }
+  .fb-step-text { font-size: 1.125rem; }
+  .fb-steps-long .fb-step { padding-bottom: 26px; }
+  .fb-case-chronik { grid-template-areas: "head" "media" "beats" "facts" "plan" "chron" "self" "outcome" "next"; grid-template-rows: auto; }
+  .fb-case-chronik .fb-facts { margin-top: 22px; }
+  .fb-plan-wrap { margin-top: 30px; }
+  .fb-plan-list { max-width: none; }
+  .fb-phases { margin-top: 30px; }
+  .fb-phase { display: block; padding: 0 0 30px; border-top: 0; }
+  .fb-phase:last-child { padding-bottom: 0; }
+  /* the phase head becomes a slim bar under the site header while its steps scroll past */
+  .fb-phase-head {
+    top: var(--header-h); z-index: 3; display: flex; align-items: center; gap: 12px;
+    margin: 0 calc(-1 * var(--gutter)) 18px; padding: 9px var(--gutter);
+    background: var(--sage-50); border-block: 1px solid rgba(28, 52, 35, .1);   /* opaque: the steps scroll under it */
+  }
+  .fb-phase-node { width: 32px; height: 32px; box-shadow: 0 0 0 3px rgba(233, 180, 96, .14), 0 0 10px 1px rgba(233, 180, 96, .3); }
+  .fb-phase-node .icon { width: 14px; height: 14px; }
+  .fb-phase-title { flex: 1 1 auto; min-width: 0; font-size: 1.25rem; line-height: 1.25; text-wrap: pretty; -webkit-hyphens: manual; hyphens: manual; overflow-wrap: anywhere; }   /* v1.3.6: never hyphenated; a break inside a word only as the last resort at very large text */
+  .fb-phase-dots { flex: none; gap: 5px; }
+  .fb-phase-dots i { width: 7px; height: 7px; }
+  .fb-self { margin-top: 38px; padding: 32px 20px 24px; }
+  .fb-self::before { left: 24px; }
+  .fb-self-list li { font-size: 1.125rem; }
+  .fb-outcome { padding-left: 26px; margin-top: 34px; }
+  .fb-outcome::before { width: 11px; height: 11px; }
+
+  .fb-door { padding: 36px 14px 18px; margin-bottom: 40px; }
+  .fb-door-text { padding-inline: 6px; }
+  .fb-door-actions { flex-direction: column; align-items: stretch; }
+  .fb-door-actions .btn { width: 100%; }
+  .fb-door .btn-call { justify-content: center; min-height: 60px; padding: 8px 12px 8px 8px; gap: 8px; }
+  .fb-door .btn-call-number { font-size: 1rem; }
+  .fb-door .btn-call .icon { width: 36px; height: 36px; padding: 8px; }
+  .fb-door .btn-call-text { align-items: center; text-align: center; }
+  .fb-door-callback { min-height: 56px; }
+
+  .fb-voices { padding-block: 56px 60px; }
+}
+/* phase bar on phones (v1.3.6): from 360 to 480 px (30 em, so it also holds when the text is enlarged) the bar is ONE line. At 20 px with the flame
+   node the longest label („Woche 1 bis 6 · Nach der Beisetzung“) needs two lines (bar 70 px, 134 px with the header, 16 % of a 844 px screen);
+   at 16 px (the floor) without the node, with the five dots at 6 px, it fits in 320 px with room to spare (bar 40 px). Nothing is hidden from
+   screen readers: the node was decorative (aria-hidden), the label stays whole. At 200 % text the label may wrap, it never leaves the screen. */
+@media (max-width: 30em) {
+  .fb-phase-head { gap: 8px; }
+  .fb-phase-node { display: none; }
+  .fb-phase-title { font-size: 1rem; }
+  .fb-phase-dots { gap: 4px; }
+  .fb-phase-dots i { width: 6px; height: 6px; }
+}
+@media (max-width: 759px) and (prefers-reduced-motion: no-preference) {
+  html.js:not([data-motion="off"]) .fb-path .fb-path-list::before { transform: scaleY(0); transition: transform .6s var(--ease) .05s; }
+  html.js:not([data-motion="off"]) .fb-path.is-in .fb-path-list::before { transform: none; }
+}

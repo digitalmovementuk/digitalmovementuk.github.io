@@ -7,3 +7,10 @@
   try { if (localStorage.getItem('kb-motion') === 'off') r.setAttribute('data-motion', 'off'); } catch (e) {}
   setTimeout(function () { if (!window.__kbReady) r.classList.remove('js'); }, 3000);
 })();
+
+/* static copy opened from disk (file://): browsers refuse web fonts there (CORS, origin "null"); the same faces come embedded
+   in fonts-file.css. On a web server this does nothing. Added by link-vorschau/build-site-v1.3.mjs. */
+(function () {
+  if (location.protocol !== 'file:' || !document.currentScript) return;
+  try { document.write('<link rel="stylesheet" href="' + new URL('../css/fonts-file.css', document.currentScript.src).href + '">'); } catch (e) {}
+})();

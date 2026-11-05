@@ -1,12 +1,20 @@
 /* ==========================================================================
-   Kißelbach Bestattungen · Prototyp v1.2 · „Ein Licht, das bleibt“ – editorial
+   Kißelbach Bestattungen · Prototyp v1.3 (base of v1.2 + shared sub-page parts) · „Ein Licht, das bleibt“ – editorial
    Ivory paper, forest green from the logo, one warm candle tone; one italic
    accent word per heading, a running section index 01–10, layered depth.
    Type: Playfair Display (the logo's wordmark face) for headings and display
    quotes, Source Sans 3 ≥ 18 px for everything that is read.
    Motion: native scroll only, each effect once, complete still state.
    Structure: tokens → base → components → sections → motion → short desktop
-   → tablet → mobile (last).
+   → tablet → mobile → phone in landscape (last).
+   Changelog
+   v1.3     04.11.2026  base of v1.2 + shared sub-page parts (two new pages)
+   v1.3.2   04.11.2026  form error lines 16 px (were 15); segmented control Trauerfall | Vorsorge ≥ 44 px high at every size (42 px at 1366×768), card height unchanged;
+                        skip link hidden by transform instead of top: -100px (at 200 % text on a 360 px phone it covered the menu button)
+   v1.3.1   04.11.2026  shared fixes after the independent render QA: header states follow the text size (em breakpoints +
+                        .hdr-compact/.hdr-small safety net from site.js), phone header never pushes the menu button out,
+                        contact number wraps below its icon, two-tone focus ring (≥ 3 : 1 on every ground), WhatsApp stacks
+                        above the dock at any text size (--dock-h), compact hero for phones in landscape. Normal text sizes render as before.
    ========================================================================== */
 
 /* Playfair Display (OFL), subset like Google Fonts: latin first, latin-ext only when a glyph needs it */
@@ -46,6 +54,8 @@
   --night-muted: rgba(244, 241, 232, .82);
   --danger: #A3341F;
   --success: #2F6B45;
+  --focus-ring: var(--forest-900);       /* v1.3.1: outer ring, 12 : 1 on ivory / paper / sage */
+  --focus-halo: #F3DDB4;                 /* v1.3.1: inner ring in the 3 px gap (a pale candle tone, luminance .74). With the ring above (luminance .03) one of the two is ≥ 3.16 : 1 against ANY solid ground: 12 : 1 on ivory, ≈ 11 : 1 on the footer green */
 
   /* chapter tones (burial forms) — all light enough for ink-2 at AA */
   --tone-earth: #EEE6D7;
@@ -108,7 +118,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 /* German hyphenation house rule */
-p, li, dd, dt, td, th, h1, h2, h3, figcaption, blockquote, label, summary, legend {
+p, li, dd, dt, td, th, caption, h1, h2, h3, figcaption, blockquote, label, summary, legend {
   -webkit-hyphens: auto;
   hyphens: auto;
   hyphenate-limit-chars: 12 5 4;
@@ -124,7 +134,12 @@ a:hover { color: var(--forest-900); text-decoration-thickness: 2px; }
 button, input, select, textarea { font: inherit; color: inherit; }
 ul, ol { margin: 0; padding: 0; }
 [hidden] { display: none !important; }
-:focus-visible { outline: 3px solid var(--candle); outline-offset: 3px; border-radius: 6px; }
+:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; border-radius: 6px; }
+/* v1.3.1 (RQ-03, LST-QA-05): the amber ring alone was only 2.0–2.6 : 1 on light grounds. Two tones now: a dark forest outline
+   (light grounds) plus a pale candle halo in the gap between element and outline (dark grounds: footer, film, night section).
+   One of the two always reaches ≥ 3 : 1; the geometry is the old one. The halo is !important so buttons and the WhatsApp disc
+   keep it despite their own shadows; form fields keep their own border/glow focus style. */
+:focus-visible:not(.field input, .field select) { box-shadow: 0 0 0 3px var(--focus-halo) !important; }
 ::selection { background: var(--leaf-wash); color: var(--forest-900); }
 
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
@@ -137,10 +152,11 @@ use .fill { fill: currentColor; stroke: none; }
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
 
 .skip-link {
-  position: absolute; left: 16px; top: -100px; z-index: 200;
+  position: absolute; left: 16px; top: 12px; z-index: 200;
+  transform: translateY(calc(-100% - 24px));   /* v1.3.2: hidden above the screen whatever its height (the old top: -100px left a 139 px high link 39 px inside the view at 200 % text, over the menu button) */
   background: var(--forest-900); color: #fff; padding: 12px 18px; border-radius: 10px; text-decoration: none; font-weight: 600;
 }
-.skip-link:focus { top: 12px; }
+.skip-link:focus { transform: none; }
 
 /* paper surfaces: warm sheet, faint fibre, layered shadow instead of a hairline box */
 .paper {
@@ -199,10 +215,14 @@ use .fill { fill: currentColor; stroke: none; }
   transform-origin: 0 50%; transform: scaleX(var(--page-p, 0));
 }
 .header-inner { height: 100%; display: flex; align-items: center; gap: 28px; }
-.brand { flex: none; display: block; }
+.brand { flex: none; display: flex; align-items: center; min-height: 44px; }   /* v1.3: 44 px hit area on phones too */
 .brand img { height: 56px; width: auto; }
 /* the logo with "e.K." is ~35 px wider than the old one: between 1100 and 1199 px it is a little smaller so the nav and call button still fit */
-@media (min-width: 1100px) and (max-width: 1199px) { .brand img { height: 46px; } }
+/* v1.3.1 (RQ-02 / LST-QA-02): every header breakpoint is in em, not px. Media queries in em use the browser's own default font size,
+   so with "Schriftgröße: sehr groß" (24 px) or 200 % (32 px) the desktop nav gives way to the menu button at the same TEXT width
+   as before. At the default 16 px each value equals the old px value: 1100 px = 68.75em, 1199 = 74.9375em, 1349 = 84.3125em,
+   1099 = 68.6875em, 759 = 47.4375em, so normal text looks exactly as before. */
+@media (min-width: 68.75em) and (max-width: 74.9375em) { .brand img { height: 46px; } }
 .nav-desktop { position: relative; margin-left: auto; }
 .nav-desktop ul { list-style: none; display: flex; gap: clamp(14px, 1.6vw, 26px); }
 .nav-desktop a {
@@ -210,13 +230,19 @@ use .fill { fill: currentColor; stroke: none; }
   transition: color var(--t-fast) ease;
 }
 .nav-desktop a:hover, .nav-desktop a[aria-current] { color: var(--forest-700); }
-/* "Vorsorge & Beratung" needs the room: below 1300 px the desktop nav shows the short label */
+/* "Vorsorge & Beratung" needs the room: below 1350 px the desktop nav shows the short label (v1.3: 1300 → 1350, eight entries now) */
 .nav-short { display: none; }
-@media (min-width: 1100px) and (max-width: 1299px) {
+@media (min-width: 68.75em) and (max-width: 84.3125em) {
   .nav-long { display: none; }
   .nav-short { display: inline; }
   .header-inner { gap: 20px; }
   .nav-desktop ul { gap: 14px; }
+}
+/* v1.3: the eighth entry (Fallbeispiele) needs a little more room between 1100 and 1199 px */
+@media (min-width: 68.75em) and (max-width: 74.9375em) {
+  .header-inner { gap: 16px; }
+  .nav-desktop ul { gap: 9px; }
+  .nav-desktop a { font-size: .9375rem; }
 }
 .nav-indicator {
   position: absolute; left: 0; bottom: 2px; height: 2px; border-radius: 2px; background: var(--leaf);
@@ -249,8 +275,57 @@ use .fill { fill: currentColor; stroke: none; }
   padding: 8px var(--gutter) 28px;
 }
 .nav-mobile-panel ul { list-style: none; margin-bottom: 20px; }
+.nav-mobile-panel li a[aria-current="page"]::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: .6em; border-radius: 50%; background: var(--candle); vertical-align: .14em; }   /* v1.3: page you are on */
 .nav-mobile-panel li a { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.375rem; color: var(--forest-900); text-decoration: none; }
 .nav-mobile-note { text-align: center; color: var(--ink-2); font-size: .95rem; margin: 12px 0 0; }
+
+/* ---------- header states (v1.3.1): menu button instead of the desktop nav, then the phone header ----------
+   Written twice on purpose: once as em media queries (pure CSS, follows the browser's text size) and once as .hdr-compact /
+   .hdr-small on <html>, which site.js sets when the desktop row still overflows (text enlargement that media queries cannot
+   see, e.g. Firefox "Zoom text only"). Change both blocks together. */
+@media (max-width: 68.6875em) {
+  :root { --header-h: 72px; }
+  .nav-desktop { display: none; }
+  .nav-mobile { display: block; flex: none; }
+  .header-inner { gap: 14px; }
+  .header-call { margin-left: auto; }
+  .brand img { height: 50px; }
+}
+/* larger text on a wide screen: the call button drops its second line, so it never grows taller than the 72 px header */
+@media (min-width: 1100px) and (max-width: 68.6875em) { .header-call-note { display: none; } }
+@media (max-width: 47.4375em) {
+  :root { --header-h: 64px; }
+  .site-header { --hf: min(1rem, 5.4vw); background: rgba(250, 248, 242, .97); }   /* header type is capped at 5.4 vw: at 200 % text on a 375 px phone the menu button must stay on the screen */
+  .brand img { height: clamp(30px, calc((100vw - 232px) / 3.37), 42px); }   /* 42 px from 375 px up; shrinks on narrower phones so logo + call + menu never overflow */
+  .header-call { padding: 6px 14px 6px 6px; min-height: 46px; gap: 8px; }
+  .header-call .icon { width: 32px; height: 32px; padding: 7px; }
+  .header-call-text { display: none; }
+  .header-call-short { display: inline; font-weight: 700; font-size: var(--hf); line-height: 1.2; }
+  .nav-mobile summary { padding: 8px 12px; min-height: 46px; font-size: var(--hf); }
+  .nav-mobile summary span { display: none; }
+}
+html.hdr-compact { --header-h: 72px; }
+html.hdr-compact .nav-desktop { display: none; }
+html.hdr-compact .nav-mobile { display: block; flex: none; }
+html.hdr-compact .header-inner { gap: 14px; }
+html.hdr-compact .header-call { margin-left: auto; }
+html.hdr-compact .brand img { height: 50px; }
+html.hdr-compact .header-call-note { display: none; }
+html.hdr-small { --header-h: 64px; }
+html.hdr-small .site-header { --hf: min(1rem, 5.4vw); background: rgba(250, 248, 242, .97); }
+html.hdr-small .brand img { height: clamp(30px, calc((100vw - 232px) / 3.37), 42px); }
+html.hdr-small .header-call { padding: 6px 14px 6px 6px; min-height: 46px; gap: 8px; }
+html.hdr-small .header-call .icon { width: 32px; height: 32px; padding: 7px; }
+html.hdr-small .header-call-text { display: none; }
+html.hdr-small .header-call-short { display: inline; font-weight: 700; font-size: var(--hf); line-height: 1.2; }
+html.hdr-small .nav-mobile summary { padding: 8px 12px; min-height: 46px; font-size: var(--hf); }
+html.hdr-small .nav-mobile summary span { display: none; }
+/* third stage (site.js): the header row still overflows in the phone header, so the logo may give way a little (aspect ratio kept) */
+html.hdr-squeeze .brand { flex: 0 1 auto; min-width: 0; }
+html.hdr-squeeze .brand img { max-width: 100%; object-fit: contain; object-position: left center; }
+/* last stage (site.js): at text zoom ≥ 200 % on a phone the call button keeps only its icon; "Anrufen" stays in the accessible name */
+html.hdr-icon .header-call { padding: 0; width: 46px; justify-content: center; }
+html.hdr-icon .header-call-short { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ---------- hero ---------- */
 .hero {
@@ -343,15 +418,21 @@ use .fill { fill: currentColor; stroke: none; }
 /* a calm, steady dot — no looping pulse */
 .live { display: inline-flex; align-items: center; gap: 10px; margin: 0; font-weight: 600; font-size: 1rem; color: var(--forest-700); }
 .live-dot { width: 10px; height: 10px; border-radius: 50%; background: #3F8E5A; box-shadow: 0 0 0 4px rgba(103, 169, 123, .22); flex: none; }
-.hero-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin: 0; font-size: .98rem; color: var(--ink-2); }
-.hero-meta-item { display: inline-flex; align-items: center; gap: 8px; }
+.hero-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 0; margin: 0; font-size: .98rem; color: var(--ink-2); }
+.hero-meta-item { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }   /* v1.3: 44 px hit area (gap 8 → 0 above: the items carry the spacing) */
 .hero-meta .icon { color: var(--forest-700); }
-.proof-link { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
-.proof-link:hover { color: var(--forest-900); border-bottom-color: var(--forest-700); }
+.proof-link { position: relative; color: var(--ink-2); text-decoration: none; }
+.proof-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: calc(50% - .72em); height: 1px; background: var(--line-strong); }   /* v1.3: the thin underline sits under the text, not under the 44 px hit area */
+.proof-link:hover { color: var(--forest-900); }
+.proof-link:hover::after { background: var(--forest-700); }
 .proof-link .icon-star { color: var(--candle); }
 .hero-secondary { color: var(--forest-700); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; }
 .hero-secondary .icon { color: var(--forest-700); transition: transform var(--t-fast) ease; }
 .hero-secondary:hover .icon { transform: translateX(3px); }
+/* quiet cross-page link (v1.3): the voice of .hero-secondary (forest green, semibold, thin underline, arrow steps right on hover) with a 44 px hit area */
+.link-more { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--forest-700); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; }
+.link-more .icon { transition: transform var(--t-fast) ease; }
+.link-more:hover .icon { transform: translateX(3px); }
 
 .hero-callback { grid-area: card; }
 
@@ -420,7 +501,7 @@ use .fill { fill: currentColor; stroke: none; }
 .field input:hover, .field select:hover { border-color: #B5AD9A; }
 .field input:focus, .field select:focus { outline: none; border-color: var(--forest-700); box-shadow: 0 0 0 4px rgba(103, 169, 123, .28); }
 .field input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(163, 52, 31, .12); }
-.field-error { margin: 0; color: var(--danger); font-size: .9375rem; line-height: 1.35; }
+.field-error { margin: 0; color: var(--danger); font-size: 1rem; line-height: 1.35; }   /* v1.3.2: 16 px floor (was 15 px); #A3341F on paper 6.56 : 1 */
 .consent { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; }
 .consent input { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--forest-900); cursor: pointer; }
 .consent label { font-size: .875rem; line-height: 1.45; color: var(--ink-2); }
@@ -431,7 +512,7 @@ use .fill { fill: currentColor; stroke: none; }
 .is-loading .spinner { display: inline-block; }
 .is-loading .btn-submit { pointer-events: none; opacity: .9; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.form-status { margin: 0; font-size: .9375rem; line-height: 1.45; }
+.form-status { margin: 0; font-size: 1rem; line-height: 1.45; }   /* v1.3.2: 16 px floor (was 15 px); error notice #7A2615 on #F8E9E4 */
 .form-status:empty { display: none; }
 .notice { display: block; padding: 12px 14px; border-radius: var(--radius-sm); }
 .notice-ok { background: var(--leaf-wash); color: var(--forest-900); }
@@ -461,7 +542,7 @@ use .fill { fill: currentColor; stroke: none; }
 }
 .seg input:not(:checked):hover + span { background: rgba(255, 255, 255, .8); }
 .seg input:checked + span { background: var(--forest-900); color: #FFFDF7; box-shadow: 0 6px 14px -8px rgba(28, 52, 35, .75); }
-.seg input:focus-visible + span { outline: 3px solid var(--candle); outline-offset: 2px; }
+.seg input:focus-visible + span { outline: 3px solid var(--focus-ring); outline-offset: 2px; }   /* v1.3.1: dark ring (the track is light) */
 
 /* ---------- section scaffolding + running index 01–09 ---------- */
 .section { position: relative; padding-block: var(--section-pad); }
@@ -524,6 +605,7 @@ use .fill { fill: currentColor; stroke: none; }
 .voices-source { margin: 0; text-align: center; font-size: .9375rem; color: var(--ink-2); }
 .voices-source a { color: var(--ink-2); }
 .voices-source a:hover { color: var(--forest-900); }
+.voices-more { margin: 6px 0 0; text-align: center; }   /* v1.3: quiet link to the examples page, directly under the quotes' source line */
 
 /* ---------- 01 · first steps: a night in the forest, the light line glows ---------- */
 .section-first-steps { background: var(--forest-950); color: var(--night-text); overflow: hidden; isolation: isolate; }
@@ -663,6 +745,7 @@ use .fill { fill: currentColor; stroke: none; }
 .service-row .icon { width: 34px; height: 34px; margin-top: 2px; color: var(--forest-700); stroke-width: 1.25; }
 .service-row h3 { font-family: var(--serif); font-size: 1.375rem; line-height: 1.25; color: var(--forest-900); margin-bottom: 6px; }
 .service-row p { margin: 0; color: var(--ink-2); max-width: 30em; }
+.section-more { margin: clamp(26px, 3vw, 40px) 0 0; text-align: center; }   /* v1.3: "Alle Leistungen im Überblick" */
 
 /* ---------- 04 · after the funeral: warm paper, a ring of light that draws itself once ---------- */
 .section-after {
@@ -739,7 +822,7 @@ html:not(.js) .film-toggle { display: none; }
 .section-forms[data-tone="tree"] { --tone: var(--tone-tree); }
 .section-forms[data-tone="mist"] { --tone: var(--tone-mist); }
 .section-forms[data-tone="sky"] { --tone: var(--tone-sky); }
-.skip-chapters { display: inline-block; margin-top: 18px; font-size: .9375rem; font-weight: 600; color: var(--forest-700); }
+.skip-chapters { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; font-size: .9375rem; font-weight: 600; color: var(--forest-700); }
 .chapters { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(48px, 7vw, 120px); }
 .chapters-media {
   position: sticky; top: calc(var(--header-h) + 5vh); align-self: start;
@@ -883,6 +966,7 @@ html:not(.js) .film-toggle { display: none; }
 .contact-list div:last-child { grid-column: 1 / -1; }
 .contact-list dt { font-size: .875rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--forest-700); margin-bottom: 4px; }
 .contact-list dd { margin: 0; color: var(--ink); }
+.contact-list dd a { display: inline-flex; align-items: center; min-height: 44px; }   /* v1.3: 44 px hit area */
 .link-route { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; color: var(--forest-700); }
 
 .map-sheet { position: relative; aspect-ratio: 16 / 10; border-radius: var(--radius); overflow: hidden; background-color: #F4EEE1; }
@@ -931,9 +1015,12 @@ html:not(.js) .film-toggle { display: none; }
 .footer-brand img { width: 240px; margin-bottom: 18px; } /* 240 keeps the wordmark as large as the old 210 px logo (the e.K. made the file wider) */
 .footer-brand p { max-width: 26em; }
 .footer-title { font-family: var(--sans); font-size: .875rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--leaf-soft); margin-bottom: 14px; }
-.site-footer ul { list-style: none; display: grid; gap: 8px; }
+.site-footer ul { list-style: none; display: grid; gap: 0; }   /* v1.3: the links carry the spacing (44 px hit area each) */
+.site-footer li a, .footer-col p > a:only-child { display: flex; align-items: center; min-height: 44px; }
+.footer-col p > a:only-child { display: inline-flex; }
 .site-footer a { color: #FFFDF7; text-decoration: none; }
 .site-footer a:hover { text-decoration: underline; }
+.site-footer a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--candle-light); text-underline-offset: .25em; }   /* v1.3: page you are on */
 .site-footer .btn-light { color: var(--forest-900); }
 .site-footer .btn-light:hover { text-decoration: none; }
 .motion-toggle {
@@ -945,6 +1032,17 @@ html:not(.js) .film-toggle { display: none; }
 .footer-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px 32px; padding-top: 24px; font-size: .875rem; color: rgba(255, 253, 247, .7); }
 .footer-meta p { margin: 0; }
 .footer-register { flex: 1 1 100%; order: 1; }
+
+/* ---------- sub-pages (v1.3): the shared hero frame; each page module (leistungen.css, fallbeispiele.css) designs the inside ---------- */
+.page-hero {
+  position: relative; overflow: hidden;
+  min-height: 66vh;
+  min-height: 66svh;            /* house rule: hero ≈ two thirds of the first view */
+  display: grid; align-items: center;
+  padding-block: clamp(20px, 3.4vh, 44px);
+  background: linear-gradient(180deg, var(--ivory) 0%, #F1ECE1 100%);
+}
+.page-hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.25rem, 1.4rem + 3vw, 3.75rem); line-height: 1.1; letter-spacing: -.01em; color: var(--forest-900); text-wrap: balance; }
 
 /* ---------- WhatsApp: the classic chat button — WhatsApp green disc, the official white glyph, a clear green ring that grows and fades ---------- */
 .whatsapp {
@@ -1086,7 +1184,7 @@ html[data-motion="off"] { scroll-behavior: auto; }
   .hero-callback .callback-intro { display: none; }
   .callback-form { gap: 7px; }
   .hero-callback .field input, .hero-callback .field select { min-height: 44px; padding-block: 7px; }
-  .hero-callback .seg span { min-height: 42px; }
+  .hero-callback .segmented-track { padding: 3px; }   /* v1.3.2: both segments are 44 px high again (were 42); the track keeps its 50 px: 44 + 2 × 3 instead of 42 + 2 × 4 */
   .hero-callback .btn-submit { min-height: 48px; }
   .hero-trust { padding-top: 6px; }
   .band-track { row-gap: 4px; }
@@ -1100,12 +1198,7 @@ html[data-motion="off"] { scroll-behavior: auto; }
    Tablet 760–1099
    ========================================================================== */
 @media (max-width: 1099px) {
-  :root { --header-h: 72px; }
-  .nav-desktop { display: none; }
-  .nav-mobile { display: block; }
-  .header-inner { gap: 14px; }
-  .header-call { margin-left: auto; }
-  .brand img { height: 50px; }
+  /* header states moved to the em blocks after the mobile nav rules (v1.3.1) */
   .hero-grid {
     grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
     grid-template-areas: "portrait card" "copy card" "trust trust";
@@ -1137,16 +1230,8 @@ html[data-motion="off"] { scroll-behavior: auto; }
    bizee scale with the 18 px floor; hero and section heads centred.
    ========================================================================== */
 @media (max-width: 759px) {
-  :root { --header-h: 64px; --gutter: 20px; --section-pad: 72px; --radius: 18px; }
+  :root { --gutter: 20px; --section-pad: 72px; --radius: 18px; }   /* --header-h and the phone header: see the em blocks after the mobile nav rules (v1.3.1) */
   html { scroll-padding-bottom: 100px; }
-  .brand img { height: clamp(30px, calc((100vw - 232px) / 3.37), 42px); } /* 42 px from 375 px up; shrinks on narrower phones so logo + call + menu never overflow */
-  .header-call { padding: 6px 14px 6px 6px; min-height: 46px; gap: 8px; }
-  .header-call .icon { width: 32px; height: 32px; padding: 7px; }
-  .header-call-text { display: none; }
-  .header-call-short { display: inline; font-weight: 700; font-size: 1rem; }
-  .nav-mobile summary { padding: 8px 12px; min-height: 46px; }
-  .nav-mobile summary span { display: none; }
-  .site-header { background: rgba(250, 248, 242, .97); }
 
   .hero { min-height: 0; padding-block: 18px 22px; align-items: start; }
   .hero-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "portrait" "copy" "card" "trust"; grid-template-rows: auto auto auto auto; row-gap: 12px; --portrait-w: 104px; text-align: center; }
@@ -1167,7 +1252,7 @@ html[data-motion="off"] { scroll-behavior: auto; }
   .portrait-backdrop { box-shadow: var(--shadow-1); }
   .portrait-arch { box-shadow: 0 0 0 4px rgba(252, 250, 245, .9), var(--shadow-2); }
   .portrait-flame { width: 22px; height: 22px; margin-left: -11px; top: calc(var(--portrait-w) * -.21 - 14px); }
-  .portrait-caption { margin: -16px auto 0; padding: 6px 14px; width: max-content; max-width: 260px; }
+  .portrait-caption { margin: -16px auto 0; padding: 6px 14px; width: max-content; max-width: min(260px, calc(50vw + 32px)); }   /* v1.3.1 (D2 RQ-07): at large text the caption would leave the screen (the hero clips it); 50vw + 32px = the room to the right gutter */
   .portrait-name { font-size: 1.0625rem; }
   .portrait-role { font-size: .875rem; }
   .hero-copy { max-width: none; display: flex; flex-direction: column; align-items: center; }
@@ -1257,6 +1342,7 @@ html[data-motion="off"] { scroll-behavior: auto; }
   .compare tbody tr:last-child th { border-bottom: 1px solid var(--line); }
   .compare td::before { content: attr(data-label); display: block; font-size: .875rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--forest-700); }
 
+  .section-costs { overflow-x: clip; }   /* v1.3.1: the rotated cost sheets pushed the page 15 px sideways at 200 % text on a 375 px phone (clip, not hidden: nothing else changes, sticky keeps working) */
   .costs-detail { padding: 18px 0; }
   .costs-detail::before { inset: 36px 12px 0 12px; rotate: -2deg; }
   .cost-sheet { rotate: .5deg; padding: 30px 22px; }
@@ -1273,7 +1359,7 @@ html[data-motion="off"] { scroll-behavior: auto; }
   .topic-card:last-child:nth-child(odd) p { max-width: 32em; }
 
   .contact-info { text-align: center; }
-  .contact-phone { justify-content: center; font-size: 2.125rem; gap: 12px; }
+  .contact-phone { justify-content: center; flex-wrap: wrap; row-gap: 8px; max-width: 100%; font-size: min(2.125rem, 12.6vw); gap: 12px; }   /* v1.3.1: at large text the number drops below its icon (protected spaces keep it in one piece); 12.6 vw lets it stay in one piece on a 375 px phone at a larger default font size */
   .contact-phone .icon { width: 48px; height: 48px; padding: 12px; }
   .contact-list { grid-template-columns: minmax(0, 1fr); text-align: left; }
   .link-route { justify-content: center; }
@@ -1293,5 +1379,34 @@ html[data-motion="off"] { scroll-behavior: auto; }
   .footer-register { order: 0; }
   .dock { width: calc(100vw - 32px); bottom: calc(14px + env(safe-area-inset-bottom)); }
   /* the dock spans the bottom on phones: while it shows, the WhatsApp button stacks above it */
-  html.dock-on .whatsapp { bottom: calc(14px + 66px + 12px + env(safe-area-inset-bottom)); }
+  html.dock-on .whatsapp { bottom: calc(14px + var(--dock-h, 66px) + 12px + env(safe-area-inset-bottom)); }   /* v1.3.1: --dock-h is the measured dock height (site.js; 66 px at normal text), so it never overlaps the dock at larger text */
+}
+
+/* ==========================================================================
+   Phone in landscape (v1.3.1, RQ-04 / LST-QA-03) — last in the file on purpose.
+   Short and wide (844×390, 932×430, 667×375): the portrait column and the card used to push H1, call button and the
+   callback entry below the first screen on all three pages. Now the portrait gives way; kicker, H1, call button and
+   "Lieber Rückruf anfordern" sit in the first 390 px (the form opens inline, as on portrait phones); lead, Google line and the
+   band of the page follow below. Portrait phones and desktops are untouched (≥ 1100 px wide or taller than 500 px).
+   ========================================================================== */
+@media (orientation: landscape) and (max-height: 500px) and (max-width: 1099px) {
+  :root { --header-h: 64px; }
+  .hero { min-height: 0; padding-block: 12px 16px; align-items: start; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "card" "trust"; grid-template-rows: auto auto auto; row-gap: 12px; align-items: start; text-align: center; }
+  .portrait { display: none; }
+  .hero-copy { width: 100%; max-width: 760px; margin-inline: auto; display: flex; flex-direction: column; align-items: center; }
+  .hero-kicker { margin-bottom: 4px; font-size: .875rem; }
+  .hero h1 { order: -2; margin-bottom: 10px; }
+  .hero-promise { font-size: clamp(1.625rem, 4vw, 2.125rem); text-wrap: balance; }
+  .hero-actions { order: -1; flex-direction: row; flex-wrap: wrap; justify-content: center; width: 100%; gap: 10px 14px; margin-bottom: 14px; }
+  .hero-actions .btn { width: auto; flex: 1 1 260px; max-width: 380px; }
+  .hero-actions .live { display: none; }
+  .btn-call { justify-content: center; min-height: 60px; }
+  .btn-call .icon { width: 40px; height: 40px; padding: 9px; }
+  .btn-call-text { align-items: center; }
+  .btn-callback-toggle { display: inline-flex; }
+  html:not(.js) .btn-callback-toggle { display: none; }
+  html.js .hero-callback.is-collapsed { display: none; }
+  .hero-callback { width: 100%; max-width: 560px; margin-inline: auto; text-align: left; }
+  .hero-lead { text-align: center; margin: 0 auto 14px; }
 }
