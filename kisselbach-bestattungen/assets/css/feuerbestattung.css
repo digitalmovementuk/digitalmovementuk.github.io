@@ -1,6 +1,8 @@
 /* ==========================================================================
    Kißelbach Bestattungen · Seitenmodul „feuerbestattung“ · Fassung v1.0 · 05.11.2026 · Claude (Opus 5.5)
-   Change log: v1.0 (05.11.2026) first version of /feuerbestattung/.
+   Change log: v1.0 (05.11.2026) first version of /feuerbestattung/. v1.4.0 (10.11.2026) copied into the v1.4 template system with every rule unchanged (no rule dropped: the file never styled a dark Ablauf section).
+   v1.4.1 (10.11.2026): .fbst-case lets the case link and the quiet link to the tree-burial page (N7) sit side by side and wrap;
+   the source link of the facts sheet may wrap on phones (it overflowed 390 px at 200 % text).
    Loaded after site.css and leistungen.css on /feuerbestattung/ only. Reuses the v1.2 tokens and the /leistungen/
    components (hero + paths, night stages with the candle line, burial-type cards, cost sheet, FAQ); new classes carry
    "fbst-".
@@ -59,6 +61,7 @@
 
 /* ---------- 03 · urn places: the /leistungen/ cards, one line of facts each ---------- */
 .fbst-places .lst-types-head h2 { max-width: 15ch; }
+.fbst-case { display: flex; flex-wrap: wrap; align-items: center; column-gap: 24px; }   /* v1.4.1: case link + „Mehr zur Baumbestattung in Essen“ (N7) */
 
 /* ---------- 04 · farewell: two equal paths, side by side ---------- */
 .fbst-farewell { background: linear-gradient(180deg, var(--paper-warm) 0%, #F5EADB 100%); }
@@ -117,6 +120,7 @@
   .fbst-brief-copy > p:not(.eyebrow):not(.fbst-answer):not(.fbst-brief-next) { font-size: 1.125rem; }
   .fbst-facts { rotate: 0deg; }
   .fbst-facts-list > div { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 10px 0; }
+  .fbst-facts-source a { white-space: normal; overflow-wrap: anywhere; }   /* v1.4.1: „Bestattungsgesetz NRW“ wraps instead of overflowing at 200 % text */
 
   /* farewell: photo as a short band on top of each option */
   .fbst-head { text-align: center; }

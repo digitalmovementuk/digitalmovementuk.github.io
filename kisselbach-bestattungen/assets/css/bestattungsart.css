@@ -1,0 +1,253 @@
+/* ==========================================================================
+   Kißelbach Bestattungen · Seitenmodul „bestattungsart“ · Fassung v1.3 · 10.11.2026 · Claude (Opus 5.5)
+   Change log: v1.3 (10.11.2026) copy v1.4; long single words may break at 200 % text on phones (card link, H2, FAQ, hero, Impressum).
+   v1.2 (10.11.2026) overview /besondere-bestattungen/ (.ba-hub-*), second link under the sibling cards. v1.1 (10.11.2026) copy v1.3: reason lines in the documents note (.ba-docs-text), two links on one download card.
+   v1.0 (10.11.2026) first version: the five special-burial pages (templates/bestattungsart.html, prefix ba-),
+   the download page /downloads/ (templates/downloads.html, prefix dl-) and the Impressum (templates/impressum.html, prefix imp-).
+   Loaded after site.css and leistungen.css on these seven pages only. Reuses the v1.2 tokens and the /leistungen/ components
+   (hero, step line, burial-type cards, cost sheet, FAQ); the only new visual element is the arch companion .ba-arch
+   (DESIGN-DIRECTION 4.1 rule 3): a small sibling of the home chapter frame for text-heavy sections.
+   Section 02 (.section-first-steps) takes its morning-light colours from site.css; this file only colours the parts it adds there.
+   Structure: crumbs and hero → image-and-text grid (01, 03) → arch companion → 02 additions → 04 law → 05 costs → 06 FAQ
+   → 07 sibling cards → download page → Impressum → tablet → mobile (last).
+   Motion: nothing new moves; reveals come from site.js (.reveal, .reveal-media, [data-split]) and the step line from
+   leistungen.js; complete still state without JS, with prefers-reduced-motion and with „Bewegungen reduzieren“.
+   ========================================================================== */
+
+/* ---------- breadcrumbs above the hero heading (the rules of .fbst-crumbs) ---------- */
+.ba-crumbs { margin: -6px 0 6px; }   /* links 44 px high (tap targets), the extra height taken from the margins */
+.ba-crumbs ol { list-style: none; display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; font-size: 1rem; line-height: 1.3; color: var(--ink-2); }
+.ba-crumbs li { display: inline-flex; align-items: center; }
+.ba-crumbs li + li::before {
+  content: ""; flex: none; width: 6px; height: 6px; margin: 0 12px 0 8px;
+  border-top: 1.5px solid var(--line-strong); border-right: 1.5px solid var(--line-strong); rotate: 45deg;
+}
+.ba-crumbs a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-2); text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: rgba(28, 52, 35, .28); text-underline-offset: .22em; }
+.ba-crumbs a:hover { color: var(--forest-900); text-decoration-color: currentColor; }
+.ba-crumbs [aria-current="page"] { color: var(--forest-900); font-weight: 600; }
+
+/* the pages' key words never break inside a heading, a question or the hero lead („Reer-digung“); body text keeps hyphenation */
+.ba-hero .hero-lead, .ba-hero ~ .section h2, .ba-hero ~ .section h3, .ba-hero ~ .section .faq summary { -webkit-hyphens: manual; hyphens: manual; }
+
+/* ---------- 01 · 03 · image and text: the chapter arch of the home page beside the copy ---------- */
+.ba-split { background: var(--paper); }
+.ba-split-mirror { background: var(--ivory); }
+.ba-split-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(40px, 6vw, 104px); align-items: start; }
+.ba-split-mirror .ba-split-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.ba-frame {
+  position: sticky; top: calc(var(--header-h) + 40px); justify-self: center;
+  width: 100%; max-width: 440px; aspect-ratio: 4 / 5; margin: 0; overflow: hidden;
+  border-radius: 999px 999px var(--radius) var(--radius); background: var(--leaf-wash);
+  box-shadow: 0 0 0 8px rgba(252, 250, 245, .55), var(--shadow-3);
+}
+.ba-frame img { width: 100%; height: 100%; object-fit: cover; }
+.ba-copy h2 { max-width: 18ch; }
+.ba-copy > p:not(.eyebrow), .ba-sub > p { max-width: 32em; margin: 0 0 16px; font-size: 1.1875rem; line-height: 1.62; color: var(--ink-2); text-wrap: pretty; }
+.ba-copy a:not(.btn), .ba-law-body a, .ba-steps-section .ba-steps-text a, .ba-note-text a { color: var(--forest-700); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+.ba-copy a:not(.btn):hover, .ba-law-body a:hover, .ba-steps-section .ba-steps-text a:hover, .ba-note-text a:hover { color: var(--forest-900); }
+.ba-sub { margin-top: clamp(36px, 4vw, 52px); padding-top: clamp(26px, 3vw, 36px); border-top: 1px solid var(--line); }
+.ba-sub h3, .ba-tasks h3, .ba-steps-h3 {
+  margin: 0 0 14px; max-width: 24ch; font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.5rem, 1.25rem + .6vw, 1.875rem); line-height: 1.2; color: var(--forest-900); text-wrap: balance;
+}
+
+/* bullets: the candle points of the Feuerbestattung page */
+.ba-list { list-style: none; display: grid; gap: 12px; max-width: 32em; margin: 6px 0 22px; padding: 0; }
+.ba-list li { position: relative; padding-left: 28px; font-size: 1.125rem; line-height: 1.55; color: var(--ink); }
+.ba-list li::before { content: ""; position: absolute; left: 3px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--candle); box-shadow: 0 0 0 4px rgba(201, 145, 58, .16); }
+
+/* icon rows inside a copy column: the .service-row of the home page, one column */
+.ba-copy .ba-rows, .ba-law-body .ba-rows { grid-template-columns: minmax(0, 1fr); max-width: none; margin: 4px 0 24px; }
+.ba-rows .service-row p { max-width: 34em; font-size: 1.125rem; line-height: 1.55; color: var(--ink); }
+.ba-rows .service-row h3 + p, .ba-rows .service-row p + p { margin-top: 12px; }
+.ba-law-body .ba-rows .service-row p { color: var(--ink-2); }
+.ba-law-body .ba-rows .service-row h3 { margin-bottom: 10px; }
+
+/* fact line under 01 and on the sibling cards: three facts with candle dots */
+.ba-facts, .ba-card-facts { list-style: none; display: flex; flex-wrap: wrap; align-items: center; row-gap: 4px; padding: 0; }
+/* the dot follows each fact, so a wrapped line never starts with a dot */
+.ba-facts li:not(:last-child)::after, .ba-card-facts li:not(:last-child)::after { content: ""; display: inline-block; width: 4px; height: 4px; margin: 0 10px; border-radius: 50%; background: var(--candle); vertical-align: middle; }
+.ba-facts { margin: 26px 0 0; padding-top: 14px; max-width: 34em; border-top: 1px solid var(--line); font-size: 1.0625rem; font-weight: 600; line-height: 1.4; color: var(--forest-700); }
+
+/* ---------- the arch companion: a small sibling of the chapter frame for text-heavy sections (04, 05, 06) ---------- */
+.ba-arch {
+  width: clamp(180px, 22vw, 280px); aspect-ratio: 4 / 5; margin: clamp(28px, 3vw, 40px) 0 0; overflow: hidden;
+  border-radius: 999px 999px var(--radius) var(--radius); background: var(--leaf-wash);
+  box-shadow: 0 0 0 7px rgba(252, 250, 245, .7), var(--shadow-2);
+}
+.ba-arch img { width: 100%; height: 100%; object-fit: cover; }
+.ba-head { position: static; }   /* head columns carry a photo now: they scroll with the page instead of sticking taller than the view */
+
+/* ---------- 02 · Ablauf: the parts this template adds to the shared morning-light section ---------- */
+.ba-steps-section .steps-main > h2 { max-width: 18ch; }
+.ba-steps-text { max-width: 30em; margin: 0 0 16px; font-size: 1.125rem; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+.ba-steps-h3 { margin-top: clamp(30px, 3.4vw, 44px); }
+.ba-steps-h3 + .steps-wrap, .ba-steps-text + .steps-wrap { margin-top: clamp(28px, 3vw, 40px); }
+.steps-wrap + .ba-steps-text { margin-top: clamp(32px, 3.6vw, 48px); }
+.ba-step-plain .step-body { padding-top: 6px; }
+.ba-step-plain .step-body > p { font-size: 1.125rem; }
+.ba-tasks { margin-top: clamp(36px, 4vw, 52px); padding-top: clamp(26px, 3vw, 36px); border-top: 1px solid rgba(28, 52, 35, .16); }
+.ba-tasks .lst-ticks { margin: 4px 0 22px; }
+.ba-tasks .lst-ticks li { color: var(--ink); }
+.ba-tasks .lst-tick { stroke: var(--candle-ink); }
+.ba-tasks .lst-ticks a { color: var(--forest-700); }
+/* the tasks as the paper note (pages without the documents list) */
+.ba-tasks-note { position: relative; top: auto; }
+.ba-tasks-note h3 { margin-bottom: 14px; }
+.ba-note-text { margin: 0 0 16px; color: var(--ink-2); }
+.ba-tasks-note .check-list + .ba-note-text { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.ba-tasks-note .check-list { margin-bottom: 0; }
+/* the documents note (K4): why the originals are needed, and the line for a marriage abroad */
+.ba-docs-text { margin: 0 0 12px; font-size: 1rem; line-height: 1.5; color: var(--ink-2); }
+.ba-steps-section .docs-note .check-list + .ba-docs-text { margin-top: -4px; padding-top: 14px; border-top: 1px solid var(--line); }
+
+/* ---------- 04 · Rechtslage NRW ---------- */
+.ba-law .plan-copy h2 { max-width: 16ch; font-size: clamp(1.875rem, 1.2rem + 1.4vw, 2.625rem); }
+.ba-law .plan-copy .section-lead { margin-bottom: 0; }
+.ba-law-body .ba-rows { margin-top: 0; }
+.ba-source { max-width: 40em; margin-top: 4px; }
+.ba-source a { color: var(--ink-2); font-weight: 400; white-space: nowrap; }
+
+/* ---------- 05 · Kosten: the cost sheet carries two lists ---------- */
+.ba-costs .costs-intro > .btn { margin-top: 6px; }
+.ba-costs .cost-sheet .ba-sheet-title { font-size: clamp(1.5rem, 1.25rem + .6vw, 1.875rem); line-height: 1.2; }
+.ba-costs .lst-cost-rows + .ba-sheet-title { margin-top: clamp(30px, 3vw, 40px); }
+.ba-costs .lst-cost-rows + .cost-sheet-sign { margin-top: 26px; }
+
+/* ---------- 06 · Fragen: the head carries the closing words of the page and photo C ---------- */
+.ba-faq { background: var(--paper); }
+.ba-faq .faq-head h2 { max-width: 14ch; }
+.ba-faq-closing { max-width: 28em; margin: 0 0 22px; font-size: 1.125rem; line-height: 1.6; color: var(--ink-2); }
+.ba-faq-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.ba-faq-note { max-width: 28em; margin: 16px 0 0; font-size: 1rem; color: var(--ink-2); }
+.ba-faq-note a { color: var(--forest-700); font-weight: 600; }
+
+/* ---------- 07 · Weitere Wege: three sibling cards in the /leistungen/ card anatomy ---------- */
+.ba-more { background: var(--ivory); }
+.ba-more-head h2 { max-width: 20ch; }
+.ba-more .lst-type-media, .ba-hub-cards .lst-type-media { aspect-ratio: 4 / 3; }
+.ba-card-link { display: inline; padding-block: 8px; color: var(--forest-900); text-decoration: none; }   /* inline, so a long name wraps with the heading; the padding keeps a 44 px tap area */
+.ba-card-link .icon { display: inline-block; margin-left: 8px; vertical-align: -.1em; }
+.ba-more .lst-type h3, .ba-hub-cards .lst-type h3 { display: block; }
+
+/* 200 % text on a 390 px phone (v1.2): a single word wider than the line („Ballonbestattung“, „Vorsorgevollmacht?“) may break
+   inside the word, but only then; at normal sizes every word fits and nothing changes */
+.ba-hero ~ .section h2, .ba-hero ~ .section h3, .ba-hero ~ .section .lst-type h3 { overflow-wrap: anywhere; }
+.ba-hero ~ .section [data-split] .w, .ba-hero ~ .section [data-split] .wi { max-width: 100%; }
+.ba-hero ~ .section .faq summary > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.ba-hero .hero-copy { min-width: 0; }
+.ba-hero .hero-promise, .ba-hero .hero-lead { overflow-wrap: anywhere; }
+.imp-head .container, .imp-body .container { min-width: 0; }
+.imp-text { overflow-wrap: anywhere; }
+.ba-card-link .icon { color: var(--forest-700); transition: transform var(--t-fast) ease; }
+.ba-card-link:hover { color: var(--forest-700); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+.ba-card-link:hover .icon { transform: translateX(3px); }
+.lst-type-body > .ba-card-facts { padding-left: 0; }
+.ba-more-all { display: flex; flex-wrap: wrap; gap: 0 28px; margin: clamp(40px, 4.4vw, 60px) 0 0; padding-top: 22px; border-top: 1px solid var(--line); font-size: 1.125rem; }
+
+/* ---------- overview /besondere-bestattungen/: five cards, then the closing words under section 04 ---------- */
+.ba-hub-head h2 { max-width: 18ch; }
+.ba-hub-head .section-lead { max-width: 36em; }
+.lst-type-body > .ba-hub-more { margin-top: 10px; }
+.ba-hub-close .ba-faq-closing { max-width: 32em; }
+
+/* ==========================================================================
+   Download page /downloads/ (prefix dl-)
+   ========================================================================== */
+.dl-hero .hero-lead { max-width: 30em; }
+.dl-note-band { padding-block: clamp(18px, 2.2vw, 28px); background: var(--paper); border-block: 1px solid var(--line); }
+.dl-note { display: flex; align-items: flex-start; gap: 14px; max-width: 62em; margin: 0 auto; font-size: 1.0625rem; line-height: 1.55; color: var(--ink-2); }
+.dl-note .icon { width: 28px; height: 28px; margin-top: -1px; color: var(--forest-700); stroke-width: 1.3; }
+.dl-note p { margin: 0; }
+.dl-unterlagen .plan-copy h2 { max-width: 14ch; }
+.dl-card { display: flex; flex-direction: column; }
+.dl-card > p { margin-bottom: 18px; }
+.dl-foot { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); }
+.dl-source { margin: 0 0 12px; font-size: 1rem; line-height: 1.4; color: var(--ink-2); }
+.dl-open .icon { width: 1.05em; height: 1.05em; }
+.dl-open + .dl-open { margin-top: 10px; }
+.dl-file { flex-direction: column; gap: 2px; padding-block: 8px; }   /* Martina's own file: label and icon, then pages and size */
+.dl-file-label { display: inline-flex; align-items: center; gap: .6em; }
+.dl-file-meta { font-size: 1rem; font-weight: 400; color: var(--ink-2); }
+.dl-wa img { width: 22px; height: 22px; flex: none; }
+.dl-bring .check-list { margin-bottom: 18px; }
+
+/* ==========================================================================
+   Impressum /impressum/ (prefix imp-): plain text, no photo, no contact section (DESIGN-DIRECTION 5)
+   ========================================================================== */
+.page-hero.imp-head { min-height: 0; padding-block: clamp(36px, 5vw, 72px) clamp(18px, 2vw, 28px); align-items: end; }
+.imp-head h1 { margin: 0; }
+.imp-lead { margin: 12px 0 0; font-size: 1.1875rem; line-height: 1.5; color: var(--ink-2); }
+.imp-body { background: var(--ivory); padding-block: clamp(28px, 3.4vw, 48px) clamp(72px, 8vw, 120px); }
+.imp-text { max-width: 68ch; color: var(--ink); line-height: 1.65; -webkit-hyphens: auto; hyphens: auto; overflow-wrap: break-word; }
+.imp-text h2 {
+  margin: clamp(32px, 3.4vw, 44px) 0 10px; padding-top: clamp(22px, 2.4vw, 30px); border-top: 1px solid var(--line);
+  font-family: var(--serif); font-weight: 400; font-size: clamp(1.375rem, 1.2rem + .5vw, 1.75rem); line-height: 1.25; color: var(--forest-900);
+}
+.imp-text h3 { margin: 22px 0 4px; font-size: 1.0625rem; font-weight: 600; line-height: 1.4; color: var(--forest-700); }
+.imp-text p { margin: 0 0 12px; }
+.imp-text address { font-style: normal; margin: 0 0 12px; }
+.imp-label { font-weight: 600; color: var(--forest-900); }
+.imp-text a { display: inline-block; padding-block: 10px; margin-block: -10px; color: var(--forest-700); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+.imp-text a:hover { color: var(--forest-900); }
+.imp-first { margin-top: 0; }
+
+/* ==========================================================================
+   Tablet 760–1099
+   ========================================================================== */
+@media (max-width: 1099px) {
+  .ba-split-grid, .ba-split-mirror .ba-split-grid { grid-template-columns: minmax(0, 1fr); }
+  .ba-frame { position: relative; top: auto; max-width: 360px; }
+  .ba-split-mirror .ba-frame { order: -1; }
+  .ba-copy h2 { max-width: 22ch; }
+  .ba-law .plan-copy h2 { max-width: 22ch; }
+}
+
+/* ==========================================================================
+   Mobile ≤ 759 — last on purpose. One column, read top to bottom; every photo becomes a 4:3 picture above its text.
+   ========================================================================== */
+@media (max-width: 759px) {
+  .ba-crumbs { margin-bottom: 2px; }
+  .ba-crumbs ol { justify-content: center; }
+
+  /* 01 · 03: the arch becomes a 4:3 picture with round corners above the text, like the chapter figures of the home page */
+  .ba-frame { max-width: none; aspect-ratio: 4 / 3; border-radius: var(--radius); box-shadow: var(--shadow-2); }
+  .ba-copy > .eyebrow { display: flex; justify-content: center; }
+  .ba-copy h2 { margin-inline: auto; text-align: center; }
+  .ba-copy > p:not(.eyebrow), .ba-sub > p { font-size: 1.125rem; }
+  .ba-sub h3 { font-size: 1.5rem; }
+  .ba-facts { font-size: 1rem; }
+
+  /* arch companion: 4:3 above the text of its head column */
+  .ba-head { display: flex; flex-direction: column; }
+  .ba-head > .ba-arch { order: -1; width: 100%; aspect-ratio: 4 / 3; margin: 0 0 28px; border-radius: var(--radius); box-shadow: var(--shadow-2); }
+  .ba-head > .section-lead, .ba-faq-closing, .ba-faq-note { text-align: left; margin-inline: 0; }
+  .ba-faq-actions { flex-direction: column; align-items: stretch; }
+  .ba-faq-actions .btn { width: 100%; }
+
+  /* 02: text left under the centred eyebrow and heading; steps without a title keep the numeral in front of their first line */
+  .ba-steps-text { font-size: 1.0625rem; }
+  .ba-steps-h3, .ba-tasks h3 { font-size: 1.5rem; }
+  .lst-steps .ba-step-plain .step-body { padding-top: 0; }
+  .lst-steps .ba-step-plain .step-body > p { text-indent: 40px; font-size: 1.0625rem; }
+
+  /* 04 */
+  .ba-law .plan-copy { text-align: center; }
+  .ba-law .plan-copy h2 { font-size: clamp(1.75rem, 7vw, 2.25rem); }
+  .ba-rows .service-row p { font-size: 1.0625rem; }
+
+  /* 05 */
+  .ba-costs .costs-intro > .section-lead { text-align: left; margin-inline: 0; }
+
+  /* 07: the sibling cards keep their photo on phones (three photos, not six as on /leistungen/) */
+  .ba-more .lst-type-media, .ba-hub-cards .lst-type-media { display: block; aspect-ratio: 16 / 9; margin-bottom: 16px; }
+  .ba-hub-head .section-lead { text-align: left; }
+  .ba-more-all { margin-top: 26px; padding-top: 0; border-top: 0; }
+
+  /* download page */
+  .dl-note { font-size: 1rem; }
+  .dl-note .icon { width: 24px; height: 24px; }
+
+  /* Impressum */
+  .imp-head h1 { text-align: left; }
+}

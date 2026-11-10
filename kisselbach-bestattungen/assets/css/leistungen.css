@@ -5,6 +5,9 @@
    measures ≤ ≈ 70 characters (D1-08), compact call dock in the bottom-right corner on desktops (D1-09, this page only),
    compact cost sheet (D1-03), case links to /fallbeispiele/. v1.2 (04.11.2026): R-2, every text block ≤ ≈ 70 characters per
    line at 1440 and 1366 (measured per rendered line), see the measure block below.
+   v1.4 (10.11.2026): section 01 in morning light (.lst-first, .lst-first-label, .lst-ticks, .lst-tick, the still states recoloured, .lst-case-link rules removed:
+   the shared link colour of .section-first-steps covers them); card grid with a label row (.lst-types-label) and aligned card rows (subgrid, min-height fallback);
+   the reach line stays on the phone hero.
    Loaded after site.css on /leistungen/ only. Reuses the v1.2 tokens and components; new classes carry "lst-".
    Structure: hero → paths → 01 stages (signature) → 02 burial types → 03 costs → 04 Vorsorge → 05 FAQ
    → motion → short desktop → tablet → mobile (last).
@@ -37,28 +40,28 @@
 .lst-path:hover .lst-path-label { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; }
 .lst-path:hover .lst-path-arrow { transform: translateX(3px); }
 
-/* ---------- 01 · stages in the night forest (signature: the candle line runs from stage to stage) ---------- */
+/* ---------- 01 · stages in morning light (signature: the candle line runs from stage to stage) ---------- */
 /* overflow: clip instead of v1.2's hidden: it still clips the forest image, but it is no scroll container, so the sticky
    notes (documents here, the Vorsorge copy and the FAQ head below) really stay in view while the long column passes */
 .lst-steps-section, .lst-plan, .lst-faq { overflow: hidden; overflow: clip; }
 .lst-first {
   display: block; max-width: 38em; margin: clamp(26px, 3vw, 36px) 0 0; padding: 14px 0 14px 22px;
-  border-left: 2px solid var(--candle-light); color: var(--night-muted); font-size: 1.0625rem; line-height: 1.55;
+  border-left: 2px solid var(--candle); color: var(--ink-2); font-size: 1.0625rem; line-height: 1.55;   /* v1.4 (10.11.2026): v1.3 --candle-light / --night-muted */
 }
-.lst-first-label { display: inline-block; margin-right: 8px; font-weight: 600; font-size: 1rem; letter-spacing: .14em; text-transform: uppercase; color: var(--candle-light); }
+.lst-first-label { display: inline-block; margin-right: 8px; font-weight: 600; font-size: 1rem; letter-spacing: .14em; text-transform: uppercase; color: var(--candle-deep); }
 .lst-steps .step-body > p { margin: 0 0 14px; }
 .lst-steps .step h3 { margin: 4px 0 10px; }
 .lst-ticks { list-style: none; display: grid; gap: 10px; margin: 0; max-width: 34em; }
-.lst-ticks li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; align-items: start; color: var(--night-text); }
-.lst-tick { width: 22px; height: 22px; margin-top: 3px; fill: none; stroke: var(--candle-light); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.lst-ticks li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; align-items: start; color: var(--ink); }
+.lst-tick { width: 22px; height: 22px; margin-top: 3px; fill: none; stroke: var(--candle-ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
 .lst-tick path { stroke-dasharray: 1; stroke-dashoffset: 0; }
 
 /* still state (no JS, reduced motion, "Bewegungen reduzieren"): every stage lit, the line drawn */
 .lst-steps:not(.lst-armed) .step::before, html[data-motion="off"] .lst-steps .step::before {
-  background: var(--candle-light); border-color: var(--candle-light); box-shadow: 0 0 0 5px rgba(233, 180, 96, .16), 0 0 20px 3px rgba(233, 180, 96, .55);
+  background: var(--candle); border-color: var(--candle-ink); box-shadow: 0 0 0 5px rgba(233, 180, 96, .22), 0 0 18px 2px rgba(233, 180, 96, .55);
 }
 .lst-steps:not(.lst-armed) .step-node, html[data-motion="off"] .lst-steps .step-node {
-  -webkit-text-stroke-color: var(--candle-light); color: rgba(233, 196, 138, .12); text-shadow: 0 0 30px rgba(233, 180, 96, .35);
+  -webkit-text-stroke-color: var(--candle-ink); color: rgba(201, 145, 58, .10); text-shadow: 0 0 24px rgba(233, 180, 96, .45);
 }
 .lst-steps .steps-fill { transform: scaleY(var(--lst-p, 1)); }
 
@@ -83,6 +86,27 @@
 .lst-type-body > .lst-type-facts {
   margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--line);
   font-size: 1.0625rem; font-weight: 600; line-height: 1.4; color: var(--forest-700);
+}
+/* v1.4 (10.11.2026, DESIGN-DIRECTION 4.5): after card 6 a label row across the full grid (the .service-list-label voice, with a link to /besondere-bestattungen/), then five more cards of the same anatomy */
+.lst-types-label { grid-column: 1 / -1; margin: 0; padding-top: 4px; text-align: center; font-weight: 600; font-size: .875rem; line-height: 1.5; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
+.lst-type-grid > li:has(> .lst-types-label) { grid-column: 1 / -1; }
+.lst-types-label a { color: var(--forest-700); }
+.lst-types-label a:hover { color: var(--forest-900); }
+/* card titles of different length („Überführungen ins und aus dem Ausland“ takes two lines): from 760 px the rows of the grid are shared (subgrid), so photos, paragraphs and fact lines stay level;
+   browsers without subgrid keep two lines of title height instead */
+@media (min-width: 760px) {
+  .lst-type h3 { min-height: 2.44em; }
+  @supports (grid-template-rows: subgrid) {
+    .lst-type-grid { row-gap: 0; }
+    .lst-type { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; padding-bottom: clamp(40px, 4vw, 56px); }
+    .lst-type-body { display: contents; }
+    .lst-type-media { grid-row: 1; }
+    .lst-type h3 { grid-row: 2; min-height: 0; margin: 22px 2px 8px; }
+    .lst-type-body > p:not(.lst-type-facts):not(.lst-case) { grid-row: 3; margin: 0 2px 16px; }
+    .lst-type-body > .lst-type-facts { grid-row: 4; margin: auto 2px 0; align-self: end; }
+    .lst-type-body > .lst-case { grid-row: 5; margin: 6px 2px 0; }
+    .lst-types-label { padding-bottom: clamp(20px, 2.4vw, 32px); }
+  }
 }
 .lst-types-more { margin: clamp(40px, 4.4vw, 60px) 0 0; padding-top: 24px; border-top: 1px solid var(--line); font-size: 1.1875rem; color: var(--ink-2); }
 .lst-types-more a { font-weight: 600; white-space: nowrap; }
@@ -116,10 +140,9 @@
 /* links to the matching case on /fallbeispiele/ (quiet v1.2 link-more voice) */
 .lst-case { margin: 12px 0 0; }
 .lst-steps .lst-case { margin-top: 10px; }
-.lst-steps .lst-case-link { color: var(--candle-light); }
-.lst-steps .lst-case-link:hover { color: #FFFDF7; }
 .lst-type-body > .lst-case { margin-top: 6px; min-height: 44px; }   /* cards without a case keep an empty row, so all fact lines align */
 .lst-plan .lst-case { margin-top: 6px; }
+.lst-sheet-more { margin: 16px 0 0; }   /* v1.3.7: link to the costs of /leistungen/feuerbestattung-essen/ */
 .lst-voice-source a { color: var(--ink-2); }
 .lst-voice-source a:hover { color: var(--forest-900); }
 
@@ -197,7 +220,7 @@
 @media (max-width: 759px) {
   /* hero (D1-01): the paths and their prompt move into the first screen; the second lead sentence, "Jetzt erreichbar" and
      the Google line give way (the sentences return in stages 1, 3 and 4, the Google voice in section 05) */
-  .lst-hero .lst-lead-more, .lst-hero .live, .lst-hero .hero-meta { display: none; }
+  .lst-hero .lst-lead-more, .lst-hero .hero-meta { display: none; }   /* v1.4 (10.11.2026): .live stays (it now carries the Trauerfall scope sentence under the call button) */
   .lst-hero .hero-lead { margin-bottom: 4px; }
   .lst-paths-title { text-align: left; margin-bottom: 0; }
 
@@ -235,6 +258,7 @@
   .lst-types-head h2 { margin-inline: auto; }
   .lst-type-grid { grid-template-columns: minmax(0, 1fr); gap: 0; border-top: 1px solid var(--line-strong); }
   .lst-type { padding: 22px 0 20px; border-bottom: 1px solid var(--line); }
+  .lst-types-label { padding: 24px 0 8px; text-align: left; border-bottom: 1px solid var(--line); }
   .lst-type-media { display: none; }
   .lst-type-body { padding: 0; }
   .lst-type h3 { display: flex; align-items: baseline; gap: 12px; font-size: 1.4375rem; }

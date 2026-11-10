@@ -1,5 +1,9 @@
-/* Kißelbach Bestattungen · Prototyp v1.3 (v1.3: three pages; the call dock and the nav indicator work on every page)
+/* Kißelbach Bestattungen · Prototyp v1.4 (v1.3: three pages; the call dock and the nav indicator work on every page)
    Changelog
+   v1.4     10.11.2026  call sheet (DESIGN-DIRECTION 1): links with data-call="gate" open a <dialog> outside the office window
+                        (Europe/Berlin, html data-office-*), fail open; the real dial (tel_click) and the opening (call_sheet_open)
+                        are tracked separately (kickoff K15); the hero reach line follows the callback topic (K1); the live
+                        time in „Im Trauerfall“ is Berlin time; form messages without „jederzeit“ (copy A24)
    v1.3     04.11.2026  three pages; call dock and nav indicator on every page
    v1.3.1   04.11.2026  shared fixes: header fit safety net (.hdr-compact / .hdr-small / .hdr-squeeze / .hdr-icon when the header row overflows at
                         larger text), --dock-h (measured dock height, so WhatsApp stacks above the dock at any text size)
@@ -30,7 +34,10 @@
   const track = (event, params = {}) => window.dataLayer.push({ event, ...params });
   d.addEventListener('click', (e) => {
     const el = e.target.closest('[data-track]');
-    if (el) track(el.dataset.track, { location: el.dataset.loc || '' });
+    if (!el) return;
+    // v1.4 (K15): a gated call link that opened the call sheet did not dial; the sheet tracks call_sheet_open and the real dial
+    if (e.defaultPrevented && el.dataset.call === 'gate') return;
+    track(el.dataset.track, { location: el.dataset.loc || '' });
   });
 
   /* ---------- split headings into masked words (visual copy only) ----------
@@ -92,14 +99,20 @@
     revealEls.forEach((el) => el.classList.add('is-in'));
   }
 
-  /* ---------- night section: the visitor's own local time ---------- */
+  /* ---------- v1.4: Berlin time, whatever the device says (DESIGN-DIRECTION 1.3) ---------- */
+  const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const berlinParts = () => Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Berlin', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+  }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+
+  /* ---------- „Im Trauerfall“ section: the live time (v1.4: Berlin time) ---------- */
   const nowWrap = $('[data-now]');
   if (nowWrap) {
     const t = $('[data-now-time]', nowWrap);
     const fallback = $('[data-now-fallback]');
     const setNow = () => {
-      const n = new Date();
-      const hm = `${String(n.getHours()).padStart(2, '0')}:${String(n.getMinutes()).padStart(2, '0')}`;
+      let hm;
+      try { const p = berlinParts(); hm = `${p.hour}:${p.minute}`; } catch { const n = new Date(); hm = `${String(n.getHours()).padStart(2, '0')}:${String(n.getMinutes()).padStart(2, '0')}`; }
       t.textContent = hm;
       t.dateTime = hm;
     };
@@ -186,7 +199,7 @@
   /* ---------- nav indicator: scrollspy on the home page, the page's own entry on /leistungen/ and /fallbeispiele/ ---------- */
   const navLinks = $$('.nav-desktop a');
   const indicator = $('.nav-indicator');
-  const pageLink = navLinks.find((a) => a.getAttribute('aria-current') === 'page');          // sub-pages: the entry of this page
+  const pageLink = navLinks.find((a) => a.getAttribute('aria-current') === 'page' || a.getAttribute('aria-current') === 'true');   // sub-pages: the entry of this page (v1.3.7: or of its section)
   const spyLinks = navLinks.filter((a) => a !== pageLink && a.hash && a.pathname === location.pathname && d.getElementById(a.hash.slice(1)));   // only links to anchors on THIS page (v1.3 fix D1-02: a link to /#kosten from another page is never marked)
   const navTargets = spyLinks.map((a) => d.getElementById(a.hash.slice(1)));
   let currentLink = null;
@@ -472,7 +485,7 @@
       }
       if (d.documentElement.dataset.preview === 'static') {
         // static preview (GitHub Pages): no server receives the request, so never show a success state
-        status.innerHTML = `<span class="notice notice-ok">Dies ist eine Vorschau der neuen Website. Rückrufbitten werden hier noch nicht übermittelt. Bitte rufen Sie mich direkt an, rund um die Uhr: <a href="tel:${telHref()}" data-track="tel_click" data-loc="preview">${esc(PHONE)}</a></span>`;
+        status.innerHTML = `<span class="notice notice-ok">Dies ist eine Vorschau der neuen Website. Rückrufbitten werden hier noch nicht übermittelt. Bitte rufen Sie mich direkt an: <a href="tel:${telHref()}" data-call="direct" data-track="tel_click" data-loc="preview">${esc(PHONE)}</a>. Im Trauerfall erreichen Sie mich auch nachts und am Wochenende.</span>`;
         return;
       }
       form.classList.add('is-loading');
@@ -510,17 +523,107 @@
         box.innerHTML = `<div class="success-mark"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></div>
           <h3>Vielen Dank.</h3>
           <p>Ihre Rückrufbitte ist angekommen. Ich rufe Sie${when} unter <strong>${esc(data.telefon.trim())}</strong> zurück.</p>
-          <p>Ist es dringend? Dann rufen Sie mich direkt an: <a href="tel:${telHref()}" data-track="tel_click" data-loc="success">${esc(PHONE)}</a></p>`;
+          <p>Ist es dringend? Dann rufen Sie mich direkt an: <a href="tel:${telHref()}" data-call="direct" data-track="tel_click" data-loc="success">${esc(PHONE)}</a></p>`;
         $$(':scope > :not(.callback-success)', card).forEach((el) => { el.hidden = true; });
         card.appendChild(box);
         box.focus({ preventScroll: true });
         return;
       }
       if (fieldErrors) Object.entries(fieldErrors).forEach(([k, v]) => setError(form, k, v));
-      status.innerHTML = `<span class="notice notice-error">${esc(message || FAILED)} Sie erreichen mich jederzeit telefonisch: <a href="tel:${telHref()}">${esc(PHONE)}</a></span>`;
+      status.innerHTML = `<span class="notice notice-error">${esc(message || FAILED)} Rufen Sie mich gern direkt an: <a href="tel:${telHref()}" data-call="direct" data-track="tel_click" data-loc="form-error">${esc(PHONE)}</a></span>`;
       (form.querySelector('[aria-invalid="true"]') || status).focus?.();
     });
   });
+
+  /* ---------- v1.4: call sheet („Anruf-Blatt“, DESIGN-DIRECTION 1.2–1.3, copy U) ----------
+     a[data-call="gate"]: inside the office window (html data-office-days/-from/-to, Europe/Berlin) the link dials as before;
+     outside it the tap opens the sheet instead. After „Trauerfall – jetzt anrufen“ every gated link dials for the rest of
+     the visit (sessionStorage kb-call). No JavaScript, no <dialog> support or an unreadable clock: the link dials (fails open).
+     Review switch: ?anrufzeit=nacht forces „outside“, ?anrufzeit=tag forces „inside“ (this page view only). */
+  const sheet = $('[data-call-sheet]');
+  const gate = {
+    on: root.dataset.callGate === 'on',
+    days: (root.dataset.officeDays || '').split(',').filter((x) => x !== '').map(Number),
+    from: root.dataset.officeFrom || '10:00',
+    to: root.dataset.officeTo || '15:00',
+    force: new URLSearchParams(location.search).get('anrufzeit'),
+  };
+  const officeOpen = () => {
+    if (gate.force === 'nacht') return false;
+    if (gate.force === 'tag') return true;
+    try {
+      const p = berlinParts();
+      const now = `${p.hour}:${p.minute}`;
+      return gate.days.includes(DAYS.indexOf(p.weekday)) && now >= gate.from && now < gate.to;
+    } catch { return true; }
+  };
+  if (sheet && typeof sheet.showModal === 'function') {
+    const views = $$('[data-call-sheet-view]', sheet);
+    let trigger = null;
+    const showView = (name) => {
+      views.forEach((v) => { v.hidden = v.dataset.callSheetView !== name; });
+      sheet.setAttribute('aria-labelledby', name === 'vorsorge' ? 'call-sheet-title-vorsorge' : 'call-sheet-title');
+    };
+    const open = (from) => {
+      trigger = from;
+      showView('trauerfall');
+      root.classList.add('call-open');
+      sheet.classList.remove('is-closing');
+      sheet.showModal();
+      $('.call-sheet-call', sheet)?.focus();
+      track('call_sheet_open', { location: from?.dataset.loc || '' });
+    };
+    const close = (how) => {
+      if (!sheet.open) return;
+      if (how) track('call_sheet_close', { location: how });
+      if (motionOff()) { sheet.close(); return; }
+      sheet.classList.add('is-closing');
+      setTimeout(() => { sheet.classList.remove('is-closing'); if (sheet.open) sheet.close(); }, 160);
+    };
+    sheet.addEventListener('close', () => {
+      root.classList.remove('call-open');
+      const back = trigger;
+      trigger = null;
+      if (back && back.isConnected) back.focus({ preventScroll: true });
+    });
+    sheet.addEventListener('cancel', (e) => { e.preventDefault(); close('esc'); });
+    sheet.addEventListener('click', (e) => {
+      if (e.target !== sheet) return;
+      const r = sheet.getBoundingClientRect();
+      const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+      if (!inside) close('backdrop');
+    });
+    $('[data-call-sheet-close]', sheet)?.addEventListener('click', () => close(''));   // tracked by its own data-track
+    $('[data-call-sheet-vorsorge]', sheet)?.addEventListener('click', () => {
+      showView('vorsorge');
+      $('#call-sheet-title-vorsorge', sheet)?.focus();
+    });
+    $$('[data-call-sheet-dial]', sheet).forEach((a) => a.addEventListener('click', () => {
+      store.set('kb-call', 'trauerfall', sessionStorage);
+      setTimeout(() => close(''), 300);
+    }));
+    $('[data-call-sheet-callback]', sheet)?.addEventListener('click', () => { trigger = null; close(''); });
+    // capture phase: runs before the click tracker above, which then skips the tel_click of the replaced dial
+    d.addEventListener('click', (e) => {
+      const a = e.target.closest('a[data-call="gate"]');
+      if (!a || e.button !== 0) return;
+      if (!gate.on || officeOpen() || store.get('kb-call', sessionStorage) === 'trauerfall') return;
+      e.preventDefault();
+      open(a);
+    }, true);
+  }
+
+  /* ---------- v1.4 (kickoff K1): the hero reach line follows the topic of the hero callback form ---------- */
+  const reachLine = $('[data-reach-line]');
+  const heroForm = $('[data-callback-panel] form');
+  if (reachLine && heroForm) {
+    const syncReach = () => {
+      const topic = $('input[name="anliegen"]:checked', heroForm)?.value || 'Trauerfall';
+      $$('[data-reach]', reachLine).forEach((el) => { el.hidden = el.dataset.reach !== (topic === 'Trauerfall' ? 'trauerfall' : 'vorsorge'); });
+    };
+    $$('input[name="anliegen"]', heroForm).forEach((r) => r.addEventListener('change', syncReach));
+    syncReach();
+  }
 
   /* ---------- "Bewegungen reduzieren" ---------- */
   const motionBtn = $('[data-motion-toggle]');

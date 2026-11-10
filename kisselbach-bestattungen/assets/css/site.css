@@ -8,6 +8,11 @@
    Structure: tokens → base → components → sections → motion → short desktop
    → tablet → mobile → phone in landscape (last).
    Changelog
+   v1.4     10.11.2026  Martina's feedback (DESIGN-DIRECTION v1.0). Tokens --dawn-veil/--dawn-ground/--footer-top/--footer-bottom/--rule-dark/--toggle-off;
+                        „Im Trauerfall“ in morning light (waldweg photo, light veils, light step line, .step-note, .docs-why/.docs-special; .eyebrow-light styling removed);
+                        light footer with the full-colour logo and the new 4-column layout (brand + legal, Kontakt, Seiten, Bestattungsarten); call sheet (<dialog class="call-sheet">);
+                        hero: call · reach line · callback; dock scope from 760 px; .contact-person; chapter heading/caption line breaks; .forms-special; .cost-mail;
+                        .plan-more; .btn-whatsapp glyph. .btn-light and the night colour rules removed (replaced, not stacked).
    v1.3     04.11.2026  base of v1.2 + shared sub-page parts (two new pages)
    v1.3.2   04.11.2026  form error lines 16 px (were 15); segmented control Trauerfall | Vorsorge ≥ 44 px high at every size (42 px at 1366×768), card height unchanged;
                         skip link hidden by transform instead of top: -100px (at 200 % text on a 360 px phone it covered the menu button)
@@ -29,13 +34,11 @@
 
 :root {
   /* colour — logo samples #1C3423 / #335E42 / #67A97B */
-  --forest-950: #11211A;
   --forest-900: #1C3423;
   --forest-800: #24402D;
   --forest-700: #335E42;
   --leaf: #67A97B;
   --tag: #104B1E;                /* the tagline green of the logo: kickers and the section index */
-  --leaf-soft: #A9CFB3;
   --leaf-wash: #E3EDE2;
   --ivory: #F7F4ED;
   --paper: #FCFAF5;
@@ -50,8 +53,13 @@
   --candle-glow: rgba(233, 180, 96, .5);
   --candle-ink: #865814;
   --candle-deep: #6E4710;
-  --night-text: #F4F1E8;
-  --night-muted: rgba(244, 241, 232, .82);
+  /* v1.4 (10.11.2026): the night tokens (--night-text, --night-muted) are gone with the dark section; morning light and light footer (DESIGN-DIRECTION 2.2) */
+  --dawn-veil: 247, 244, 237;            /* --ivory as an RGB triplet, for the veil over the forest photo */
+  --dawn-ground: #F3F1E6;                /* ground of „Im Trauerfall“ (while the photo loads; solid ground on phones) */
+  --footer-top: #E9EFE5;                 /* footer gradient, top */
+  --footer-bottom: #DCE7DB;              /* footer gradient, bottom: every footer contrast ratio is measured against this darker end */
+  --rule-dark: rgba(28, 52, 35, .14);    /* hairlines on the light footer */
+  --toggle-off: #667469;                 /* track of „Bewegungen reduzieren“ when off (3.9 : 1 on the footer ground) */
   --danger: #A3341F;
   --success: #2F6B45;
   --focus-ring: var(--forest-900);       /* v1.3.1: outer ring, 12 : 1 on ivory / paper / sage */
@@ -193,10 +201,10 @@ use .fill { fill: currentColor; stroke: none; }
 .btn-primary:hover::after { transform: translateX(120%); transition: transform 1.1s var(--ease-soft); }
 .btn-secondary { background: transparent; color: var(--forest-900); border-color: var(--line-strong); }
 .btn-secondary:hover { border-color: var(--forest-700); background: var(--paper); color: var(--forest-900); }
-.btn-light { background: #FFFDF7; color: var(--forest-900); box-shadow: 0 14px 30px -16px rgba(0, 0, 0, .6); }
-.btn-light:hover { background: var(--leaf-wash); color: var(--forest-900); }
+/* v1.4 (10.11.2026): .btn-light removed (its only use was the dark footer; the footer button is .btn-primary now) */
 .btn-block { width: 100%; }
 .btn .icon { width: 1.2em; height: 1.2em; }
+.btn-whatsapp img { width: 22px; height: 22px; flex: none; }   /* v1.4 (10.11.2026): the WhatsApp glyph on a secondary button (call sheet, Vorsorge sections); the .btn gap keeps it clear of the label */
 
 /* ---------- header ---------- */
 .site-header {
@@ -275,7 +283,7 @@ use .fill { fill: currentColor; stroke: none; }
   padding: 8px var(--gutter) 28px;
 }
 .nav-mobile-panel ul { list-style: none; margin-bottom: 20px; }
-.nav-mobile-panel li a[aria-current="page"]::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: .6em; border-radius: 50%; background: var(--candle); vertical-align: .14em; }   /* v1.3: page you are on */
+.nav-mobile-panel li a[aria-current="page"]::before, .nav-mobile-panel li a[aria-current="true"]::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: .6em; border-radius: 50%; background: var(--candle); vertical-align: .14em; }   /* v1.3: page you are on; v1.3.7: "true" = the section a child page belongs to */
 .nav-mobile-panel li a { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.375rem; color: var(--forest-900); text-decoration: none; }
 .nav-mobile-note { text-align: center; color: var(--ink-2); font-size: .95rem; margin: 12px 0 0; }
 
@@ -416,8 +424,10 @@ html.hdr-icon .header-call-short { position: absolute; width: 1px; height: 1px; 
 .btn-call-number { font-weight: 500; font-size: .98rem; opacity: .9; font-variant-numeric: tabular-nums; }
 .btn-callback-toggle { display: none; }
 /* a calm, steady dot — no looping pulse */
-.live { display: inline-flex; align-items: center; gap: 10px; margin: 0; font-weight: 600; font-size: 1rem; color: var(--forest-700); }
-.live-dot { width: 10px; height: 10px; border-radius: 50%; background: #3F8E5A; box-shadow: 0 0 0 4px rgba(103, 169, 123, .22); flex: none; }
+.live { display: inline-flex; align-items: flex-start; gap: 10px; margin: 0; font-weight: 600; font-size: 1rem; line-height: 1.45; color: var(--forest-700); }   /* v1.4 (10.11.2026): the line may wrap to two lines (the Vorsorge text), the dot stays at the first line; [hidden] spans are hidden by the global [hidden] rule */
+.live { flex: 1 1 14em; min-width: 0; }   /* beside the call button while it fits, so the Vorsorge text (up to three lines there) does not push the hero copy around when the topic changes; phones reset it below */
+.live [data-reach] { min-width: 0; }
+.live-dot { width: 10px; height: 10px; margin-top: calc((1.45em - 10px) / 2); border-radius: 50%; background: #3F8E5A; box-shadow: 0 0 0 4px rgba(103, 169, 123, .22); flex: none; }
 .hero-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 0; margin: 0; font-size: .98rem; color: var(--ink-2); }
 .hero-meta-item { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }   /* v1.3: 44 px hit area (gap 8 → 0 above: the items carry the spacing) */
 .hero-meta .icon { color: var(--forest-700); }
@@ -556,8 +566,7 @@ html.hdr-icon .header-call-short { position: absolute; width: 1px; height: 1px; 
   color: var(--candle-deep); font-variant-numeric: lining-nums;
 }
 .eyebrow-num::after { content: ""; width: 40px; height: 1px; background: currentColor; opacity: .5; }
-.eyebrow-light { color: var(--leaf-soft); }
-.eyebrow-light .eyebrow-num { color: var(--candle-light); }
+/* v1.4 (10.11.2026): .eyebrow-light styling removed (the section „Im Trauerfall“ is light now; the markup may keep the class, it renders as the normal eyebrow) */
 .section h2 {
   font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 1.2rem + 1.9vw, 3.05rem); line-height: 1.12; letter-spacing: -.012em;
   color: var(--forest-900); margin-bottom: 24px; text-wrap: balance;
@@ -607,35 +616,50 @@ html.hdr-icon .header-call-short { position: absolute; width: 1px; height: 1px; 
 .voices-source a:hover { color: var(--forest-900); }
 .voices-more { margin: 6px 0 0; text-align: center; }   /* v1.3: quiet link to the examples page, directly under the quotes' source line */
 
-/* ---------- 01 · first steps: a night in the forest, the light line glows ---------- */
-.section-first-steps { background: var(--forest-950); color: var(--night-text); overflow: hidden; isolation: isolate; }
+/* ---------- 01 · first steps: the same forest path in morning light, the candle line still runs from step to step ----------
+   v1.4 (10.11.2026, DESIGN-DIRECTION 2.3): was a night in the forest (dark ground, light text). The photo is waldweg-1600/2000 (the daylight
+   version of the night image); veil and colours below are measured, see the contrast table in the brief. Class names (night-bg, night-now) stay. */
+.section-first-steps { background: var(--dawn-ground); color: var(--ink); overflow: hidden; isolation: isolate; }
 .night-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
-.night-bg img { width: 100%; height: 100%; object-fit: cover; opacity: .6; }
+.night-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; opacity: 1; }
+/* from 1100 px: text left (veil .95 → .90 up to 60 %), paper note right where the photo opens, warm sun top right */
 .night-bg::after {
   content: ""; position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 50% 45% at 16% 22%, rgba(233, 180, 96, .12), transparent 62%),
-    linear-gradient(180deg, rgba(17, 33, 26, .55) 0%, rgba(17, 33, 26, .8) 55%, rgba(17, 33, 26, .94) 100%);
+    radial-gradient(ellipse 44% 40% at 80% 14%, rgba(233, 180, 96, .22), transparent 64%),
+    linear-gradient(90deg, rgba(var(--dawn-veil), .95) 0%, rgba(var(--dawn-veil), .93) 50%, rgba(var(--dawn-veil), .90) 60%, rgba(var(--dawn-veil), .60) 78%, rgba(var(--dawn-veil), .34) 100%);
 }
-.section-first-steps h2 { color: #FFFDF7; }
-.section-first-steps h2 em { color: var(--candle-light); }
-.section-first-steps .section-lead { color: var(--night-muted); }
-.night-now { margin: -6px 0 22px; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(1.5rem, 1.15rem + 1vw, 2.05rem); line-height: 1.3; color: #FFFDF7; text-wrap: balance; }
-.night-now time { font-style: normal; font-weight: 400; color: var(--candle-light); font-variant-numeric: lining-nums tabular-nums; letter-spacing: .01em; }
+/* wide variant: text runs across the full width (e.g. an eight-step table): one even veil */
+@media (min-width: 1100px) {
+  .section-first-steps.is-wide .night-bg::after { background: linear-gradient(180deg, rgba(var(--dawn-veil), .92), rgba(var(--dawn-veil), .94)); }
+}
+/* below 1100 px (one column): the photo is a band on top that dissolves into the solid ground; text never sits on the open photo, no parallax */
+@media (max-width: 1099px) {
+  .section-first-steps { padding-top: calc(var(--section-pad) + 120px); }
+  .night-bg { inset: 0 0 auto 0; height: 320px; }
+  .night-bg > img { height: calc(100% - 2px); transform: none !important; }   /* 2 px shorter than the band: at a fractional section top the image edge would show as a faint dashed line under the fully opaque veil */
+  .night-bg::after {
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 10%, rgba(233, 180, 96, .20), transparent 66%),
+      linear-gradient(180deg, rgba(var(--dawn-veil), .08) 0%, rgba(var(--dawn-veil), .30) 34%, rgba(243, 241, 230, .92) 62%, var(--dawn-ground) 90%, var(--dawn-ground) 100%);
+  }
+}
+.night-now { margin: -6px 0 22px; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(1.5rem, 1.15rem + 1vw, 2.05rem); line-height: 1.3; color: var(--forest-900); text-wrap: balance; }
+.night-now time { font-style: normal; font-weight: 400; color: var(--candle-deep); font-variant-numeric: lining-nums tabular-nums; letter-spacing: .01em; }
 .steps-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(48px, 7vw, 120px); align-items: start; }
 .steps-wrap { position: relative; margin-top: clamp(40px, 4.4vw, 60px); padding-left: 136px; }
 .steps { list-style: none; }
-.steps-track { position: absolute; left: 14px; top: 22px; bottom: 30px; width: 2px; background: rgba(255, 255, 255, .14); border-radius: 2px; }
+.steps-track { position: absolute; left: 14px; top: 22px; bottom: 30px; width: 2px; background: rgba(28, 52, 35, .16); border-radius: 2px; }
 .steps-fill {
   position: absolute; inset: 0; border-radius: 2px;
-  background: linear-gradient(180deg, var(--candle-light), var(--candle) 35%, var(--leaf));
-  box-shadow: 0 0 14px 1px rgba(233, 180, 96, .45);
+  background: linear-gradient(180deg, var(--candle), var(--candle-ink) 38%, var(--forest-700));
+  box-shadow: 0 0 10px rgba(201, 145, 58, .35);
   transform-origin: 50% 0; transform: scaleY(var(--p, 1));
 }
 .steps-spark {
   position: absolute; left: 50%; top: calc(var(--p, 1) * 100%); width: 30px; height: 30px; margin: -15px 0 0 -15px;
-  display: grid; place-items: center; border-radius: 50%; background: #1B3024; color: var(--candle-light);
-  box-shadow: 0 0 0 5px rgba(233, 180, 96, .16), 0 0 30px 6px var(--candle-glow);
+  display: grid; place-items: center; border-radius: 50%; background: #FFFDF7; color: var(--candle-ink);
+  box-shadow: 0 0 0 5px rgba(233, 180, 96, .22), 0 0 22px 4px rgba(233, 180, 96, .5);
   opacity: var(--spark-o, 0); transition: opacity .4s ease;
 }
 .steps-spark .icon { width: 16px; height: 16px; }
@@ -644,24 +668,27 @@ html.hdr-icon .header-call-short { position: absolute; width: 1px; height: 1px; 
 .step:last-child { padding-bottom: 0; }
 .step::before {
   content: ""; position: absolute; left: calc(-136px + 15px - 8px); top: 16px; width: 16px; height: 16px; border-radius: 50%;
-  background: var(--forest-950); border: 1.5px solid rgba(255, 255, 255, .4);
+  background: var(--paper); border: 1.5px solid rgba(28, 52, 35, .45);
   transition: background-color .7s var(--ease), border-color .7s var(--ease), box-shadow .7s var(--ease);
 }
-.step.is-lit::before, html:not(.js) .step::before { background: var(--candle-light); border-color: var(--candle-light); box-shadow: 0 0 0 5px rgba(233, 180, 96, .16), 0 0 20px 3px rgba(233, 180, 96, .55); }
+.step.is-lit::before, html:not(.js) .step::before { background: var(--candle); border-color: var(--candle-ink); box-shadow: 0 0 0 5px rgba(233, 180, 96, .22), 0 0 18px 2px rgba(233, 180, 96, .55); }
 /* large outlined serif numerals; the glyph comes from data-n, so it is never read twice */
 .step-node {
   position: absolute; left: -100px; top: -14px; width: 84px; text-align: center;
   font-family: var(--serif); font-weight: 400; font-size: 5rem; line-height: 1; font-variant-numeric: lining-nums;
-  color: transparent; -webkit-text-stroke: 1.1px rgba(255, 253, 247, .45);
+  color: transparent; -webkit-text-stroke: 1.1px rgba(28, 52, 35, .38);
   transition: -webkit-text-stroke-color .8s var(--ease), color .8s var(--ease), text-shadow .8s var(--ease);
 }
 .step-node::before { content: attr(data-n); }
-.step.is-lit .step-node, html:not(.js) .step-node { -webkit-text-stroke-color: var(--candle-light); color: rgba(233, 196, 138, .12); text-shadow: 0 0 30px rgba(233, 180, 96, .35); }
-.step h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 1.3rem + .5vw, 1.875rem); line-height: 1.2; color: #FFFDF7; margin: 6px 0 12px; }
-.step p { color: var(--night-muted); max-width: 34em; margin: 0; }
-.section-first-steps a { color: var(--candle-light); text-decoration-color: rgba(233, 196, 138, .6); }
-.section-first-steps a:hover { color: #FFFDF7; }
-.section-first-steps .btn-primary { color: #FFFDF7; }
+.step.is-lit .step-node, html:not(.js) .step-node { -webkit-text-stroke-color: var(--candle-ink); color: rgba(201, 145, 58, .10); text-shadow: 0 0 24px rgba(233, 180, 96, .45); }
+.step h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 1.3rem + .5vw, 1.875rem); line-height: 1.2; color: var(--forest-900); margin: 6px 0 12px; }
+.step p { color: var(--ink-2); max-width: 34em; margin: 0; }
+.section-first-steps a:not(.btn) { color: var(--forest-700); text-decoration-color: currentColor; }
+.section-first-steps a:not(.btn):hover { color: var(--forest-900); }
+/* v1.4 (10.11.2026): „Gut zu wissen“ box under step 1: a quiet paper note on the light ground */
+.step .step-note { max-width: 34em; margin: 18px 0 0; padding: 14px 20px 14px 18px; border-radius: var(--radius-sm); border: 1px solid var(--line); border-left: 3px solid var(--candle); background-color: var(--paper-warm); box-shadow: var(--shadow-1); }
+.step .step-note-label { margin: 0 0 4px; max-width: none; font-family: var(--serif); font-style: italic; font-size: 1.0625rem; line-height: 1.3; color: var(--candle-deep); }
+.step .step-note p:not(.step-note-label) { margin: 0; max-width: none; font-size: 1rem; line-height: 1.55; color: var(--ink-2); }
 
 /* the documents list: a paper note lying on the page */
 .docs-note {
@@ -669,18 +696,19 @@ html.hdr-icon .header-call-short { position: absolute; width: 1px; height: 1px; 
   color: var(--ink); border-radius: 4px;
   padding: clamp(34px, 3.4vw, 46px) clamp(28px, 3vw, 40px) clamp(28px, 3vw, 36px);
   background-color: var(--paper-warm);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .2), 0 16px 30px -12px rgba(0, 0, 0, .5), 0 50px 90px -40px rgba(0, 0, 0, .7);
+  box-shadow: 0 1px 2px rgba(16, 32, 23, .08), 0 16px 30px -14px rgba(16, 32, 23, .28), 0 50px 90px -44px rgba(16, 32, 23, .42);
   rotate: -1.4deg;
 }
 .docs-note::before {
   content: ""; position: absolute; top: -13px; left: 50%; width: 118px; height: 28px; margin-left: -59px;
-  background: rgba(236, 224, 196, .82); rotate: 2.5deg; box-shadow: 0 1px 2px rgba(0, 0, 0, .18);
+  background: rgba(236, 224, 196, .82); rotate: 2.5deg; box-shadow: 0 1px 2px rgba(16, 32, 23, .16);
 }
 .docs-kicker { margin: 0 0 6px; font-family: var(--serif); font-style: italic; font-size: 1.125rem; color: var(--candle-deep); }
 .docs-note h3 { font-family: var(--serif); font-weight: 400; font-size: 1.625rem; line-height: 1.22; color: var(--forest-900); margin-bottom: 20px; }
+.docs-note h3 em { font-style: italic; color: var(--forest-700); }   /* v1.4 (10.11.2026): „im Original“, the heading accent of the site (6.9 : 1 on the note's paper) */
 .docs-note .check-list { margin-bottom: 20px; }
+.docs-why, .docs-special { margin: 0 0 12px; font-size: 1rem; line-height: 1.5; color: var(--ink-2); }   /* v1.4 (10.11.2026): two short paragraphs under the documents list */
 .docs-foot { color: var(--ink-2); font-style: italic; margin-bottom: 22px; }
-.section-first-steps .docs-note a.btn { color: #FFFDF7; text-decoration: none; }
 
 /* ---------- 02 · about: a magazine spread ---------- */
 .section-about { background: var(--sage-50); overflow: hidden; }
@@ -838,7 +866,8 @@ html:not(.js) .film-toggle { display: none; }
 .chapters-frame img.is-active { opacity: 1; transform: scale(1); }
 .chapters-caption {
   position: absolute; z-index: 2; left: 50%; bottom: 22px; transform: translateX(-50%); margin: 0;
-  display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; border-radius: 999px; white-space: nowrap;
+  width: max-content; max-width: calc(100% - 32px);   /* v1.4 (10.11.2026): the pill may take two lines („Überführungen ins und aus dem Ausland“) */
+  display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; border-radius: 22px; white-space: normal; text-wrap: balance; text-align: left;
   background: rgba(252, 250, 245, .95); box-shadow: var(--shadow-1); font-size: 1rem; font-weight: 600; color: var(--forest-900);
 }
 .chapters-caption [data-caption-num] { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--candle-deep); }
@@ -846,6 +875,7 @@ html:not(.js) .film-toggle { display: none; }
 .chapters-ticks li { width: 18px; height: 3px; border-radius: 3px; background: rgba(28, 52, 35, .22); transition: width .5s var(--ease), background-color .5s var(--ease); }
 .chapters-ticks li.is-active { width: 42px; background: var(--forest-700); }
 .chapter-figure { display: none; margin: 0; }
+.chapter .chapter-more { margin: 12px 0 0; font-size: 1.0625rem; }   /* v1.3.7: quiet link from a chapter to its page; v1.4 (10.11.2026): also chapter 04 (Friedwald), 12 px / 17 px (.chapter p would have set margin 0 and 19 px) */
 .chapter { position: relative; min-height: 58vh; display: flex; flex-direction: column; justify-content: center; padding: 6vh 0 6vh 34px; }
 .chapter::before { content: ""; position: absolute; left: 0; top: calc(50% - 60px); width: 2px; height: 120px; border-radius: 2px; background: rgba(28, 52, 35, .14); }
 .chapter::after {
@@ -855,9 +885,8 @@ html:not(.js) .film-toggle { display: none; }
 .chapter.is-active::after { transform: scaleY(1); }
 .chapter-num { font-family: var(--serif); font-style: italic; font-size: 1.375rem; color: var(--forest-700); margin-bottom: 6px; transition: color .5s ease; }
 .chapter.is-active .chapter-num { color: var(--candle-deep); }
-.chapter h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.875rem, 1.3rem + 1.3vw, 2.6rem); line-height: 1.12; color: var(--forest-900); margin-bottom: 14px; }
+.chapter h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.875rem, 1.3rem + 1.3vw, 2.6rem); line-height: 1.12; color: var(--forest-900); margin-bottom: 14px; -webkit-hyphens: manual; hyphens: manual; text-wrap: balance; }   /* v1.4 (10.11.2026): never „Überfüh-rungen“; balanced lines */
 .chapter p { color: var(--ink-2); max-width: 30em; margin: 0; font-size: 1.1875rem; }
-.chapter .chapter-more { margin-top: 12px; font-size: 1.0625rem; }   /* link to the /feuerbestattung/ page (05.11.2026) */
 
 .table-wrap { margin-top: clamp(56px, 6vw, 88px); padding: clamp(24px, 3vw, 40px); border-radius: var(--radius); background: rgba(252, 250, 245, .7); box-shadow: var(--ring-hair); }
 .compare { width: 100%; border-collapse: collapse; font-size: 1.0625rem; }
@@ -867,6 +896,26 @@ html:not(.js) .film-toggle { display: none; }
 .compare tbody th { font-family: var(--serif); font-weight: 500; font-size: 1.1875rem; color: var(--forest-900); }
 .compare tbody tr:last-child th, .compare tbody tr:last-child td { border-bottom: 0; }
 .compare td { color: var(--ink-2); }
+
+/* v1.4 (10.11.2026, DESIGN-DIRECTION 4.5): „Besondere Wege des Abschieds“ between the last chapter and the table: five link tiles on a paper panel */
+.forms-special { margin-top: clamp(56px, 6vw, 88px); padding: clamp(28px, 3.2vw, 44px) clamp(24px, 3vw, 40px) clamp(20px, 2.4vw, 30px); border-radius: var(--radius); }
+.forms-special h3 { font-family: var(--serif); font-weight: 400; font-size: 1.75rem; line-height: 1.2; color: var(--forest-900); margin-bottom: 10px; }
+.forms-special > p:not(.forms-special-more) { max-width: 40em; margin: 0 0 clamp(22px, 2.4vw, 30px); color: var(--ink-2); }
+.forms-special-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 228px), 1fr)); gap: 14px; }
+.forms-special-link {
+  display: grid; grid-template-columns: minmax(0, 1fr) 20px; grid-template-areas: "icon arrow" "name name" "line line"; row-gap: 2px; align-items: start; align-content: start;
+  height: 100%; min-height: 72px; padding: 16px; border-radius: 16px; border: 1px solid var(--line); background: rgba(255, 255, 255, .55);
+  color: var(--forest-900); text-decoration: none;
+  transition: border-color var(--t-fast) ease, background-color var(--t-fast) ease, box-shadow .3s ease;
+}
+.forms-special-link .icon { grid-area: icon; width: 30px; height: 30px; margin-bottom: 8px; color: var(--forest-700); stroke-width: 1.25; }
+.forms-special-name { grid-area: name; font-family: var(--serif); font-size: 1.125rem; line-height: 1.25; color: var(--forest-900); -webkit-hyphens: manual; hyphens: manual; }
+.forms-special-line { grid-area: line; font-size: 1rem; line-height: 1.4; color: var(--ink-2); }
+.forms-special-arrow { grid-area: arrow; width: 20px; height: 20px; margin-top: 2px; fill: none; stroke: var(--forest-700); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--t-fast) ease; }
+.forms-special-link:hover { border-color: var(--forest-700); background: var(--paper); box-shadow: var(--shadow-1); color: var(--forest-900); }
+.forms-special-link:hover .forms-special-name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; }
+.forms-special-link:hover .forms-special-arrow { transform: translateX(3px); }
+.forms-special-more { margin: clamp(16px, 1.8vw, 24px) 0 0; }
 
 /* ---------- 06 · costs: an itemised overview on paper, no prices ---------- */
 .section-costs { background: var(--ivory); }
@@ -886,11 +935,12 @@ html:not(.js) .film-toggle { display: none; }
 .ledger-num { font-family: var(--serif); font-style: italic; font-size: 1.375rem; line-height: 1; color: var(--candle-deep); font-variant-numeric: lining-nums; }
 .ledger-list p { margin: 0; color: var(--ink); }
 .ledger-list-lg p { font-size: 1.1875rem; }
-.costs-detail { position: relative; padding: 28px 10px 28px 0; }
+.costs-detail { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); padding: 28px 10px 28px 0; }   /* v1.4 (10.11.2026): a grid, so the back sheet follows the cost sheet (row 1) and the .cost-mail line + button (rows below) sit clear of it */
 .costs-detail::before {
-  content: ""; position: absolute; inset: 52px 34px 2px 24px; border-radius: 4px; rotate: -3deg;
+  content: ""; grid-area: 1 / 1; margin: 24px 24px -26px; border-radius: 4px; rotate: -3deg;   /* same position as v1.3 (inset 52 34 2 24), now as a grid item */
   background-color: #EFE8D9; background-image: var(--fibre); box-shadow: var(--shadow-2);
 }
+.costs-detail > .cost-sheet { grid-area: 1 / 1; }
 .cost-sheet { position: relative; rotate: .8deg; border-radius: 4px; padding: clamp(36px, 4vw, 60px) clamp(30px, 4vw, 60px); background-color: #FDFBF6; box-shadow: var(--ring-hair), var(--shadow-3); }
 .cost-sheet-kicker { margin: 0 0 14px; font-family: var(--serif); font-style: italic; font-size: 1.0625rem; color: var(--candle-deep); }
 .cost-sheet h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.875rem, 1.4rem + 1vw, 2.375rem); line-height: 1.1; color: var(--forest-900); margin-bottom: 10px; }
@@ -902,6 +952,9 @@ html:not(.js) .film-toggle { display: none; }
 .cost-sheet-note { margin: 22px 0 0; padding-top: 20px; border-top: 1px solid var(--line); color: var(--ink-2); font-style: italic; }
 .cost-sheet-sign { margin: 28px 0 0; display: flex; justify-content: flex-end; align-items: center; gap: 14px; font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--forest-900); }
 .cost-sheet-sign::before { content: ""; width: 72px; height: 1px; background: var(--line-strong); }
+/* v1.4 (copy F6): one quiet line and a secondary button under the cost sheet, left edge in line with the cost column */
+.cost-mail { margin: clamp(40px, 4vw, 52px) 0 12px; max-width: 32em; font-size: 1rem; line-height: 1.5; color: var(--ink-2); }
+.cost-mail-btn { justify-self: start; }
 
 /* ---------- 08 · planning ahead and advice: five quiet topic cards, the last row fills ---------- */
 .section-plan { background: var(--sage-50); overflow: hidden; }
@@ -920,6 +973,7 @@ html:not(.js) .film-toggle { display: none; }
 .topic-card:last-child:nth-child(odd) h3, .topic-card:last-child:nth-child(odd) p { grid-column: 2; }
 .topic-card:last-child:nth-child(odd) p { max-width: none; }
 .plan-note { margin: 22px 0 0; font-size: 1rem; color: var(--ink-2); max-width: 44em; }
+.plan-more { margin: clamp(16px, 1.8vw, 24px) 0 0; }   /* v1.4 (10.11.2026): link-more to the download page under the topic cards */
 
 /* ---------- 08 · faq ---------- */
 .section-faq { background: var(--ivory); }
@@ -956,6 +1010,12 @@ html:not(.js) .film-toggle { display: none; }
 .contact-info { grid-area: info; }
 .contact-map { grid-area: map; margin: 0; }
 .callback-card-contact { grid-area: card; position: sticky; top: calc(var(--header-h) + 28px); padding: 30px 30px 22px; color: var(--ink); }
+.contact-person { display: flex; align-items: center; gap: 18px; margin: 2px 0 20px; }   /* v1.4 (10.11.2026, DESIGN-DIRECTION 4.1 rule 2): Martina on every page, between the heading and the big number */
+.contact-person-arch { flex: none; display: block; width: 72px; height: 90px; overflow: hidden; border-radius: 999px 999px 12px 12px; background: var(--leaf-wash); box-shadow: 0 0 0 3px var(--paper), var(--shadow-2); }
+.contact-person-arch img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+.contact-person p { margin: 0; display: flex; flex-direction: column; min-width: 0; }
+.contact-person-name { font-family: var(--serif); font-size: 1.25rem; line-height: 1.2; color: var(--forest-900); }
+.contact-person-role { font-size: .9375rem; line-height: 1.35; color: var(--ink-2); }
 .contact-phone {
   display: inline-flex; align-items: center; gap: 18px; margin: 4px 0 12px;
   font-family: var(--serif); font-size: clamp(2.1rem, 1.5rem + 2vw, 3.2rem); line-height: 1.05; color: var(--forest-900); text-decoration: none; font-variant-numeric: lining-nums;
@@ -1005,32 +1065,42 @@ html:not(.js) .film-toggle { display: none; }
 .map-route:hover { background: var(--forest-700); color: #fff; }
 .contact-map figcaption { margin-top: 12px; font-size: .9375rem; color: var(--ink-2); }
 
-/* ---------- footer: one large closing line, the logo ring as watermark ---------- */
-.site-footer { position: relative; overflow: hidden; isolation: isolate; background: #13251A; color: rgba(255, 253, 247, .82); padding: clamp(80px, 9vw, 136px) 0 32px; font-size: 1rem; }
-.footer-watermark { position: absolute; z-index: -1; right: -7vw; top: -9vw; width: min(64vw, 820px); height: auto; fill: none; stroke: rgba(169, 207, 179, .1); stroke-width: 1.1; pointer-events: none; }
-.footer-close { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 28px 40px; padding-bottom: clamp(52px, 6vw, 84px); margin-bottom: clamp(44px, 5vw, 64px); border-bottom: 1px solid rgba(255, 255, 255, .12); }
-.footer-line { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(2.75rem, 1.3rem + 4.4vw, 5.6rem); line-height: 1.02; letter-spacing: -.02em; color: #FFFDF7; }
-.footer-line em { color: var(--candle-light); }
+/* ---------- footer: one large closing line, the logo ring as watermark ----------
+   v1.4 (10.11.2026, DESIGN-DIRECTION 2.4 + 4.5): light, a slight gradient so the step from the section above stays visible, the full-colour logo.
+   Four columns from 1100 px: brand (logo, text, download button) with „Rechtliches“ + the motion toggle under it, Kontakt, Seiten, Bestattungsarten. */
+.site-footer { position: relative; overflow: hidden; isolation: isolate; background: linear-gradient(180deg, var(--footer-top), var(--footer-bottom)); color: var(--ink-2); border-top: 1px solid var(--line); padding: clamp(80px, 9vw, 136px) 0 32px; font-size: 1rem; }
+.footer-watermark { position: absolute; z-index: -1; right: -7vw; top: -9vw; width: min(64vw, 820px); height: auto; fill: none; stroke: rgba(28, 52, 35, .07); stroke-width: 1.1; pointer-events: none; }
+.footer-close { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 28px 40px; padding-bottom: clamp(52px, 6vw, 84px); margin-bottom: clamp(44px, 5vw, 64px); border-bottom: 1px solid var(--rule-dark); }
+.footer-line { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(2.75rem, 1.3rem + 4.4vw, 5.6rem); line-height: 1.02; letter-spacing: -.02em; color: var(--forest-900); }
 .btn-call-footer { min-height: 60px; padding: 12px 30px; font-size: 1.125rem; }
-.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, .12); }
-.footer-brand img { width: 240px; margin-bottom: 18px; } /* 240 keeps the wordmark as large as the old 210 px logo (the e.K. made the file wider) */
+.footer-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 36px clamp(28px, 3vw, 40px); padding-bottom: 40px; border-bottom: 1px solid var(--rule-dark); }
+@media (min-width: 1100px) {
+  .footer-grid { grid-template-rows: auto 1fr; }   /* brand and legal stack in column 1; the three list columns span both rows, so legal sits directly under the brand block */
+  .footer-brand { grid-column: 1; grid-row: 1; }
+  .footer-legal { grid-column: 1; grid-row: 2; }
+  .footer-grid > :nth-child(2) { grid-column: 2; grid-row: 1 / span 2; }
+  .footer-grid > :nth-child(3) { grid-column: 3; grid-row: 1 / span 2; }
+  .footer-grid > :nth-child(4) { grid-column: 4; grid-row: 1 / span 2; }
+}
+.footer-brand img { width: 280px; margin-bottom: 18px; }   /* the full-colour logo of the header; 260 px on phones */
 .footer-brand p { max-width: 26em; }
-.footer-title { font-family: var(--sans); font-size: .875rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--leaf-soft); margin-bottom: 14px; }
+.footer-download { margin-top: 2px; min-height: 48px; padding: 10px 20px; max-width: 100%; font-size: 1rem; text-align: center; border-color: var(--ink-2); }
+.footer-title { font-family: var(--sans); font-size: .875rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--tag); margin-bottom: 14px; }
 .site-footer ul { list-style: none; display: grid; gap: 0; }   /* v1.3: the links carry the spacing (44 px hit area each) */
+.footer-legal ul { display: flex; flex-wrap: wrap; gap: 0 28px; }
 .site-footer li a, .footer-col p > a:only-child { display: flex; align-items: center; min-height: 44px; }
-.footer-col p > a:only-child { display: inline-flex; }
-.site-footer a { color: #FFFDF7; text-decoration: none; }
-.site-footer a:hover { text-decoration: underline; }
-.site-footer a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--candle-light); text-underline-offset: .25em; }   /* v1.3: page you are on */
-.site-footer .btn-light { color: var(--forest-900); }
-.site-footer .btn-light:hover { text-decoration: none; }
+.footer-col p > a:only-child { display: inline-flex; overflow-wrap: anywhere; }   /* the e-mail address is long */
+.site-footer a:not(.btn) { color: var(--forest-900); text-decoration: none; }
+.site-footer a:not(.btn):hover { text-decoration: underline; }
+.site-footer a[aria-current="page"], .site-footer a[aria-current="true"] { text-decoration: underline; text-decoration-color: var(--candle-ink); text-underline-offset: .25em; }   /* v1.3: page you are on; v1.3.7: "true" = the section a child page belongs to */
 .motion-toggle {
   margin-top: 22px; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 16px; cursor: pointer;
-  border-radius: 999px; border: 1px solid rgba(255, 255, 255, .3); background: transparent; color: #FFFDF7; font-size: .9375rem;
+  border-radius: 999px; border: 1px solid var(--ink-2); background: transparent; color: var(--forest-900); font-size: .9375rem;
 }
-.motion-toggle::before { content: ""; width: 30px; height: 18px; border-radius: 99px; background: rgba(255, 255, 255, .25); transition: background-color .2s ease; background-image: radial-gradient(circle at 9px 9px, #FFFDF7 6px, transparent 6.5px); }
-.motion-toggle[aria-pressed="true"]::before { background-color: var(--leaf); background-image: radial-gradient(circle at 21px 9px, #FFFDF7 6px, transparent 6.5px); }
-.footer-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px 32px; padding-top: 24px; font-size: .875rem; color: rgba(255, 253, 247, .7); }
+.footer-legal .motion-toggle { margin-top: 10px; }
+.motion-toggle::before { content: ""; width: 30px; height: 18px; border-radius: 99px; background-color: var(--toggle-off); transition: background-color .2s ease; background-image: radial-gradient(circle at 9px 9px, #FFFDF7 6px, transparent 6.5px); }
+.motion-toggle[aria-pressed="true"]::before { background-color: var(--forest-700); background-image: radial-gradient(circle at 21px 9px, #FFFDF7 6px, transparent 6.5px); }
+.footer-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px 32px; padding-top: 24px; font-size: .875rem; color: var(--ink-2); }
 .footer-meta p { margin: 0; }
 .footer-register { flex: 1 1 100%; order: 1; }
 
@@ -1077,9 +1147,37 @@ html:not(.js) .film-toggle { display: none; }
 .dock-pulse .icon { width: 22px; height: 22px; }
 .dock-text { display: flex; flex-direction: column; line-height: 1.2; }
 .dock-label { font-weight: 700; font-size: 1.0625rem; }
-.dock-number { font-size: .875rem; opacity: .88; font-variant-numeric: tabular-nums; }
+.dock-number { font-size: .875rem; opacity: .88; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dock-scope { display: none; }   /* v1.4 (10.11.2026, DESIGN-DIRECTION 1.4): „· im Trauerfall Tag und Nacht“ does not fit in one line on phones; shown from 760 px */
+@media (min-width: 760px) { .dock-scope { display: inline; } }
 .dock-close { flex: none; width: 46px; height: 46px; display: grid; place-items: center; border: 0; border-radius: 50%; background: transparent; color: rgba(255, 253, 247, .8); cursor: pointer; }
 .dock-close:hover { background: rgba(255, 255, 255, .1); color: #fff; }
+
+/* ---------- call sheet („Anruf-Blatt“, v1.4, DESIGN-DIRECTION 1.3): native <dialog>, opened by site.js outside the office window ----------
+   Phone (< 760 px): bottom sheet with a grab line. From 760 px: centred card. Backdrop without blur. Motion is defined in the motion block below. */
+html.call-open { overflow: hidden; }
+.call-sheet {
+  width: min(480px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 24px); overflow: auto; overscroll-behavior: contain;
+  margin: auto; padding: 34px 30px 26px; border: 0; border-radius: var(--radius);
+  background-color: var(--paper); background-image: var(--fibre); color: var(--ink); box-shadow: var(--shadow-3);
+}
+.call-sheet::backdrop { background: rgba(17, 33, 26, .46); }
+.call-sheet-view { display: grid; gap: 14px; }
+.call-sheet-kicker { margin: 0; font-family: var(--serif); font-style: italic; font-size: 1.125rem; line-height: 1.3; color: var(--candle-deep); }
+.call-sheet-title { margin: 0 0 6px; padding-right: 36px; font-family: var(--serif); font-weight: 400; font-size: 1.75rem; line-height: 1.18; color: var(--forest-900); text-wrap: balance; -webkit-hyphens: manual; hyphens: manual; }
+.call-sheet-title:focus { outline: none; }
+.call-sheet-title em { font-style: italic; color: var(--forest-700); }
+.call-sheet .btn { width: 100%; }
+.call-sheet .call-sheet-call { justify-content: center; min-height: 64px; }   /* 64 px: icon 44 + padding 16 + border 3 = 63 → min-height; the phone .btn-call (60 px) does not apply here */
+.call-sheet .call-sheet-call .icon { width: 44px; height: 44px; padding: 10px; }
+.call-sheet-call .btn-call-text { align-items: center; text-align: center; }
+.call-sheet .call-sheet-other, .call-sheet .call-sheet-callback, .call-sheet .call-sheet-whatsapp { min-height: 52px; }
+.call-sheet-note, .call-sheet-hours { margin: 0; font-size: 1rem; line-height: 1.5; color: var(--ink-2); }
+.call-sheet-note { text-align: center; }
+.call-sheet-close { position: absolute; top: 10px; right: 10px; z-index: 1; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink-2); cursor: pointer; }
+.call-sheet-close:hover { background: var(--leaf-wash); color: var(--forest-900); }
+.call-sheet-close .icon { width: 22px; height: 22px; }
+.call-sheet-tel { justify-self: center; min-height: 44px; display: inline-flex; align-items: center; text-align: center; font-weight: 600; }
 
 /* ==========================================================================
    Motion — every effect has a still state. Runs only with JS, without
@@ -1138,6 +1236,16 @@ html:not(.js) .film-toggle { display: none; }
   }
 
   .nav-mobile[open] .nav-mobile-panel { animation: panel-in .35s var(--ease) both; }
+  /* call sheet (v1.4): in 240 ms (opacity + 16 px, desktop scale .98), backdrop 200 ms, out 160 ms via .is-closing, view change cross-fade 160 ms */
+  html:not([data-motion="off"]) .call-sheet[open] { animation: sheet-in 240ms var(--ease) both; }
+  html:not([data-motion="off"]) .call-sheet[open]::backdrop { animation: fade-in 200ms ease both; }
+  html:not([data-motion="off"]) .call-sheet.is-closing { animation: sheet-out 160ms ease-in both; }
+  html:not([data-motion="off"]) .call-sheet.is-closing::backdrop { animation: fade-out 160ms ease-in both; }
+  html:not([data-motion="off"]) .call-sheet-view[data-call-sheet-view="vorsorge"] { animation: fade-in 160ms ease both; }
+  @media (min-width: 760px) {
+    html:not([data-motion="off"]) .call-sheet[open] { animation-name: sheet-in-desktop; }
+    html:not([data-motion="off"]) .call-sheet.is-closing { animation-name: sheet-out-desktop; }
+  }
   .callback-success { animation: rise .6s var(--ease) both; }
   .callback-success .success-mark .icon { animation: draw-check .7s var(--ease) .15s both; }
   html:not([data-motion="off"]) .whatsapp-pulse { animation: wa-pulse 2s ease-out infinite; }   /* ring grows to 1.75× and fades, ≈ 2 s, continuous */
@@ -1148,6 +1256,12 @@ html:not(.js) .film-toggle { display: none; }
 @keyframes arch-in { from { clip-path: inset(100% 0 0 0 round 999px 999px 26px 26px); } to { clip-path: inset(0 0 0 0 round 999px 999px 26px 26px); } }
 @keyframes ring-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes flame-in { from { opacity: 0; transform: translateY(6px) scale(.6); } to { opacity: 1; transform: none; } }
+@keyframes sheet-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes sheet-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(16px); } }
+@keyframes sheet-in-desktop { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes sheet-out-desktop { from { opacity: 1; transform: none; } to { opacity: 0; transform: scale(.98); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
 @keyframes panel-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
 @keyframes draw-check { from { stroke-dashoffset: 30; } to { stroke-dashoffset: 0; } }
 
@@ -1223,7 +1337,7 @@ html[data-motion="off"] { scroll-behavior: auto; }
   .chapters { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; }
   .contact-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "info" "card" "map"; }
   .callback-card-contact { position: static; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
 
 /* ==========================================================================
@@ -1262,7 +1376,7 @@ html[data-motion="off"] { scroll-behavior: auto; }
   .hero h1 { margin-bottom: 12px; }
   .hero-actions { order: 1; flex-direction: column; width: 100%; gap: 10px; margin-bottom: 12px; }
   .hero-actions .btn { width: 100%; }
-  .live { justify-content: center; margin-top: 2px; }
+  .live { flex: none; justify-content: center; margin-top: 2px; }
   .btn-call { justify-content: center; min-height: 60px; }
   .btn-call .icon { width: 40px; height: 40px; padding: 9px; }
   .btn-call-text { align-items: center; }
@@ -1327,7 +1441,7 @@ html[data-motion="off"] { scroll-behavior: auto; }
   .chapter::before, .chapter::after { display: none; }
   .chapter-figure { display: block; position: relative; margin-bottom: 18px; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-2); }
   .chapter-figure img { width: 100%; height: 100%; object-fit: cover; }
-  .chapter-figure figcaption { position: absolute; left: 12px; bottom: 12px; padding: 6px 14px; border-radius: 999px; background: rgba(252, 250, 245, .95); font-size: .9375rem; font-weight: 600; color: var(--forest-900); }
+  .chapter-figure figcaption { position: absolute; left: 12px; bottom: 12px; max-width: calc(100% - 24px); padding: 6px 14px; border-radius: 22px; text-wrap: balance; background: rgba(252, 250, 245, .95); font-size: .9375rem; font-weight: 600; color: var(--forest-900); }
   .chapter-num { display: none; }
   .chapter h3 { font-size: 1.875rem; }
   .chapter p { font-size: 1.125rem; }
@@ -1345,9 +1459,11 @@ html[data-motion="off"] { scroll-behavior: auto; }
 
   .section-costs { overflow-x: clip; }   /* v1.3.1: the rotated cost sheets pushed the page 15 px sideways at 200 % text on a 375 px phone (clip, not hidden: nothing else changes, sticky keeps working) */
   .costs-detail { padding: 18px 0; }
-  .costs-detail::before { inset: 36px 12px 0 12px; rotate: -2deg; }
+  .costs-detail::before { margin: 18px 12px -18px; rotate: -2deg; }
   .cost-sheet { rotate: .5deg; padding: 30px 22px; }
-  .costs-intro .btn, .plan-actions .btn, .docs-note .btn { width: 100%; }
+  .costs-intro .btn, .plan-actions .btn, .docs-note .btn, .cost-mail-btn { width: 100%; }
+  .cost-mail { max-width: none; }
+  .plan-more { text-align: center; }
   .costs-dignity { justify-content: center; text-align: center; }
   .costs-dignity::before { display: none; }
   .plan-actions { flex-direction: column; }
@@ -1360,6 +1476,7 @@ html[data-motion="off"] { scroll-behavior: auto; }
   .topic-card:last-child:nth-child(odd) p { max-width: 32em; }
 
   .contact-info { text-align: center; }
+  .contact-person { justify-content: center; text-align: left; margin-bottom: 14px; }
   .contact-phone { justify-content: center; flex-wrap: wrap; row-gap: 8px; max-width: 100%; font-size: min(2.125rem, 12.6vw); gap: 12px; }   /* v1.3.1: at large text the number drops below its icon (protected spaces keep it in one piece); 12.6 vw lets it stay in one piece on a 375 px phone at a larger default font size */
   .contact-phone .icon { width: 48px; height: 48px; padding: 12px; }
   .contact-list { grid-template-columns: minmax(0, 1fr); text-align: left; }
@@ -1375,10 +1492,21 @@ html[data-motion="off"] { scroll-behavior: auto; }
   .footer-line { font-size: clamp(2.5rem, 12vw, 3.25rem); }
   .footer-watermark { width: 120vw; right: -40vw; top: -20vw; }
   .footer-grid { grid-template-columns: minmax(0, 1fr); gap: 30px; text-align: center; }
-  .footer-brand img { margin-inline: auto; }
+  .footer-brand img { width: 260px; margin-inline: auto; }
+  .site-footer li a { justify-content: center; }   /* v1.4 (10.11.2026): the link lists sat left under centred titles */
+  .footer-col p > a:only-child { justify-content: center; }
+  .footer-legal ul { justify-content: center; }
+  .forms-special { padding: 24px 16px 14px; background-color: var(--ivory); box-shadow: var(--ring-hair); }
+  .forms-special h3 { font-size: 1.5rem; }
+  .forms-special-list { gap: 10px; }
+  .forms-special-link { grid-template-columns: 30px minmax(0, 1fr) 20px; grid-template-areas: "icon name arrow" ". line ."; column-gap: 12px; }   /* one column: icon | text | arrow */
+  .forms-special-link .icon { margin-bottom: 0; }
+  .forms-special-name { font-size: 1.1875rem; }
   .footer-meta { flex-direction: column; align-items: center; text-align: center; gap: 10px; padding-right: 0; padding-bottom: 84px; }
   .footer-register { order: 0; }
   .dock { width: calc(100vw - 32px); bottom: calc(14px + env(safe-area-inset-bottom)); }
+  .call-sheet { width: 100vw; margin: auto 0 0; border-radius: 22px 22px 0 0; padding: 30px 20px calc(22px + env(safe-area-inset-bottom)); }   /* v1.4 (10.11.2026): bottom sheet with a grab line */
+  .call-sheet::before { content: ""; position: absolute; top: 10px; left: 50%; width: 44px; height: 4px; margin-left: -22px; border-radius: 4px; background: var(--line-strong); }
   /* the dock spans the bottom on phones: while it shows, the WhatsApp button stacks above it */
   html.dock-on .whatsapp { bottom: calc(14px + var(--dock-h, 66px) + 12px + env(safe-area-inset-bottom)); }   /* v1.3.1: --dock-h is the measured dock height (site.js; 66 px at normal text), so it never overlaps the dock at larger text */
 }
