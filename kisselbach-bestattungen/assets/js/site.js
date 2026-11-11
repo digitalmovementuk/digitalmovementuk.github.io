@@ -49,9 +49,12 @@
     vis.setAttribute('aria-hidden', 'true');
     let i = 0;
     const words = (text, parent) => {
+      // v1.4.1: a word that follows an inline element without a space (the comma in „<em>Österreich</em>, nur für …“) goes into one
+      // no-wrap span with that element's copy, so the comma never opens a line of its own (.nb, site.css)
+      let glue = !/^\s/.test(text) && parent.lastChild && parent.lastChild.nodeType === Node.ELEMENT_NODE ? parent.lastChild : null;
       text.split(/(\s+)/).forEach((part) => {
         if (!part) return;
-        if (/^\s+$/.test(part)) { parent.appendChild(d.createTextNode(' ')); return; }
+        if (/^\s+$/.test(part)) { glue = null; parent.appendChild(d.createTextNode(' ')); return; }
         const outer = d.createElement('span');
         outer.className = 'w';
         const inner = d.createElement('span');
@@ -59,7 +62,13 @@
         inner.style.setProperty('--i', i++);
         inner.textContent = part;
         outer.appendChild(inner);
-        parent.appendChild(outer);
+        if (glue) {
+          const nb = d.createElement('span');
+          nb.className = 'nb';
+          parent.replaceChild(nb, glue);
+          nb.append(glue, outer);
+          glue = null;
+        } else parent.appendChild(outer);
       });
     };
     const walk = (node, parent) => {

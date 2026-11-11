@@ -117,6 +117,10 @@
 /* ---------- 06 · Fragen: the head carries the closing words of the page and photo C ---------- */
 .ba-faq { background: var(--paper); }
 .ba-faq .faq-head h2 { max-width: 14ch; }
+/* v1.4.1: „Erinnerungsschmuck“ is the longest key word of the five pages and was cut mid-word („Erinnerungsschmu / ck“) in the 14ch column:
+   that one heading gets a wider column so the word fits whole; if a very narrow phone or 200 % text still cannot hold it, it is hyphenated
+   at the syllable („Erinnerungs-schmuck“, lang="de" is on <html>) instead of being cut */
+.ba-faq .faq-head h2.ba-h2-long { max-width: 18ch; -webkit-hyphens: auto; hyphens: auto; }
 .ba-faq-closing { max-width: 28em; margin: 0 0 22px; font-size: 1.125rem; line-height: 1.6; color: var(--ink-2); }
 .ba-faq-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .ba-faq-note { max-width: 28em; margin: 16px 0 0; font-size: 1rem; color: var(--ink-2); }

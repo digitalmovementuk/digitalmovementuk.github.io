@@ -1179,6 +1179,11 @@ html.call-open { overflow: hidden; }
 .call-sheet-close .icon { width: 22px; height: 22px; }
 .call-sheet-tel { justify-self: center; min-height: 44px; display: inline-flex; align-items: center; text-align: center; font-weight: 600; }
 
+/* v1.4.1: split headings: a word that follows an inline element without a space (the comma after „Österreich“) stays on that element's line;
+   the words inside keep normal wrapping, so a very long word can still break at 200 % text */
+[data-split] .nb { white-space: nowrap; }
+[data-split] .nb .w { white-space: normal; }
+
 /* ==========================================================================
    Motion — every effect has a still state. Runs only with JS, without
    reduced-motion and without the visitor's own "Bewegungen reduzieren".
