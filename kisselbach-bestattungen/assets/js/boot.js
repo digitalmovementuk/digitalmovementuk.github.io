@@ -9,7 +9,7 @@
 })();
 
 /* static copy opened from disk (file://): browsers refuse web fonts there (CORS, origin "null"); the same faces come embedded
-   in fonts-file.css. On a web server this does nothing. Added by link-vorschau/build-site-v1.4.mjs. */
+   in fonts-file.css. On a web server this does nothing. Added by link-vorschau/build-site-v1.5.mjs. */
 (function () {
   if (location.protocol !== 'file:' || !document.currentScript) return;
   try { document.write('<link rel="stylesheet" href="' + new URL('../css/fonts-file.css', document.currentScript.src).href + '">'); } catch (e) {}

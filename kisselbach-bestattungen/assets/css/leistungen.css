@@ -90,7 +90,7 @@
 /* v1.4 (10.11.2026, DESIGN-DIRECTION 4.5): after card 6 a label row across the full grid (the .service-list-label voice, with a link to /besondere-bestattungen/), then five more cards of the same anatomy */
 .lst-types-label { grid-column: 1 / -1; margin: 0; padding-top: 4px; text-align: center; font-weight: 600; font-size: .875rem; line-height: 1.5; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
 .lst-type-grid > li:has(> .lst-types-label) { grid-column: 1 / -1; }
-.lst-types-label a { color: var(--forest-700); }
+.lst-types-label a { color: var(--forest-700); display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; } /* v1.5 (13.11.2026): tap target ≥ 44 px */
 .lst-types-label a:hover { color: var(--forest-900); }
 /* card titles of different length („Überführungen ins und aus dem Ausland“ takes two lines): from 760 px the rows of the grid are shared (subgrid), so photos, paragraphs and fact lines stay level;
    browsers without subgrid keep two lines of title height instead */
