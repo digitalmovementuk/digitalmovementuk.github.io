@@ -1043,7 +1043,8 @@ background:linear-gradient(90deg,rgba(124,58,237,.06),rgba(219,39,119,.06));bord
 .kp{display:flex;align-items:center;gap:9px;padding-left:3px;font-size:12px;font-weight:600;color:var(--dm);letter-spacing:.01em;white-space:nowrap}
 .kp img{width:30px;height:30px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--magenta)}
 .np{display:none}
-@media(max-width:760px){.dm-stack{gap:3px}.dm-stack .dm{height:15px}.kp{font-size:11px;gap:8px}.kp img{width:28px;height:28px}}
+/* Handy: kein Foto im Kopf, die Menüleiste wäre sonst zu voll (Johnny, 2026-11-26) */
+@media(max-width:760px){.dm-stack{gap:0}.kp{display:none}}
 /* Ab 1000 px: Kopf wie in der Vorlage, das Foto steht gross oben in der Kapitelleiste links */
 @media(min-width:1000px){
   .dm-stack{gap:0}.dm-stack .dm{height:26px}.kp{display:none}
@@ -1114,6 +1115,8 @@ html.mv-vor .hero :is(.pill,h1,.pitch,.hero-shot,.hero-card,.hero-cta){opacity:0
 .hero-shot .browser .addr{padding:3px 9px;font-size:11px}
 /* Website des Kunden nur als Hintergrund: 40 % zurückgenommen, milchig, Blick auf Überschrift und Button (Johnny, 2026-11-26) */
 .hero-shot .browser{background:#fff}.hero-shot .browser img{opacity:.6;filter:saturate(.7) contrast(.9)}
+/* Handy: ohne Pille „Angebot für …“ über dem Bild, sonst ist der erste Bildschirm überladen (Johnny, 2026-11-26) */
+@media(max-width:760px){.hero .pill{display:none}}
 .hero-shot figcaption{margin:8px -80px 0;font-size:12px;color:var(--muted,#6b6480);text-align:center;white-space:nowrap}
 @media print{.hero-shot{break-inside:avoid;max-width:300px}}
 /* Zusage unter dem Vergleich (Kapitel 02): im Druck kompakt, damit sie mit dem Vergleich auf einer Seite bleibt */
