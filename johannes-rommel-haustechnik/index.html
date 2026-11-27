@@ -1112,6 +1112,8 @@ html.mv-vor .hero :is(.pill,h1,.pitch,.hero-shot,.hero-card,.hero-cta){opacity:0
 .rg-sl input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid #a8238c;box-shadow:0 3px 10px rgba(50,31,79,.25)}
 .rg-sl input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 5px rgba(219,39,119,.25)}
 @media(max-width:760px){.rg-ctrl{grid-template-columns:1fr;padding:20px 18px 22px;gap:20px}.rg-sl b{font-size:20px}}
+/* Handy: erst einstellen, dann das Ergebnis sehen (Johnny, 2026-11-27) */
+@media(max-width:760px){.rg .wrap{display:flex;flex-direction:column}.rg .wrap>*{order:2;width:100%}.rg .wrap>.shead{order:0}.rg .wrap>.rg-ctrl{order:1;margin-top:26px}.rg .wrap>.rg-steps{margin-top:28px}}
 @media print{.rg-ctrl{break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 @media(max-width:560px){.pitch{margin-top:20px}.pitch-row{gap:9px}.pitch-s{padding:11px 4px 10px;border-radius:13px}
   .pitch-s:not(:last-child)::after{right:-7px;width:5px;height:5px}.pitch-s b{font-size:17px}.pitch-s span{font-size:10.5px}
@@ -1305,7 +1307,7 @@ setTimeout(function(){if(!h.classList.contains('mv-on'))h.classList.remove('mv-v
 <!-- ===== MOMENTE · Drei Momente brauchen Sie (Swimlane Sie/Wir bis Tag 30, Schrittkarten, Endpunkt) ===== -->
 <section class="rg" id="rechnung">
   <div class="wrap">
-    <div class="shead c"><span class="eyebrow"><i class="sn">08</i>Ihre Rechnung</span><h2 class="h2">Rechnen Sie selbst: <b>Was bringt Ihnen die Website?</b></h2><p class="lead">Stellen Sie unten ein, wie viele Anfragen bei Ihnen zu Aufträgen werden und was ein Auftrag wert ist.</p></div>
+    <div class="shead c"><span class="eyebrow"><i class="sn">08</i>Ihre Rechnung</span><h2 class="h2">Rechnen Sie selbst: <b>Was bringt Ihnen die Website?</b></h2><p class="lead">Stellen Sie ein, wie viele Anfragen bei Ihnen zu Aufträgen werden und was ein Auftrag wert ist.</p></div>
     <ol class="rg-steps rg-calc" role="list" aria-label="Rechner: von Anfragen zu Umsatz" data-preis="1490" data-wochen="4" data-anfragen="10">
       <li class="rg-step"><span class="rg-k">Ziel</span><b class="rg-n">10</b><span class="rg-l">Anfragen pro Woche</span><small>über Ihre Website</small></li>
       <li class="rg-step"><span class="rg-k">Ergibt</span><b class="rg-n">40</b><span class="rg-l">Anfragen im Monat</span><small>10 Anfragen × 4 Wochen</small></li>
