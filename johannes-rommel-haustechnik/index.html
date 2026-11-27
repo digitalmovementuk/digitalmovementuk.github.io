@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- Angebots-Vorlage von Digital Movement Deutschland. Quelle: Angebot Breuninger, Fassung 3 (2026-10-01).
-     Nicht von Hand ausfuellen: python3 dm-business/templates/offer/build.py <angebot.json>
+     Nicht von Hand ausfuellen: python3 neo-business/templates/offer/build.py <angebot.json>
      Platzhalter in doppelten geschweiften Klammern: GROSS = Feld aus build.py, asset:<datei> = Bild aus assets/. -->
 <html lang="de">
 <head>
@@ -1095,18 +1095,24 @@ html.mv-vor .hero :is(.pill,h1,.pitch,.hero-shot,.hero-card,.hero-cta){opacity:0
 .pitch-more:hover{color:var(--dm-2)}.pitch-more b{font-weight:600;color:var(--dm-2)}
 .pitch-more .pa{background:rgba(219,39,119,.12);color:#a8238c;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
 .pitch-calc{margin-top:4px;font-size:15px;padding:8px 16px;border-radius:999px;background:rgba(219,39,119,.08)}
-/* Rechner in Kapitel 08: helle Eingabefelder im Stil der grossen Zahlen */
-.rg-in{display:flex;align-items:baseline;justify-content:center;gap:6px;margin:8px auto 6px;max-width:190px;
-  background:#fff7fc;border:2px dashed rgba(219,39,119,.45);border-radius:14px;padding:4px 10px;cursor:text}
-.rg-in:focus-within{border-style:solid;border-color:#a8238c;box-shadow:0 0 0 4px rgba(219,39,119,.12)}
-.rg-in input{width:100%;min-width:0;border:0;background:transparent;text-align:center;font:inherit;font-size:clamp(28px,3vw,40px);
-  font-weight:400;letter-spacing:-.02em;color:var(--ink);padding:0;-moz-appearance:textfield;appearance:textfield}
-.rg-in input:focus{outline:none}.rg-in input::-webkit-outer-spin-button,.rg-in input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.rg-in em{font-style:normal;font-size:22px;color:var(--muted)}
-.rg-step.is-end .rg-in{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.55)}
-.rg-step.is-end .rg-in input,.rg-step.is-end .rg-in em{color:#fff}
-.rg-step .rg-l [data-out]{white-space:nowrap}
-@media print{.rg-in{border-style:solid}}
+/* Rechner in Kapitel 08: Ergebnisse gross, Regler unter den Kacheln (Johnny, 2026-11-27) */
+.rg-step.is-big .rg-n{font-size:clamp(40px,4.6vw,60px);font-weight:500;margin:10px 0 8px}
+.rg-step.is-big{box-shadow:var(--shadow-md)}
+.rg-step:not(.is-big) .rg-n{font-size:clamp(26px,2.6vw,34px);color:var(--muted)}
+.rg-ctrl{max-width:920px;margin:22px auto 0;background:#fff;border:2px solid rgba(219,39,119,.28);border-radius:18px;padding:22px 28px 24px;
+  box-shadow:0 10px 30px rgba(168,35,140,.10);display:grid;grid-template-columns:1fr 1fr;gap:18px 36px}
+.rg-ctrl-t{grid-column:1/-1;margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#a8238c}
+.rg-ctrl{text-align:left}.rg-sl{display:grid;grid-template-columns:1fr auto;grid-template-rows:1fr auto;align-items:end;gap:6px 12px;cursor:pointer}
+.rg-sl-k{font-size:15px;font-weight:500;color:var(--ink)}
+.rg-sl b{font-size:22px;font-weight:600;color:#a8238c;white-space:nowrap}
+.rg-sl input[type=range]{grid-column:1/-1;-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:6px;margin:8px 0 2px;
+  background:linear-gradient(90deg,#5b2a86 0,#db2777 var(--pct,50%),#ece6f3 var(--pct,50%));outline:none;cursor:pointer}
+.rg-sl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:3px solid #a8238c;box-shadow:0 3px 10px rgba(50,31,79,.25)}
+.rg-sl input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid #a8238c;box-shadow:0 3px 10px rgba(50,31,79,.25)}
+.rg-sl input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 5px rgba(219,39,119,.25)}
+@media(max-width:760px){.rg-ctrl{grid-template-columns:1fr;padding:20px 18px 22px;gap:20px}.rg-sl b{font-size:20px}}
+@media print{.rg-ctrl{break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 @media(max-width:560px){.pitch{margin-top:20px}.pitch-row{gap:9px}.pitch-s{padding:11px 4px 10px;border-radius:13px}
   .pitch-s:not(:last-child)::after{right:-7px;width:5px;height:5px}.pitch-s b{font-size:17px}.pitch-s span{font-size:10.5px}
   .pitch-more{font-size:11.5px}}
@@ -1299,30 +1305,38 @@ setTimeout(function(){if(!h.classList.contains('mv-on'))h.classList.remove('mv-v
 <!-- ===== MOMENTE · Drei Momente brauchen Sie (Swimlane Sie/Wir bis Tag 30, Schrittkarten, Endpunkt) ===== -->
 <section class="rg" id="rechnung">
   <div class="wrap">
-    <div class="shead c"><span class="eyebrow"><i class="sn">08</i>Ihre Rechnung</span><h2 class="h2">Rechnen Sie selbst: <b>Was bringt Ihnen die Website?</b></h2><p class="lead">Tragen Sie Ihre eigenen Zahlen in die hellen Felder ein. Das Ergebnis rechnet sofort mit.</p></div>
-    <ol class="rg-steps rg-calc" role="list" aria-label="Rechner: von Anfragen zu Umsatz" data-preis="1490" data-wochen="4">
-      <li class="rg-step"><span class="rg-k">Ihre Zahl</span><label class="rg-in"><input type="number" inputmode="numeric" min="0" step="1" value="10" data-f="anfragen" aria-label="Anfragen pro Woche"></label><span class="rg-l">Anfragen pro Woche</span><small>über Ihre Website</small></li>
-      <li class="rg-step"><span class="rg-k">Ergibt</span><b class="rg-n" data-out="monat">40</b><span class="rg-l">Anfragen im Monat</span><small><span data-out="anfragen2">10</span> Anfragen × 4 Wochen</small></li>
-      <li class="rg-step"><span class="rg-k">Ihre Zahl: wie viele werden Kunden?</span><label class="rg-in"><input type="number" inputmode="decimal" min="0" max="100" step="1" value="50" data-f="quote" aria-label="Prozent der Anfragen, die Kunden werden"><em>%</em></label><span class="rg-l">neue Kunden: <span data-out="kunden">20</span></span><small>pro Monat</small></li>
-      <li class="rg-step is-end"><span class="rg-k">Ihre Zahl: Wert je Auftrag</span><label class="rg-in"><input type="number" inputmode="numeric" min="0" step="50" value="500" data-f="wert" aria-label="Euro je Auftrag"><em>€</em></label><span class="rg-l">mehr Umsatz: <span data-out="umsatz">10.000 €</span></span><small>im Monat</small></li>
+    <div class="shead c"><span class="eyebrow"><i class="sn">08</i>Ihre Rechnung</span><h2 class="h2">Rechnen Sie selbst: <b>Was bringt Ihnen die Website?</b></h2><p class="lead">Stellen Sie unten ein, wie viele Anfragen bei Ihnen zu Aufträgen werden und was ein Auftrag wert ist.</p></div>
+    <ol class="rg-steps rg-calc" role="list" aria-label="Rechner: von Anfragen zu Umsatz" data-preis="1490" data-wochen="4" data-anfragen="10">
+      <li class="rg-step"><span class="rg-k">Ziel</span><b class="rg-n">10</b><span class="rg-l">Anfragen pro Woche</span><small>über Ihre Website</small></li>
+      <li class="rg-step"><span class="rg-k">Ergibt</span><b class="rg-n">40</b><span class="rg-l">Anfragen im Monat</span><small>10 Anfragen × 4 Wochen</small></li>
+      <li class="rg-step is-big"><span class="rg-k">Bei <span data-out="q1">50 %</span></span><b class="rg-n" data-out="kunden">20</b><span class="rg-l">neue Kunden im Monat</span></li>
+      <li class="rg-step is-end is-big"><span class="rg-k">Bei <span data-out="w1">500 €</span> je Auftrag</span><b class="rg-n" data-out="umsatz">10.000 €</b><span class="rg-l">mehr Umsatz im Monat</span></li>
     </ol>
+    <div class="rg-ctrl">
+      <p class="rg-ctrl-t">Ihre Zahlen einstellen</p>
+      <label class="rg-sl"><span class="rg-sl-k">Wie viele Anfragen werden bei Ihnen zu Aufträgen?</span><b data-out="q2">50 %</b>
+        <input type="range" min="5" max="100" step="5" value="50" data-f="quote" aria-label="Prozent der Anfragen, die zu Aufträgen werden"></label>
+      <label class="rg-sl"><span class="rg-sl-k">Was ist ein Auftrag im Schnitt wert?</span><b data-out="w2">500 €</b>
+        <input type="range" min="50" max="5000" step="50" value="500" data-f="wert" aria-label="Euro je Auftrag"></label>
+    </div>
     <div class="rg-result" role="img" aria-label="Vergleich zusätzlicher Umsatz im Monat mit dem Monatspreis von 1.490 Euro.">
       <div class="rg-row is-plus"><span>Zusätzlicher Umsatz<small>im Monat, mit Ihren Zahlen</small></span><div class="rg-bar"><i data-out="bar-u" style="--w:100.0"></i></div><b data-out="umsatz2">10.000 €</b></div>
       <div class="rg-row"><span>Ihr Monatspreis<small>zzgl. MwSt.</small></span><div class="rg-bar"><i data-out="bar-p" style="--w:14.9"></i></div><b>1.490 €</b></div>
     </div>
     <p class="rg-note"><b>Noch nicht eingerechnet:</b> Es geht hier nur um den ersten Auftrag eines neuen Kunden. Daraus können laufende Aufträge, Folgeaufträge und Empfehlungen entstehen.</p>
-    <p class="rg-hint">Die vorgetragenen Werte sind ein Beispiel. Die Rechnung zeigt ein Ziel und ist keine Zusage.</p>
+    <p class="rg-hint">Die voreingestellten Werte sind ein Beispiel. Die Rechnung zeigt ein Ziel und ist keine Zusage.</p>
   </div>
 </section>
-<script>(function(){var c=document.querySelector('.rg-calc');if(!c)return;var P=+c.dataset.preis,W=+c.dataset.wochen;
+<script>(function(){var c=document.querySelector('.rg-calc');if(!c)return;var P=+c.dataset.preis,W=+c.dataset.wochen,A=+c.dataset.anfragen;
 var f=function(n,d){return n.toLocaleString('de-DE',{maximumFractionDigits:d||0})};
-function v(k){var x=parseFloat(String(c.querySelector('[data-f="'+k+'"]').value).replace(',','.'));return isFinite(x)&&x>0?x:0}
-function o(k){return document.querySelector('[data-out="'+k+'"]')}
-function rechne(){var a=v('anfragen'),q=Math.min(v('quote'),100),w=v('wert'),m=a*W,k=m*q/100,u=k*w,h=Math.max(u,P)||1;
-o('monat').textContent=f(m);o('anfragen2').textContent=f(a,1);o('kunden').textContent=f(k,1);
-o('umsatz').textContent=f(u)+' €';o('umsatz2').textContent=f(u)+' €';
-o('bar-u').style.setProperty('--w',Math.max(1,u/h*100));o('bar-p').style.setProperty('--w',Math.max(1,P/h*100))}
-c.addEventListener('input',rechne)})();</script>
+function el(k){return document.querySelector('[data-f="'+k+'"]')}function o(k){return document.querySelector('[data-out="'+k+'"]')}
+function fuell(i){i.style.setProperty('--pct',((i.value-i.min)/(i.max-i.min)*100)+'%')}
+function rechne(){var q=+el('quote').value,w=+el('wert').value,k=A*W*q/100,u=k*w,h=Math.max(u,P)||1;
+o('q1').textContent=o('q2').textContent=f(q)+' %';o('w1').textContent=o('w2').textContent=f(w)+' €';
+o('kunden').textContent=f(k,1);o('umsatz').textContent=o('umsatz2').textContent=f(u)+' €';
+o('bar-u').style.setProperty('--w',Math.max(1,u/h*100));o('bar-p').style.setProperty('--w',Math.max(1,P/h*100));
+fuell(el('quote'));fuell(el('wert'))}
+document.querySelector('.rg-ctrl').addEventListener('input',rechne);rechne()})();</script>
 
 <section class="sk" id="momente">
   <div class="wrap">
@@ -1555,7 +1569,7 @@ c.addEventListener('input',rechne)})();</script>
 (function(){var q=/[?&]qa=1/.test(location.search),r=matchMedia('(prefers-reduced-motion:reduce)').matches;var els=[].slice.call(document.querySelectorAll('.ko-card'));if(q||r||!('IntersectionObserver' in window))return;var e='cubic-bezier(.22,1,.36,1)';els.forEach(function(el){el.style.opacity='0';el.style.transform='translateY(26px)';el.style.transition='opacity .75s '+e+',transform .75s '+e});var io=new IntersectionObserver(function(en){en.forEach(function(x){if(!x.isIntersecting)return;x.target.style.opacity='';x.target.style.transform='';io.unobserve(x.target)})},{threshold:.14,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){io.observe(el)})})();</script>
 <script>(function(){var q=/[?&]qa=1/.test(location.search),r=matchMedia('(prefers-reduced-motion:reduce)').matches;
 if(q||r)return;
-var root=document.documentElement,alle=[].slice.call(document.querySelectorAll('.hero .pill,.hero-shot,.hero h1,.pitch-s,.pitch-more,.hero-card,.hero-cta,.shead .eyebrow,.shead .h2,.shead .lead,.cmp-head,.cmp-rl,.cmp-cell,.cmp-sum,.kw-lead,.kw-tile,.kwp-meta,.kwp-rows>.kwp-row,.kwp-more>summary,.kw-legend,.kw-note,.sk-s,.sk-ai,.browser:not(.hero-shot .browser),.audit-cap,.stat,.lst-head,.lst-list>li,.lst-base,.tl2,.pkg-total,.handover,.cost-note,.rg-step,.rg-result,.rg-note,.rg-hint,.tm-lead,.tm-row,.tm-note,.bw-agg,.bw-take,.bw-card,.ko-card'));
+var root=document.documentElement,alle=[].slice.call(document.querySelectorAll('.hero .pill,.hero-shot,.hero h1,.pitch-s,.pitch-more,.hero-card,.hero-cta,.shead .eyebrow,.shead .h2,.shead .lead,.cmp-head,.cmp-rl,.cmp-cell,.cmp-sum,.kw-lead,.kw-tile,.kwp-meta,.kwp-rows>.kwp-row,.kwp-more>summary,.kw-legend,.kw-note,.sk-s,.sk-ai,.browser:not(.hero-shot .browser),.audit-cap,.stat,.lst-head,.lst-list>li,.lst-base,.tl2,.pkg-total,.handover,.cost-note,.rg-step,.rg-ctrl,.rg-result,.rg-note,.rg-hint,.tm-lead,.tm-row,.tm-note,.bw-agg,.bw-take,.bw-card,.ko-card'));
 /* nur die innersten Einheiten: steckt eine Einheit in einer anderen, faellt die aeussere weg */
 var els=alle.filter(function(e){return !alle.some(function(x){return x!==e&&e.contains(x)})});
 [].slice.call(document.querySelectorAll('.shead,.cmp,.kwp,.browser,.audit-cap,.stat,.pkg-total,.handover,.lst-col,.lst-base,.sk-s,.sk-ai,.tm-lead,.tm-roster,.tm-note,.bw-agg,.bw-take,.bw-card,.ko-card')).forEach(function(e){if(els.indexOf(e)<0)e.classList.add('mv-frei')});
